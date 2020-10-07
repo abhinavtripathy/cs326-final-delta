@@ -4,7 +4,7 @@ Delta
 
 ### Application Name
 
-EventTracker
+HealthPool - The carpooling/rideshare service for patients discharged from a hospital. 
 
 ### Team Overview
 
@@ -14,8 +14,7 @@ EventTracker
 
 ### Innovative Idea
 
-Our application will provide a way for users to share and keep track of invitation links to online classes or virtual study groups held through platforms such as Discord and Zoom. There are already existing applications that allow users to share links to events, but our application will provide a central interface through which users can manage and easily access links to all of their events.
+Our idea is an app that helps coordinate carpools for people who've just had surgery and therefore cannot drive. This would help people who don't have friends/family in the area or couldn't afford an Uber. There could be entries for different hospitals, and profiles for both volunteer drivers (who must be verified by the hospital in the app) and the people who need rides.
 
 ### Important Components
 
-The backend will manage information about each event that is registered in the system. Users who log in can see the links, times, and number of participants for each event for which they have registered. The database will store a reference for each event, and also hold relationships between events and which users have registered for them.
