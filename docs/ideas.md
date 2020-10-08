@@ -18,7 +18,11 @@ Our idea is an app that helps coordinate carpools for people who've just had sur
 
 ### Important Components
 
-Hospitals are added using a form available to administrators. Users can view information about participating hospitals including name, address, and number of patients/drivers. Patients' profiles allow them to input their room number/exit door and home address before their procedure. Volunteer drivers must sign up by adding their name, contact information, and car make/model/license plate. All new driver accounts must be verified by administrators before patients are assigned to them.
+* Form to add hospitals (available to administrators)
+* List view of participating hospitals and information including name, address, and number of patients/drivers
+* Patient's dashboard view that allows them to input their home address before their procedure and select their doctor
+* Doctor's view that allows them to choose a patient and update their procedure end time, add special instructions, and room number
+* Volunteer drivers must sign up by adding their name, contact information, and car make/model/license plate. All new driver accounts must be verified by administrators before patients are assigned to them.
 
 ### Stretch Goals
 * Integrates the Google Maps API
