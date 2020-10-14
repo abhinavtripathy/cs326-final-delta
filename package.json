@@ -14,10 +14,21 @@
     "url": "git+https://github.com/abhinavtripathy/cs326-final-delta.git"
   },
   "author": "CS326 Fall 2020 Group Delta",
-  "contributors": [ {"name": "Abhinav Tripathy"},{"name": "Aditya Narayanan"},{"name": "Joseph Black"} ],
+  "contributors": [
+    {
+      "name": "Abhinav Tripathy"
+    },
+    {
+      "name": "Aditya Narayanan"
+    },
+    {
+      "name": "Joseph Black"
+    }
+  ],
   "license": "UNLICENSED",
   "bugs": {
     "url": "https://github.com/abhinavtripathy/cs326-final-delta/issues"
   },
-  "homepage": "https://github.com/abhinavtripathy/cs326-final-delta#readme"
+  "homepage": "https://github.com/abhinavtripathy/cs326-final-delta#readme",
+  "dependencies": {}
 }
