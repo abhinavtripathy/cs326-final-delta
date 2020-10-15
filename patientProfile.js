@@ -1,20 +1,17 @@
-$(document).ready(function() {
-
-    
-    var readURL = function(input) {
+document.addEventListener("DOMContentLoaded", function() {
+    let readURL = function(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
 
             reader.onload = function (e) {
-                $('.avatar').attr('src', e.target.result);
+                document.getElementById("avatar").src = e.target.result;
             }
     
             reader.readAsDataURL(input.files[0]);
         }
     }
-    
-
-    $(".file-upload").on('change', function(){
+    let anchors = document.getElementById("file-upload");
+    anchors.addEventListener("change", function () {
         readURL(this);
     });
 });
