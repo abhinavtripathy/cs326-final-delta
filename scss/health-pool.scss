@@ -9,7 +9,7 @@ $theme-colors: (
   "info": #00ffce
 );
 .round-ui {
-  @extend .round-right;
+  @extend .rounded-right;
 }
 input {
   @extend .round-ui;
