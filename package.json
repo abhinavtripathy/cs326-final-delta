@@ -1,0 +1,34 @@
+{
+  "name": "health-pool",
+  "version": "1.0.0",
+  "description": "Helps coordinate carpools for people who've just had surgery and therefore cannot drive",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abhinavtripathy/cs326-final-delta.git"
+  },
+  "author": "CS326 Fall 2020 Group Delta",
+  "contributors": [
+    {
+      "name": "Abhinav Tripathy"
+    },
+    {
+      "name": "Aditya Narayanan"
+    },
+    {
+      "name": "Joseph Black"
+    }
+  ],
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/abhinavtripathy/cs326-final-delta/issues"
+  },
+  "homepage": "https://github.com/abhinavtripathy/cs326-final-delta#readme",
+  "dependencies": {}
+}

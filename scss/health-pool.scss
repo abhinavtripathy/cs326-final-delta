@@ -1,0 +1,20 @@
+$body-bg: #eee;
+$body-color: #222;
+$theme-colors: (
+  "primary": #c65e6e,
+  "secondary": #187fe5,
+  "success": #3eff61,
+  "danger": #ff0000,
+  "warning": #ffff00,
+  "info": #00ffce
+);
+.round-ui {
+  @extend .rounded-right;
+}
+input {
+  @extend .round-ui;
+}
+.btn {
+  @extend .round-ui;
+}
+@import "../bootstrap/scss/bootstrap";
