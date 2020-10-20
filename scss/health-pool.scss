@@ -17,4 +17,7 @@ input {
 .btn {
   @extend .round-ui;
 }
+.row {
+  @extend .mb-1;
+}
 @import "../bootstrap/scss/bootstrap";
