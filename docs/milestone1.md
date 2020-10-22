@@ -10,4 +10,10 @@ This page would be demonstarted as "patientProfile.html" and would serve as the 
 #### 2. Patient Display Page
 
 This page would be demonstarted as "patientSelectionPage.html" and would serve as the page for drivers to select patients who they volunteer to pick up. When drivers select patients, it will register the driver as a volunteer driver.
-![Patient Profile](images/wireframe2.png)
+![Active Patient Profiles](images/wireframe2.png)
+
+#### 3. Driver Profile Page 
+
+This page would be demonstarted as "driverProfile.html" and would serve as the page for users to create their volunteer driver profile adding data such as name, phone number, car model, car license plate number, car type, etc. When drivers want to volunteer for this program, they would go to this page to register and furthermore they can even edit details on this page for futher use.
+![Driver Profile](images/wireframe3.png)
+
