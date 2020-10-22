@@ -1,8 +1,7 @@
-$body-bg: hsl(187, 100%, 83%);
 $body-color: #222;
 $theme-colors: (
-  "primary": #c65e6e,
-  "secondary": #187fe5,
+  "primary": #ba4053,
+  "secondary": #0f3a65,
   "success": #3eff61,
   "danger": #ff0000,
   "warning": #ffff00,
@@ -19,5 +18,9 @@ input {
 }
 .row {
   @extend .mb-1;
+}
+body {
+  background: rgb(1,102,14);
+  background: linear-gradient(90deg, rgba(1,102,14,1) 0%, rgba(0,180,217,1) 49%, rgba(0,17,140,1) 100%); 
 }
 @import "../bootstrap/scss/bootstrap";
