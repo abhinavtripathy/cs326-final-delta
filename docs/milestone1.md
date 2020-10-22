@@ -22,3 +22,12 @@ This page would be demonstarted as "driverProfile.html" and would serve as the p
 This page would be demonstarted as ".html" and would serve as the page for hosptials to manage their driver-patient volunteer program adding data such as hospital name, verified drivers, number of rides completed at the hospital, etc. Hospitals can even update their data from this page.
 ![Hospital Admin Profile](images/wireframe4.png)
 
+
+## Contributions
+
+1. Abhinav Tripathy:
+
+2. Aditya Narayanan: Aditya contributed towards creating the profile registration page and wireframe for patients, the page and wireframe for drivers to go and select patients, the javascript code to add an image in the registratiom page, and adding content to `milestone1.md`.
+
+3. Joseph Black:
+
