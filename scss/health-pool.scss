@@ -19,8 +19,12 @@ input {
 .row {
   @extend .mb-1;
 }
+html {
+  @extend .h-100;
+  @extend .w-100;
+}
 body {
-  background: rgb(1,102,14);
-  background: linear-gradient(90deg, rgba(1,102,14,1) 0%, rgba(0,180,217,1) 49%, rgba(0,17,140,1) 100%); 
+  background: rgb(0,74,255);
+  background: linear-gradient(353deg, rgba(0,74,255,1) 11%, rgba(58,207,118,1) 45%, rgba(0,180,217,1) 74%);
 }
 @import "../bootstrap/scss/bootstrap";
