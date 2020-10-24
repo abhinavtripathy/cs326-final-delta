@@ -1,0 +1,1 @@
+npx sass scss/health-pool.scss public/css/health-pool.css --style compressed --no-source-map
