@@ -1,45 +1,39 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
+<!doctype html>
+<html lang="en">
 
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
-
-<head>
-  <title>Create Driver Profile</title>
+ <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="patientProfile.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Abhinav Tripathy, Aditya Narayanan, Joseph Black">
+  <title>Create Driver Profile</title>
+
+  <link href="css/health-pool.css" rel="stylesheet">
+  <script src="js/patientProfile.js"></script>
 </head>
-
-
+<body>
 <hr>
 <div class="container bootstrap snippet">
-    <div class="row">
-  		<div class="col-sm-10"><h1>Patient Profile</h1></div>
-    </div>
-    <div class="row">
-  		<div class="col-sm-3"><!--left col-->
-              
 
-      <div class="text-center">
-        <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" id="avatar" alt="avatar">
+  <div class="row">
+    <div class="col-10"><h1>Driver Profile</h1></div>
+</div>
+<div class="row">
+    <div class="col-xs text-center">
+        <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="rounded-circle img-fluid img-thumbnail" id="avatar" alt="avatar">
         <h6>Upload a photo</h6>
-        <input type="file" id="file-upload" class="text-center center-block file-upload">
-      </div></hr><br>
+        <form class="form">
+            <input type="file" id="file-upload" class="text-center center-block file-upload">
+        </form>
+        <hr>
 
-          
-        </div><!--/col-3-->
-    	<div class="col-sm-9">
-            <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#home">Profile</a></li>
-            </ul>
+
+    </div>
+    <div class="col-lg">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#home">Profile</a></li>
+        </ul>
+
+
 
               
           <div class="tab-content">
@@ -123,5 +117,5 @@
               	</form>
               
               <hr>
-              
-             
+            </body>
+</html>
