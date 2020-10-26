@@ -25,7 +25,7 @@ This page would be served to users as "hospitalAdmin.html" and would serve as th
 
 ## Contributions
 
-1. Abhinav Tripathy:
+1. Abhinav Tripathy: Designed a wireframe for the driver profile page. Implemented and styled the driver profile design using grid elements and other Bootstrap components. Initialized the GitHub repository.
 
 2. Aditya Narayanan: Aditya contributed towards creating the profile registration page and wireframe for patients, the page and wireframe for drivers to go and select patients, the JavaScript code to add an image in the registration page, and adding content to `milestone1.md`.
 
