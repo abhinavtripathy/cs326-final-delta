@@ -1,5 +1,7 @@
 ## Part 0 - Data Interactions
 
+Same as Milestone 0
+
 ## Part 1 - Wireframes
 
 #### 1. Patient Profile Page
@@ -15,7 +17,7 @@ This page would be served to users as "patientSelectionPage.html" and would serv
 #### 3. Driver Profile Page
 
 This page would be served to users as "driverProfile.html" and would serve as the page for users to create their volunteer driver profile adding data such as name, phone number, car model, car license plate number, car type, etc. When drivers want to volunteer for this program, they would go to this page to register and furthermore they can even edit details on this page for further use.
-![Driver Profile](wireframes/wireframe3.png?raw=true)
+![Driver Profile](wireframes/driverProfile.png?raw=true)
 
 #### 4. Hospital Admin Page
 
@@ -29,14 +31,13 @@ This page would be served to users as "hospitalAdmin.html" and would serve as th
 
 ![Patient Profile](images/patientProfile.png?raw=true)
 
-#### Patient Selection Page
+#### Patient Display Page
 
 ![Patient Selection](images/patientSelection.png?raw=true)
 
 #### Driver Sign Up Page
 
-![Driver Profile 1](images/driverProfile1.png?raw=true)
-![Driver Profile 2](images/driverProfile2.png?raw=true)
+![Driver Profile 1](images/driverProfile.png?raw=true)
 
 #### Hospital Admin Page
 
