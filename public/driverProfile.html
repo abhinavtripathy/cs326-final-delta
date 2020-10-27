@@ -1,144 +1,128 @@
 <!doctype html>
 <html lang="en">
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="author" content="Abhinav Tripathy, Aditya Narayanan, Joseph Black">
-  <title>Create Driver Profile</title>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Abhinav Tripathy, Aditya Narayanan, Joseph Black">
+    <title>Create Driver Profile</title>
 
-  <link href="css/health-pool.css" rel="stylesheet">
-  <script src="js/patientProfile.js"></script>
-</head>
+    <link href="css/health-pool.css" rel="stylesheet">
+  </head>
 
-<body>
-  <hr>
-  <div class="container">
+  <body>
+    <hr>
+    <div class="container">
 
-    <div class="row">
-      <div class="col-10">
-        <h1>Driver Profile</h1>
+      <div class="row">
+        <div class="col-10">
+          <h1>Driver Profile</h1>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-xs text-center">
-        <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="rounded-circle img-fluid img-thumbnail"
-          id="avatar" alt="avatar">
-        <h6>Upload a photo</h6>
-        <form class="form">
-          <input type="file" id="file-upload" class="text-center center-block file-upload">
-        </form>
-        <hr>
+      <div class="row">
+        <div class="col-xs text-center">
+          <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="rounded-circle img-fluid img-thumbnail"
+               id="avatar" alt="avatar">
+          <h6>Upload a photo</h6>
+          <form class="form">
+            <input type="file" id="file-upload" class="text-center center-block file-upload">
+          </form>
+          <hr>
 
 
-      </div>
-      <div class="col-lg">
-        <ul class="nav nav-tabs">
-          <li class="active"><a data-toggle="tab" href="#home">Profile</a></li>
-        </ul>
+        </div>
+        <div class="col-lg">
+          <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#home">Profile</a></li>
+          </ul>
 
 
 
 
-        <div class="tab-content">
-          <div class="tab-pane active" id="home">
-            <hr>
-            <form class="form" method="post" id="registrationForm">
-              <!-- <div class="row">
+          <div class="tab-content">
+            <div class="tab-pane active" id="home">
+              <hr>
+              <form class="form" method="post" id="registrationForm">
+
+                <div class="row">
+
                   <div class="col">
-                    <label for="first_name" class="h4">First name</label>
-                    <input type="text" class="form-control" name="first_name" id="first_name" placeholder="first name" title="enter your first name if any.">
+                    <label for="first_name" class="h4">First Name</label>
+                    <input type="text" class="form-control" name="first_name" id="first_name" placeholder="first name"
+                           title="enter your first name if any.">
                   </div>
 
 
                   <div class="col">
-                    <label for="last_name" class="h4">Last name</label>
-                    <input type="text" class="form-control" name="last_name" id="last_name" placeholder="last name" title="enter your last name if any.">
+                    <label for="last_name" class="h4">Last Name</label>
+                    <input type="text" class="form-control" name="last_name" id="last_name" placeholder="last name"
+                           title="enter your last name if any.">
+                  </div>
+                </div>
+
+                <div class="row">
+
+                  <div class="col">
+                    <label for="email-id" class="h4">Email ID</label>
+                    <input type="email" class="form-control" id="email-id" placeholder="eg you@email.com"
+                           title="enter your email id">
                   </div>
 
-                </div> -->
-
-              <div class="row">
-
-                <div class="col">
-                  <label for="first_name" class="h4">First Name</label>
-                  <input type="text" class="form-control" name="first_name" id="first_name" placeholder="first name"
-                    title="enter your first name if any.">
+                  <div class="col">
+                    <label for="phone" class="h4">Phone/Mobile</label>
+                    <input type="text" class="form-control" name="phone" id="phone" placeholder="enter phone number"
+                           title="enter your phone number if any.">
+                  </div>
                 </div>
 
+                <div class="row">
+                  <div class="col">
+                    <label for="car-model" class="h4">Car Model</label>
+                    <input type="text" class="form-control" name="mobile" id="car-model"
+                           placeholder="enter your car model" title="enter your mobile number if any.">
+                  </div>
 
-                <div class="col">
-                  <label for="last_name" class="h4">Last Name</label>
-                  <input type="text" class="form-control" name="last_name" id="last_name" placeholder="last name"
-                    title="enter your last name if any.">
+                  <div class="col">
+                    <label for="car-type" class="h4">Car Type</label>
+                    <select id="car-type" class="form-control">
+                      <option value="hatchback">Hatchback</option>
+                      <option value="sedan">Sedan</option>
+                      <option value="suv">Suv</option>
+                      <option value="minivan">Minivan</option>
+                      <option value="sportscar">Sports Car</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
                 </div>
-              </div>
+                <div class="row">
+                  <div class="col">
+                    <label for="license" class="h4">License Plate Number</label>
+                    <input type="text" class="form-control" id="license" placeholder="License Plate Number"
+                           title="enter your License plate number">
+                  </div>
 
-              <div class="row">
-
-                <div class="col">
-                  <label for="email-id" class="h4">Email ID</label>
-                  <input type="email" class="form-control" id="email-id" placeholder="eg you@email.com"
-                    title="enter your email id">
-                </div>
-
-                <div class="col">
-                  <label for="phone" class="h4">Phone/Mobile</label>
-                  <input type="text" class="form-control" name="phone" id="phone" placeholder="enter phone number"
-                    title="enter your phone number if any.">
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col">
-                  <label for="car-model" class="h4">Car Model</label>
-                  <input type="text" class="form-control" name="mobile" id="car-model"
-                    placeholder="enter your car model" title="enter your mobile number if any.">
-                </div>
-
-                <div class="col">
-                  <label for="car-type" class="h4">Car Type</label>
-                  <select id="car-type" class="form-control">
-                    <option value="hatchback">Hatchback</option>
-                    <option value="sedan">Sedan</option>
-                    <option value="suv">Suv</option>
-                    <option value="minivan">Minivan</option>
-                    <option value="sportscar">Sports Car</option>
-                    <option value="other">Other</option>
-                  </select>
-                  <!-- <input type="text" class="form-control" name="email" id="email" placeholder="you@email.com" title="enter your email."> -->
-                </div>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <label for="license" class="h4">License Plate Number</label>
-                  <input type="text" class="form-control" id="license" placeholder="License Plate Number"
-                    title="enter your License plate number">
+                  <div class="col">
+                    <label for="password" class="h4">Password</label>
+                    <input type="password" class="form-control" name="password" id="password" placeholder="password"
+                           title="enter your password.">
+                  </div>
                 </div>
 
-                <div class="col">
-                  <label for="password" class="h4">Password</label>
-                  <input type="password" class="form-control" name="password" id="password" placeholder="password"
-                    title="enter your password.">
+                <div class="form-group">
+                  <div class="col-xs-12">
+                    <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i>
+                      Save</button>
+                    <button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
+                  </div>
                 </div>
-              </div>
+              </form>
 
-              <div class="form-group">
-                <div class="col-xs-12">
-                  <br>
-                  <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i>
-                    Save</button>
-                  <button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
-                </div>
-              </div>
-            </form>
-
-            <hr>
+              <hr>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</body>
+  </body>
 
 </html>
