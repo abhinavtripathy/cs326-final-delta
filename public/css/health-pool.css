@@ -1,6 +1,8 @@
 ﻿body {
     background: rgb(2,0,36);
     background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(67,201,95,1) 0%, rgba(21,210,171,1) 82%);
+    background-position: center;
+    background-size: cover;
 }
 
 /*!
@@ -98,7 +100,8 @@ h4,
 h5,
 h6 {
     margin-top: 0;
-    margin-bottom: .5rem
+    margin-bottom: .5rem;
+    margin-left: 2rem;
 }
 
 p {
@@ -4921,6 +4924,7 @@ input[type=button].btn-block {
 .card {
     position: relative;
     margin-left: 2rem;
+    padding-right: 2rem;
     margin-top: 1rem;
     display: flex;
     flex-direction: column;
