@@ -87,7 +87,11 @@ hr {
     overflow: visible
 }
 
-h1,
+
+h1 {
+text-align: center;
+}
+
 h2,
 h3,
 h4,
@@ -4916,8 +4920,11 @@ input[type=button].btn-block {
 
 .card {
     position: relative;
+    margin-left: 2rem;
+    margin-top: 1rem;
     display: flex;
     flex-direction: column;
+    width: 18rem;
     min-width: 0;
     word-wrap: break-word;
     background-color: #fff;
