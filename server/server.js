@@ -1,6 +1,8 @@
 const express = require('express')
 const faker = require('faker');
-const { fake } = require('faker');
+const {
+    fake
+} = require('faker');
 const app = express()
 const port = 8080
 
@@ -12,65 +14,170 @@ database['patients'] = [];
 database['drivers'] = [];
 database['hospitals'] = [];
 
+
+
+// Print Database  
+app.post('/database', (req, res) => {
+    database['patients'].push(req.body);
+    res.send(database);
+});
+
+
 // POST Patients 
 app.post('/patients', (req, res) => {
-    console.log(req.body);
-    res.send("done");
+    database['patients'].push(req.body);
+    res.send({
+        "message": "success"
+    });
 });
+
 
 // GET Patients 
 app.get('/patients/:id', (req, res) => {
-    console.log(req.params.id);
-    res.send("done");
+    if (database['patients'].find(item => {
+            return item.id == req.params.id
+        })) {
+        res.send(database['patients'].find(item => {
+            return item.id == req.params.id
+        }))
+    } else {
+        res.send({
+            "message": "Not Found"
+        });
+    }
 });
 
 // PUT Patients 
 app.put('/patients/:id', (req, res) => {
-    console.log(req.params.id);
-    res.send("done");
+    if (database['patients'].find(item => {
+            return item.id == req.params.id
+        })) {
+        for (let i = 0; i < database['patients'].length; i++) {
+            if (database['patients'][i].id == req.params.id) {
+                database['patients'][i] = req.body;
+            }
+
+        }
+        res.send({
+            "Message": "Success"
+        });
+    } else {
+        res.send({
+            "message": "error"
+        });
+    }
 });
 
 // DELETE Patients 
 app.delete('/patients/:id', (req, res) => {
-    console.log(req.params.id);
-    res.send("done");
+    if (database['patients'].find(item => {
+            return item.id == req.params.id
+        })) {
+        for (let i = 0; i < database['patients'].length; i++) {
+            if (database['patients'][i].id == req.params.id) {
+                delete database['patients'][i];
+            }
+
+        }
+        res.send({
+            "Message": "Success"
+        });
+    } else {
+        res.send({
+            "message": "error"
+        });
+    }
 });
 
 
 
 // POST Drivers
 app.post('/drivers', (req, res) => {
-    console.log(req.body);
-    res.send("done");
+    database['drivers'].push(req.body);
+    res.send({
+        "message": "success"
+    });
 });
 
 // GET Patients 
 app.get('/drivers/:id', (req, res) => {
-    console.log(req.params.id);
-    res.send("done");
+    if (database['drivers'].find(item => {
+            return item.id == req.params.id
+        })) {
+        res.send(database['drivers'].find(item => {
+            return item.id == req.params.id
+        }))
+    } else {
+        res.send({
+            "message": "Not Found"
+        });
+    }
 });
 
 // PUT Patients 
 app.put('/drivers/:id', (req, res) => {
-    console.log(req.params.id);
-    res.send("done");
+    if (database['drivers'].find(item => {
+            return item.id == req.params.id
+        })) {
+        for (let i = 0; i < database['drivers'].length; i++) {
+            if (database['drivers'][i].id == req.params.id) {
+                database['drivers'][i] = req.body;
+            }
+
+        }
+        res.send({
+            "Message": "Success"
+        });
+    } else {
+        res.send({
+            "message": "error"
+        });
+    }
 });
 
 // DELETE Patients 
 app.delete('/drivers/:id', (req, res) => {
-    console.log(req.params.id);
-    res.send("done");
+    if (database['drivers'].find(item => {
+            return item.id == req.params.id
+        })) {
+        for (let i = 0; i < database['drivers'].length; i++) {
+            if (database['drivers'][i].id == req.params.id) {
+                delete database['drivers'][i];
+            }
+
+        }
+        res.send({
+            "Message": "Success"
+        });
+    } else {
+        res.send({
+            "message": "error"
+        });
+    }
 });
 
 
 
 // PUT Patients 
 app.put('/hospitals/:id', (req, res) => {
-    console.log(req.params.id);
-    res.send("done");
+    if (database['hospitals'].find(item => {
+            return item.id == req.params.id
+        })) {
+        for (let i = 0; i < database['hospitals'].length; i++) {
+            if (database['hospitals'][i].id == req.params.id) {
+                database['hospitals'][i] = req.body;
+            }
+
+        }
+        res.send({
+            "Message": "Success"
+        });
+    } else {
+        res.send({
+            "message": "error"
+        });
+    }
 });
-
-
 
 
 
@@ -80,8 +187,9 @@ function generateFakeData() {
     for (let i = 0; i < 10; i++) {
 
         let patientjson = {
+            id: Math.floor(Math.random() * (1000000000000000000000) + 1),
             first_name: faker.name.firstName(),
-            last: faker.name.lastName(),
+            last_name: faker.name.lastName(),
             age: Math.floor(Math.random() * (99) + 1),
             phone: faker.phone.phoneNumber("#########"),
             emergency: faker.phone.phoneNumber("#########"),
@@ -95,8 +203,9 @@ function generateFakeData() {
         database['patients'].push(patientjson);
 
         let driverjson = {
+            id: Math.floor(Math.random() * (1000000000000000000000) + 1),
             first_name: faker.name.firstName(),
-            last: faker.name.lastName(),
+            last_name: faker.name.lastName(),
             age: Math.floor(Math.random() * (99) + 1),
             phone: faker.phone.phoneNumber("#########"),
             email: faker.internet.email(),
@@ -111,7 +220,7 @@ function generateFakeData() {
         }
 
         database['drivers'].push(driverjson);
-        
+
         let hospitaljson = {
             name: faker.address.city() + " Medical Center"
 
