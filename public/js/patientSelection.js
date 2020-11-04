@@ -1,3 +1,4 @@
+/*
 const patients = [{
     name: {
       first: "John",
@@ -28,15 +29,13 @@ const patients = [{
   }
   
 ];
+*/
 
 let container;
 let row = document.createElement('div');
 row.className = 'row';
-let patientCard = (patients) => {
+let patientCard = (patient) => {
 
-
-// let col = document.createElement('div');
-// col.className = 'col-md-4';
 let card = document.createElement('div');
 card.className = 'card col-md-3';
 
@@ -48,14 +47,15 @@ let cardBody = document.createElement('div');
 cardBody.className = 'card-body';
 
 let title = document.createElement('h5');
-title.innerText = patients.name.first + " " + patients.name.last;
+title.innerText = patient.first_name + " " + patient.last_name;
 title.className = 'card-title';
 
 let text = document.createElement('div');
 text.innerHTML = `<ul>
-<li>Address: ${patients.address}</li>
-<li>Phone: ${patients.phone}
-<li>Pick Up: ${patients.pickup}
+<li>Address: ${patient.address}</li>
+<li>Phone: ${patient.phone}</li>
+<li>Emergency Number: ${patient.emergency}</li>
+<li>Pick Up: ${patient.pickup}</li>
 </ul>`;
 text.className = 'card-text';
 
@@ -79,10 +79,14 @@ if (container) {
 }
 
 container = document.getElementById('container');
+fetch('http://localhost:8080/patients')
+// Converting received data to JSON 
+.then(response => response.json())
+.then(patients => {
 patients.forEach((patient) => {
     patientCard(patient);
+})
 });
 container.appendChild(row);
-
 };
 initCards();
