@@ -222,6 +222,7 @@ function generateFakeData() {
         database['drivers'].push(driverjson);
 
         let hospitaljson = {
+            id: Math.floor(Math.random() * (1000000000000000000000) + 1),
             name: faker.address.city() + " Medical Center"
 
         }
