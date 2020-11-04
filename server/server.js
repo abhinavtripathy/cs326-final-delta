@@ -31,6 +31,10 @@ app.post('/patients', (req, res) => {
     });
 });
 
+// GET Patients 
+app.get('/patients', (req, res) => {
+    res.send(database['patients']);
+});
 
 // GET Patients 
 app.get('/patients/:id', (req, res) => {
