@@ -34,7 +34,8 @@ const patients = [{
 let container;
 let row = document.createElement('div');
 row.className = 'row';
-let patientCard = (patient) => {
+
+function patientCard(patient) {
 
 let card = document.createElement('div');
 card.className = 'card col-md-3';
@@ -72,7 +73,7 @@ row.appendChild(card)
 
 }
 
-let initCards = () => {
+function initCards() {
 if (container) {
     document.getElementById('container').replaceWith(container);
     return;
