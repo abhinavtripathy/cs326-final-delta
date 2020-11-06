@@ -7,6 +7,7 @@
     "doc": "docs"
   },
   "scripts": {
+    "start": "node server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -30,5 +31,8 @@
     "url": "https://github.com/abhinavtripathy/cs326-final-delta/issues"
   },
   "homepage": "https://github.com/abhinavtripathy/cs326-final-delta#readme",
-  "dependencies": {}
+  "dependencies": {
+    "express": "^4.17.1",
+    "faker": "^5.1.0"
+  }
 }
