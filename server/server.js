@@ -1,10 +1,8 @@
-const express = require('express')
-const faker = require('faker');
-const {
-    fake
-} = require('faker');
-const app = express()
-const port = 8080
+import express from 'express';
+import faker from 'faker';
+
+const app = express();
+const port = process.env.PORT || 8080;
 
 app.use(express.static('public/'));
 app.use(express.json());

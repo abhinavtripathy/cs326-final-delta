@@ -1,5 +1,6 @@
 {
   "name": "health-pool",
+  "type": "module",
   "version": "1.0.0",
   "description": "Helps coordinate carpools for people who've just had surgery and therefore cannot drive",
   "main": "index.js",
