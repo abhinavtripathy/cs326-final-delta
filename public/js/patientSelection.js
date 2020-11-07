@@ -80,7 +80,7 @@ if (container) {
 }
 
 container = document.getElementById('container');
-fetch('http://localhost:8080/patients')
+fetch('/patients')
 // Converting received data to JSON 
 .then(response => response.json())
 .then(patients => {
