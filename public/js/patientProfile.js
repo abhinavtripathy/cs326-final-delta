@@ -33,7 +33,7 @@ window.addEventListener('load', async function () {
         /*
         Skeleton code to do a POST request of the user data to server
         */
-    //     fetch("URL", {
+    //     fetch("/patients", {
     //         method: "POST",
     //         body: JSON.stringify({
     //             name: firstName + " " + lastName,
