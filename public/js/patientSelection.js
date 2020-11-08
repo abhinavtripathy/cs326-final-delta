@@ -38,7 +38,7 @@ row.className = 'row';
 function patientCard(patient) {
 
     const card = document.createElement('div');
-    card.className = 'card col-md-3';
+    card.className = 'card col-md-3 m-3';
 
     const img = document.createElement('img');
     img.className = 'card-img-top';
