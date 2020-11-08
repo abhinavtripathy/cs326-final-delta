@@ -1,23 +1,3 @@
-let image;
-document.addEventListener('DOMContentLoaded', function() {
-    const readURL = function(input) {
-        if (input.files && input.files[0]) {
-            const reader = new FileReader();
-
-            reader.onload = function (e) {
-                document.getElementById('avatar').src = e.target.result;
-                image = e.target.result;
-            };
-
-            reader.readAsDataURL(input.files[0]);
-        }
-    };
-    const anchors = document.getElementById('file-upload');
-    anchors.addEventListener('change', function () {
-        readURL(this);
-    });
-});
-
 window.addEventListener('load', async function () {
 
     document.getElementById('submit-profile').addEventListener('click', () => {
