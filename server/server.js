@@ -7,7 +7,7 @@ const port = process.env.PORT || 8080;
 app.use(express.static('public/'));
 app.use(express.json());
 
-let database = {};
+const database = {};
 database['patients'] = [];
 database['drivers'] = [];
 database['hospitals'] = [];
@@ -25,7 +25,7 @@ app.post('/database', (req, res) => {
 app.post('/patients', (req, res) => {
     database['patients'].push(req.body);
     res.send({
-        "message": "success"
+        'message': 'success'
     });
 });
 
@@ -37,14 +37,14 @@ app.get('/patients', (req, res) => {
 // GET Patients 
 app.get('/patients/:id', (req, res) => {
     if (database['patients'].find(item => {
-            return item.id == req.params.id
-        })) {
+        return item.id === req.params.id;
+    })) {
         res.send(database['patients'].find(item => {
-            return item.id == req.params.id
-        }))
+            return item.id === req.params.id;
+        }));
     } else {
         res.send({
-            "message": "Not Found"
+            'message': 'Not Found'
         });
     }
 });
@@ -52,20 +52,20 @@ app.get('/patients/:id', (req, res) => {
 // PUT Patients 
 app.put('/patients/:id', (req, res) => {
     if (database['patients'].find(item => {
-            return item.id == req.params.id
-        })) {
+        return item.id === req.params.id;
+    })) {
         for (let i = 0; i < database['patients'].length; i++) {
-            if (database['patients'][i].id == req.params.id) {
+            if (database['patients'][i].id === req.params.id) {
                 database['patients'][i] = req.body;
             }
 
         }
         res.send({
-            "Message": "Success"
+            'Message': 'Success'
         });
     } else {
         res.send({
-            "message": "error"
+            'message': 'error'
         });
     }
 });
@@ -73,20 +73,20 @@ app.put('/patients/:id', (req, res) => {
 // DELETE Patients 
 app.delete('/patients/:id', (req, res) => {
     if (database['patients'].find(item => {
-            return item.id == req.params.id
-        })) {
+        return item.id === req.params.id;
+    })) {
         for (let i = 0; i < database['patients'].length; i++) {
-            if (database['patients'][i].id == req.params.id) {
+            if (database['patients'][i].id === req.params.id) {
                 delete database['patients'][i];
             }
 
         }
         res.send({
-            "Message": "Success"
+            'Message': 'Success'
         });
     } else {
         res.send({
-            "message": "error"
+            'message': 'error'
         });
     }
 });
@@ -97,21 +97,21 @@ app.delete('/patients/:id', (req, res) => {
 app.post('/drivers', (req, res) => {
     database['drivers'].push(req.body);
     res.send({
-        "message": "success"
+        'message': 'success'
     });
 });
 
 // GET Patients 
 app.get('/drivers/:id', (req, res) => {
     if (database['drivers'].find(item => {
-            return item.id == req.params.id
-        })) {
+        return item.id === req.params.id;
+    })) {
         res.send(database['drivers'].find(item => {
-            return item.id == req.params.id
-        }))
+            return item.id === req.params.id;
+        }));
     } else {
         res.send({
-            "message": "Not Found"
+            'message': 'Not Found'
         });
     }
 });
@@ -119,20 +119,20 @@ app.get('/drivers/:id', (req, res) => {
 // PUT Patients 
 app.put('/drivers/:id', (req, res) => {
     if (database['drivers'].find(item => {
-            return item.id == req.params.id
-        })) {
+        return item.id === req.params.id;
+    })) {
         for (let i = 0; i < database['drivers'].length; i++) {
-            if (database['drivers'][i].id == req.params.id) {
+            if (database['drivers'][i].id === req.params.id) {
                 database['drivers'][i] = req.body;
             }
 
         }
         res.send({
-            "Message": "Success"
+            'Message': 'Success'
         });
     } else {
         res.send({
-            "message": "error"
+            'message': 'error'
         });
     }
 });
@@ -140,20 +140,20 @@ app.put('/drivers/:id', (req, res) => {
 // DELETE Patients 
 app.delete('/drivers/:id', (req, res) => {
     if (database['drivers'].find(item => {
-            return item.id == req.params.id
-        })) {
+        return item.id === req.params.id;
+    })) {
         for (let i = 0; i < database['drivers'].length; i++) {
-            if (database['drivers'][i].id == req.params.id) {
+            if (database['drivers'][i].id === req.params.id) {
                 delete database['drivers'][i];
             }
 
         }
         res.send({
-            "Message": "Success"
+            'Message': 'Success'
         });
     } else {
         res.send({
-            "message": "error"
+            'message': 'error'
         });
     }
 });
@@ -163,20 +163,20 @@ app.delete('/drivers/:id', (req, res) => {
 // PUT Patients 
 app.put('/hospitals/:id', (req, res) => {
     if (database['hospitals'].find(item => {
-            return item.id == req.params.id
-        })) {
+        return item.id === req.params.id;
+    })) {
         for (let i = 0; i < database['hospitals'].length; i++) {
-            if (database['hospitals'][i].id == req.params.id) {
+            if (database['hospitals'][i].id === req.params.id) {
                 database['hospitals'][i] = req.body;
             }
 
         }
         res.send({
-            "Message": "Success"
+            'Message': 'Success'
         });
     } else {
         res.send({
-            "message": "error"
+            'message': 'error'
         });
     }
 });
@@ -188,28 +188,28 @@ function generateFakeData() {
 
     for (let i = 0; i < 10; i++) {
 
-        let patientjson = {
+        const patientjson = {
             id: Math.floor(Math.random() * (1000000000000000000000) + 1),
             first_name: faker.name.firstName(),
             last_name: faker.name.lastName(),
             age: Math.floor(Math.random() * (99) + 1),
-            phone: faker.phone.phoneNumber("#########"),
-            emergency: faker.phone.phoneNumber("#########"),
+            phone: faker.phone.phoneNumber('#########'),
+            emergency: faker.phone.phoneNumber('#########'),
             email: faker.internet.email(),
             address: faker.address.streetAddress(),
-            pickup: "Door C",
+            pickup: 'Door C',
             driver: Math.floor(Math.random() * (1000000000000000000000) + 1),
-            status: "waiting"
-        }
+            status: 'waiting'
+        };
 
         database['patients'].push(patientjson);
 
-        let driverjson = {
+        const driverjson = {
             id: Math.floor(Math.random() * (1000000000000000000000) + 1),
             first_name: faker.name.firstName(),
             last_name: faker.name.lastName(),
             age: Math.floor(Math.random() * (99) + 1),
-            phone: faker.phone.phoneNumber("#########"),
+            phone: faker.phone.phoneNumber('#########'),
             email: faker.internet.email(),
             car: {
                 make: faker.vehicle.manufacturer(),
@@ -219,15 +219,15 @@ function generateFakeData() {
             },
             patients: [Math.floor(Math.random() * (1000000000000000000000) + 1), Math.floor(Math.random() * (1000000000000000000000) + 1)],
             verified: Math.random() >= 0.5
-        }
+        };
 
         database['drivers'].push(driverjson);
 
-        let hospitaljson = {
+        const hospitaljson = {
             id: Math.floor(Math.random() * (1000000000000000000000) + 1),
-            name: faker.address.city() + " Medical Center"
+            name: faker.address.city() + ' Medical Center'
 
-        }
+        };
 
         database['hospitals'].push(hospitaljson);
 
