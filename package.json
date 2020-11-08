@@ -10,7 +10,7 @@
   "scripts": {
     "start": "node server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint-fix": "eslint . --ext .html,.js"
+    "lint-fix": "eslint --fix ."
   },
   "repository": {
     "type": "git",
@@ -62,7 +62,7 @@
                 "always"
             ],
             "no-var": "error",
-            "eqeqeq": "error",
+            "eqeqeq": ["error", "always"],
             "curly": [
                 "warn",
                 "all"

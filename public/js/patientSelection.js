@@ -32,62 +32,62 @@ const patients = [{
 */
 
 let container;
-let row = document.createElement('div');
+const row = document.createElement('div');
 row.className = 'row';
 
 function patientCard(patient) {
 
-let card = document.createElement('div');
-card.className = 'card col-md-3';
+    const card = document.createElement('div');
+    card.className = 'card col-md-3';
 
-let img = document.createElement('img')
-img.className = 'card-img-top';
-img.src = 'https://via.placeholder.com/150';
+    const img = document.createElement('img');
+    img.className = 'card-img-top';
+    img.src = 'https://via.placeholder.com/150';
 
-let cardBody = document.createElement('div');
-cardBody.className = 'card-body';
+    const cardBody = document.createElement('div');
+    cardBody.className = 'card-body';
 
-let title = document.createElement('h5');
-title.innerText = patient.first_name + " " + patient.last_name;
-title.className = 'card-title';
+    const title = document.createElement('h5');
+    title.innerText = patient.first_name + ' ' + patient.last_name;
+    title.className = 'card-title';
 
-let text = document.createElement('div');
-text.innerHTML = `<ul>
+    const text = document.createElement('div');
+    text.innerHTML = `<ul>
 <li>Address: ${patient.address}</li>
 <li>Phone: ${patient.phone}</li>
 <li>Emergency Number: ${patient.emergency}</li>
 <li>Pick Up: ${patient.pickup}</li>
 </ul>`;
-text.className = 'card-text';
+    text.className = 'card-text';
 
-let select = document.createElement('a');
-select.className = 'btn btn-primary'
-select.innerText = 'Select Patient'
+    const select = document.createElement('a');
+    select.className = 'btn btn-primary';
+    select.innerText = 'Select Patient';
 
-cardBody.appendChild(img);
-cardBody.appendChild(title);
-cardBody.appendChild(text);
-cardBody.appendChild(select);
-card.appendChild(cardBody);
-row.appendChild(card)
+    cardBody.appendChild(img);
+    cardBody.appendChild(title);
+    cardBody.appendChild(text);
+    cardBody.appendChild(select);
+    card.appendChild(cardBody);
+    row.appendChild(card);
 
 }
 
 function initCards() {
-if (container) {
-    document.getElementById('container').replaceWith(container);
-    return;
-}
+    if (container) {
+        document.getElementById('container').replaceWith(container);
+        return;
+    }
 
-container = document.getElementById('container');
-fetch('/patients')
-// Converting received data to JSON 
-.then(response => response.json())
-.then(patients => {
-patients.forEach((patient) => {
-    patientCard(patient);
-})
-});
-container.appendChild(row);
-};
+    container = document.getElementById('container');
+    fetch('/patients')
+    // Converting received data to JSON 
+        .then(response => response.json())
+        .then(patients => {
+            patients.forEach((patient) => {
+                patientCard(patient);
+            });
+        });
+    container.appendChild(row);
+}
 initCards();

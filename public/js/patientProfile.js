@@ -1,19 +1,19 @@
 let image;
-document.addEventListener("DOMContentLoaded", function() {
-    let readURL = function(input) {
+document.addEventListener('DOMContentLoaded', function() {
+    const readURL = function(input) {
         if (input.files && input.files[0]) {
-            let reader = new FileReader();
+            const reader = new FileReader();
 
             reader.onload = function (e) {
-                document.getElementById("avatar").src = e.target.result;
+                document.getElementById('avatar').src = e.target.result;
                 image = e.target.result;
-            }
+            };
 
             reader.readAsDataURL(input.files[0]);
         }
-    }
-    let anchors = document.getElementById("file-upload");
-    anchors.addEventListener("change", function () {
+    };
+    const anchors = document.getElementById('file-upload');
+    anchors.addEventListener('change', function () {
         readURL(this);
     });
 });
@@ -33,8 +33,8 @@ window.addEventListener('load', async function () {
         /*
         Skeleton code to do a POST request of the user data to server
         */
-        fetch("/patients", {
-            method: "POST",
+        fetch('/patients', {
+            method: 'POST',
             body: JSON.stringify({
                 name: {
                     first: firstName,
@@ -49,7 +49,7 @@ window.addEventListener('load', async function () {
                 image: image
             }),
             headers: {
-                "Content-type": "application/json; charset=UTF-8"
+                'Content-type': 'application/json; charset=UTF-8'
             }
         });
 
