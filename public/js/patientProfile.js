@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 document.getElementById("avatar").src = e.target.result;
                 image = e.target.result;
             }
-    
+
             reader.readAsDataURL(input.files[0]);
         }
     }
@@ -33,22 +33,25 @@ window.addEventListener('load', async function () {
         /*
         Skeleton code to do a POST request of the user data to server
         */
-    //     fetch("/patients", {
-    //         method: "POST",
-    //         body: JSON.stringify({
-    //             name: firstName + " " + lastName,
-    //             age: age,
-    //             phone_number: phone,
-    //             emergency_number: emergency,
-    //             address: address,
-    //             email_id: email,
-    //             pickup_location: pickUpLocation,
-    //             image: image
-    //         }),
-    //         headers: {
-    //             "Content-type": "application/json; charset=UTF-8"
-    //         }
-    //     });
+        fetch("/patients", {
+            method: "POST",
+            body: JSON.stringify({
+                name: {
+                    first: firstName,
+                    last: lastName
+                },
+                age: age,
+                phone: phone,
+                emergency: emergency,
+                address: address,
+                email: email,
+                pickup: pickUpLocation,
+                image: image
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        });
 
     });
 });
