@@ -33,6 +33,7 @@
   },
   "homepage": "https://github.com/abhinavtripathy/cs326-final-delta#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "faker": "^5.1.0"
   }
 }
