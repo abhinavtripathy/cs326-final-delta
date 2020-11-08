@@ -39,13 +39,13 @@ For our API, we will need CRUD operations for each of these 3 objects. Some exam
 }
 ```
 
-    *   <code>GET </code>lists an array of all patients
-    *   <code>/patients/{id}</code>
+    *   `GET `lists an array of all patients
+    *   `/patients/{id}`
         *   `PUT` updates the profile of patient with id `{id}`
             *   Example data: [same as POST]
         *   `GET` views the information of patient with id `{id}`
         *   `DELETE` removes the profile of patient with id `{id}`
-*   <code>/drivers</code>
+*   `/drivers`
     *   `POST` *creates* a new driver profile
         *   Example data sent:
 
@@ -77,14 +77,14 @@ For our API, we will need CRUD operations for each of these 3 objects. Some exam
 }
 ```
 
-    *   <code>GET </code>lists an array of all drivers
-    *   <code>/drivers/{id}</code>
-        *   <code>PUT updates the profile of driver with id {id}</code>
-            *   <code>Example data: [same as POST]</code>
-        *   <code>GET views the information of driver with id {id}</code>
-        *   <code>DELETE removes the profile of driver with id {id}</code>
-*   <code>/hospital</code>
-    *   <code>PUT <strong>updates</strong></code> the hospital information
+    *   `GET `lists an array of all drivers
+    *   `/drivers/{id}`
+        *   `PUT` updates the profile of driver with id `{id}`
+            *   Example data: [same as POST]
+        *   `GET` views the information of driver with id `{id}`
+        *   `DELETE` removes the profile of driver with id `{id}`
+*   `/hospital`
+    *   `PUT` *updates* the hospital information
         *   Example data sent:
 
             ```
