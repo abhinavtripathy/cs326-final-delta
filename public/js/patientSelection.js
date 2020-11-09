@@ -48,7 +48,7 @@ function patientCard(patient) {
     cardBody.className = 'card-body';
 
     const title = document.createElement('h5');
-    title.innerText = patient.first_name + ' ' + patient.last_name;
+    title.innerText = patient.name.first + ' ' + patient.name.last;
     title.className = 'card-title';
 
     const text = document.createElement('div');
