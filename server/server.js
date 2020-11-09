@@ -37,8 +37,8 @@ app.get('/patients', (req, res) => {
 // GET Patients 
 app.get('/patients/:id', (req, res) => {
     if (database['patients'].find(item => {
-        return item.id === req.params.id;
-    })) {
+            return item.id === req.params.id;
+        })) {
         res.send(database['patients'].find(item => {
             return item.id === req.params.id;
         }));
@@ -52,8 +52,8 @@ app.get('/patients/:id', (req, res) => {
 // PUT Patients 
 app.put('/patients/:id', (req, res) => {
     if (database['patients'].find(item => {
-        return item.id === req.params.id;
-    })) {
+            return item.id === req.params.id;
+        })) {
         for (let i = 0; i < database['patients'].length; i++) {
             if (database['patients'][i].id === req.params.id) {
                 database['patients'][i] = req.body;
@@ -73,8 +73,8 @@ app.put('/patients/:id', (req, res) => {
 // DELETE Patients 
 app.delete('/patients/:id', (req, res) => {
     if (database['patients'].find(item => {
-        return item.id === req.params.id;
-    })) {
+            return item.id === req.params.id;
+        })) {
         for (let i = 0; i < database['patients'].length; i++) {
             if (database['patients'][i].id === req.params.id) {
                 delete database['patients'][i];
@@ -104,8 +104,8 @@ app.post('/drivers', (req, res) => {
 // GET Patients 
 app.get('/drivers/:id', (req, res) => {
     if (database['drivers'].find(item => {
-        return item.id === req.params.id;
-    })) {
+            return item.id === req.params.id;
+        })) {
         res.send(database['drivers'].find(item => {
             return item.id === req.params.id;
         }));
@@ -119,8 +119,8 @@ app.get('/drivers/:id', (req, res) => {
 // PUT Patients 
 app.put('/drivers/:id', (req, res) => {
     if (database['drivers'].find(item => {
-        return item.id === req.params.id;
-    })) {
+            return item.id === req.params.id;
+        })) {
         for (let i = 0; i < database['drivers'].length; i++) {
             if (database['drivers'][i].id === req.params.id) {
                 database['drivers'][i] = req.body;
@@ -140,8 +140,8 @@ app.put('/drivers/:id', (req, res) => {
 // DELETE Patients 
 app.delete('/drivers/:id', (req, res) => {
     if (database['drivers'].find(item => {
-        return item.id === req.params.id;
-    })) {
+            return item.id === req.params.id;
+        })) {
         for (let i = 0; i < database['drivers'].length; i++) {
             if (database['drivers'][i].id === req.params.id) {
                 delete database['drivers'][i];
@@ -163,8 +163,8 @@ app.delete('/drivers/:id', (req, res) => {
 // PUT Patients 
 app.put('/hospitals/:id', (req, res) => {
     if (database['hospitals'].find(item => {
-        return item.id === req.params.id;
-    })) {
+            return item.id === req.params.id;
+        })) {
         for (let i = 0; i < database['hospitals'].length; i++) {
             if (database['hospitals'][i].id === req.params.id) {
                 database['hospitals'][i] = req.body;
@@ -190,8 +190,10 @@ function generateFakeData() {
 
         const patientjson = {
             id: Math.floor(Math.random() * (1000000000000000000000) + 1),
-            first_name: faker.name.firstName(),
-            last_name: faker.name.lastName(),
+            name: {
+                first: faker.name.firstName(),
+                last: faker.name.lastName(),
+            },
             age: Math.floor(Math.random() * (99) + 1),
             phone: faker.phone.phoneNumber('#########'),
             emergency: faker.phone.phoneNumber('#########'),
@@ -206,8 +208,10 @@ function generateFakeData() {
 
         const driverjson = {
             id: Math.floor(Math.random() * (1000000000000000000000) + 1),
-            first_name: faker.name.firstName(),
-            last_name: faker.name.lastName(),
+            name: {
+                first: faker.name.firstName(),
+                last: faker.name.lastName(),
+            },
             age: Math.floor(Math.random() * (99) + 1),
             phone: faker.phone.phoneNumber('#########'),
             email: faker.internet.email(),
