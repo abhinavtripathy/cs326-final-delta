@@ -36,11 +36,13 @@ app.get('/patients', (req, res) => {
 
 // GET Patients 
 app.get('/patients/:id', (req, res) => {
+    
     if (database['patients'].find(item => {
-            return item.id === req.params.id;
+            return item.id === parseInt(req.params.id);
         })) {
         res.send(database['patients'].find(item => {
-            return item.id === req.params.id;
+            
+            return item.id === parseInt(req.params.id);
         }));
     } else {
         res.send({
@@ -52,10 +54,11 @@ app.get('/patients/:id', (req, res) => {
 // PUT Patients 
 app.put('/patients/:id', (req, res) => {
     if (database['patients'].find(item => {
-            return item.id === req.params.id;
+            return item.id === parseInt(req.params.id);
         })) {
         for (let i = 0; i < database['patients'].length; i++) {
-            if (database['patients'][i].id === req.params.id) {
+            if (database['patients'][i].id === parseInt(req.params.id)) {
+                console.log("found a patient");
                 database['patients'][i] = req.body;
             }
 
@@ -73,10 +76,10 @@ app.put('/patients/:id', (req, res) => {
 // DELETE Patients 
 app.delete('/patients/:id', (req, res) => {
     if (database['patients'].find(item => {
-            return item.id === req.params.id;
+            return item.id === parseInt(req.params.id);
         })) {
         for (let i = 0; i < database['patients'].length; i++) {
-            if (database['patients'][i].id === req.params.id) {
+            if (database['patients'][i].id === parseInt(req.params.id)) {
                 delete database['patients'][i];
             }
 
@@ -104,10 +107,10 @@ app.post('/drivers', (req, res) => {
 // GET Patients 
 app.get('/drivers/:id', (req, res) => {
     if (database['drivers'].find(item => {
-            return item.id === req.params.id;
+            return item.id === parseInt(req.params.id);
         })) {
         res.send(database['drivers'].find(item => {
-            return item.id === req.params.id;
+            return item.id === parseInt(req.params.id);
         }));
     } else {
         res.send({
@@ -119,10 +122,10 @@ app.get('/drivers/:id', (req, res) => {
 // PUT Patients 
 app.put('/drivers/:id', (req, res) => {
     if (database['drivers'].find(item => {
-            return item.id === req.params.id;
+            return item.id === parseInt(req.params.id);
         })) {
         for (let i = 0; i < database['drivers'].length; i++) {
-            if (database['drivers'][i].id === req.params.id) {
+            if (database['drivers'][i].id === parseInt(req.params.id)) {
                 database['drivers'][i] = req.body;
             }
 
@@ -140,10 +143,10 @@ app.put('/drivers/:id', (req, res) => {
 // DELETE Patients 
 app.delete('/drivers/:id', (req, res) => {
     if (database['drivers'].find(item => {
-            return item.id === req.params.id;
+            return item.id === parseInt(req.params.id);
         })) {
         for (let i = 0; i < database['drivers'].length; i++) {
-            if (database['drivers'][i].id === req.params.id) {
+            if (database['drivers'][i].id === parseInt(req.params.id)) {
                 delete database['drivers'][i];
             }
 
@@ -163,10 +166,10 @@ app.delete('/drivers/:id', (req, res) => {
 // PUT Patients 
 app.put('/hospitals/:id', (req, res) => {
     if (database['hospitals'].find(item => {
-            return item.id === req.params.id;
+            return item.id === parseInt(req.params.id);
         })) {
         for (let i = 0; i < database['hospitals'].length; i++) {
-            if (database['hospitals'][i].id === req.params.id) {
+            if (database['hospitals'][i].id === parseInt(req.params.id)) {
                 database['hospitals'][i] = req.body;
             }
 
