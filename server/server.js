@@ -15,7 +15,7 @@ database['hospitals'] = [];
 
 
 // Print Database  
-app.post('/database', (req, res) => {
+app.get('/database', (req, res) => {
     database['patients'].push(req.body);
     res.send(database);
 });
