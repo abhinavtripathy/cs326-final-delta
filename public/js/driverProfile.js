@@ -5,12 +5,15 @@ window.addEventListener('load', async function () {
         const lastName = document.getElementById('last_name').value;
         const age = document.getElementById('age').value;
         const phone = document.getElementById('phone').value;
-        const emergency = document.getElementById('emergency').value;
-        const address = document.getElementById('address').value;
+        const carModel = document.getElementById('car-model').value;
+        const carType = document.getElementById('car-type').value;
+        const carMake = document.getElementById('car-make').value;
+        const license = document.getElementById('license').value;
         const email = document.getElementById('email').value;
-        const pickUpLocation = document.getElementById('pickup').value;
+        const carColor = document.getElementById('car-color');
         // TODO implement password
-        fetch('/patients', {
+
+        fetch('/drivers', {
             method: 'POST',
             body: JSON.stringify({
                 name: {
@@ -19,10 +22,13 @@ window.addEventListener('load', async function () {
                 },
                 age: age,
                 phone: phone,
-                emergency: emergency,
-                address: address,
-                email: email,
-                pickup: pickUpLocation
+                car: {
+                    model: carModel,
+                    make: carMake,
+                    color: carColor,
+                    type: carType
+                }
+                email: email
             }),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8'
