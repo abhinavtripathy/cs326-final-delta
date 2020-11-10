@@ -1,13 +1,16 @@
+# Milestone 2
+## Deployment Link
+Our app is deployed [here](http://healthpool.herokuapp.com)
 ## API Planning
 
 **Application Structure**
 
 *   Patients - First name, last name, age, phone, emergency contact, email address, address, pick up location, password
   * `patientProfile.js`: This file sends a POST request to the server of the user data collected in the sign up form.
-  * `patientSelection.js`: This file renders the bootstrap cards of active patients. This is a result of a GET request. 
+  * `patientSelection.js`: This file renders the bootstrap cards of active patients. This is a result of a GET request.
   * `patientProfile.html`: A HTML file that has the sign up information for patients
   * `patientSelelctionPage.html`: HTML page which contains the active patients.
-  
+
 *   Driver - First name, last name, age, phone, email address, car type, car model, license plate number, password
   * `driverProfile.html`: A HTML file that has the sign up information for drivers.
 
@@ -104,10 +107,10 @@ For our API, we will need CRUD operations for each of these 3 objects. Some exam
 
 ## Screenshots of CRUD operations
 
-All operations have been done for the page that allows drivers to select patients. 
+All operations have been done for the page that allows drivers to select patients.
 #### Create/Read
 
-This page is the first page where we created a user called Euna Luettgen (fake name). The details like Address, phone number, emergency number and pick up location are randomly generated. 
+This page is the first page where we created a user called Euna Luettgen (fake name). The details like Address, phone number, emergency number and pick up location are randomly generated.
 
 ![Create Users](images/create_user.png?raw=true)
 
@@ -126,8 +129,8 @@ This page is the page where we deleted our user Euna Luettgen's user from active
 
 ## Contributions
 
-1. Abhinav Tripathy: Created all the endpoints in `server.js` for Create, Read, Update and Delete for Patients, Drivers and Hospitals utilizing the API spec. Used faker to generate fake data for the endpoints. Connected the repo to heroku auto deploy pipeline for deployment. 
+1. Abhinav Tripathy: Created all the endpoints in `server.js` for Create, Read, Update and Delete for Patients, Drivers and Hospitals utilizing the API spec. Used faker to generate fake data for the endpoints. Connected the repo to heroku auto deploy pipeline for deployment.
 
-2. Aditya Narayanan: Built out the front end for patientSelectionPage.html using `patientSelelction.js`; this file displays all active patients. Utilized Javascript to populate bootstrap cards with user information from the server. Also wrote the code to POST data from the patient sign up form to the server in `patientprofile.js`. Designed the navigation bar for the application. Added the screenshots to the milestone2 document. 
+2. Aditya Narayanan: Built out the front end for patientSelectionPage.html using `patientSelelction.js`; this file displays all active patients. Utilized Javascript to populate bootstrap cards with user information from the server. Also wrote the code to POST data from the patient sign up form to the server in `patientprofile.js`. Designed the navigation bar for the application. Added the screenshots to the milestone2 document.
 
-3. Joseph Black:
+3. Joseph Black: Wrote the API specification and documentation including endpoints, HTTP methods, and JSON request/response structure to follow the RESTful style. Implemented front end logic for the driver profile and added additional fields to the signup form for car manufacturer and color. Updated CSS to support dynamic content in the *Active Patients* page. Created a homepage. Investigated automated testing for the backend. Performed linter fixes on both the server and frontend JavaScript.
