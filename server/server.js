@@ -80,7 +80,7 @@ app.delete('/patients/:id', (req, res) => {
         })) {
         for (let i = 0; i < database['patients'].length; i++) {
             if (database['patients'][i].id === parseInt(req.params.id)) {
-                delete database['patients'][i];
+                database['patients'].splice(i, 1);
             }
 
         }
@@ -147,7 +147,7 @@ app.delete('/drivers/:id', (req, res) => {
         })) {
         for (let i = 0; i < database['drivers'].length; i++) {
             if (database['drivers'][i].id === parseInt(req.params.id)) {
-                delete database['drivers'][i];
+                database['drivers'].splice(i, 1);
             }
 
         }
