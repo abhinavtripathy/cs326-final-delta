@@ -27,7 +27,7 @@ window.addEventListener('load', async function () {
                     make: carMake,
                     color: carColor,
                     type: carType
-                }
+                },
                 email: email
             }),
             headers: {
