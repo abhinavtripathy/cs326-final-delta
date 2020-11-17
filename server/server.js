@@ -1,5 +1,5 @@
 import express from 'express';
-import faker from 'faker';
+import pgPromise from 'pg-promise';
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -7,15 +7,45 @@ const port = process.env.PORT || 8080;
 app.use(express.static('public/'));
 app.use(express.json());
 
-const database = {};
-database['patients'] = [];
-database['drivers'] = [];
-database['hospitals'] = [];
 
+const pgp = pgPromise({
+    connect(client) {
+        console.log('Connected to database:', client.connectionParameters.database);
+    },
+    disconnect(client) {
+        console.log('Disconnected from database:', client.connectionParameters.database);
+    }
+
+});
+
+// Local PostgreSQL credentials
+const username = "postgres";
+const password = "postgres";
+
+const url = process.env.DATABASE_URL || `postgres://${username}:${password}@localhost/`;
+const db = pgp(url);
+
+
+async function connectAndRun(task) {
+    let connection = null;
+
+    try {
+        connection = await db.connect();
+        return await task(connection);
+    } catch (e) {
+        throw e;
+    } finally {
+        try {
+            connection.done();
+        } catch (ignored) {
+
+        }
+    }
+}
 
 
 // Print Database  
-app.get('/database', (req, res) => {
+app.get('/database', async (req, res) => {
     database['patients'].push(req.body);
     res.send(database);
 });
@@ -36,12 +66,12 @@ app.get('/patients', (req, res) => {
 
 // GET Patients 
 app.get('/patients/:id', (req, res) => {
-    
+
     if (database['patients'].find(item => {
             return item.id === parseInt(req.params.id);
         })) {
         res.send(database['patients'].find(item => {
-            
+
             return item.id === parseInt(req.params.id);
         }));
     } else {
@@ -186,65 +216,6 @@ app.put('/hospitals/:id', (req, res) => {
 
 
 
-
-function generateFakeData() {
-
-    for (let i = 0; i < 10; i++) {
-
-        const patientjson = {
-            id: Math.floor(Math.random() * (1000000000000000000000) + 1),
-            name: {
-                first: faker.name.firstName(),
-                last: faker.name.lastName(),
-            },
-            age: Math.floor(Math.random() * (99) + 1),
-            phone: faker.phone.phoneNumber('#########'),
-            emergency: faker.phone.phoneNumber('#########'),
-            email: faker.internet.email(),
-            address: faker.address.streetAddress(),
-            pickup: 'Door C',
-            driver: Math.floor(Math.random() * (1000000000000000000000) + 1),
-            status: 'waiting'
-        };
-
-        database['patients'].push(patientjson);
-
-        const driverjson = {
-            id: Math.floor(Math.random() * (1000000000000000000000) + 1),
-            name: {
-                first: faker.name.firstName(),
-                last: faker.name.lastName(),
-            },
-            age: Math.floor(Math.random() * (99) + 1),
-            phone: faker.phone.phoneNumber('#########'),
-            email: faker.internet.email(),
-            car: {
-                make: faker.vehicle.manufacturer(),
-                model: faker.vehicle.model(),
-                color: faker.vehicle.color(),
-                plate: faker.vehicle.vin()
-            },
-            patients: [Math.floor(Math.random() * (1000000000000000000000) + 1), Math.floor(Math.random() * (1000000000000000000000) + 1)],
-            verified: Math.random() >= 0.5
-        };
-
-        database['drivers'].push(driverjson);
-
-        const hospitaljson = {
-            id: Math.floor(Math.random() * (1000000000000000000000) + 1),
-            name: faker.address.city() + ' Medical Center'
-
-        };
-
-        database['hospitals'].push(hospitaljson);
-
-    }
-
-    console.log(database);
-
-}
-
-generateFakeData();
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
