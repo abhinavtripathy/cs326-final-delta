@@ -7,8 +7,6 @@ const port = process.env.PORT || 8080;
 app.use(express.static('public/'));
 app.use(express.json());
 
-let database = {};
-
 const pgp = pgPromise({
     connect(client) {
         console.log('Connected to database:', client.connectionParameters.database);
@@ -42,10 +40,6 @@ async function connectAndRun(task) {
 
         }
     }
-}
-
-async function getHospital() {
-    return await connectAndRun(db => db.any("SELECT * FROM patient;"))
 }
 
 
