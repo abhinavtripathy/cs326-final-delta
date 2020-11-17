@@ -64,7 +64,7 @@ app.post('/database', (req, res) => {
 app.post('/patients', async (req, res) => {
     const data = req.body;
     console.log(data);
-    await connectAndRun(db => db.none("INSERT INTO patient(first_name, last_name, phone, email, age, emergency_phone, address, pickup) VALUES ($1, $2, $3, $4, $5, $6, $7, $8);", [data.first_name, data.last_name, data.phone, data.email, data.age, data.emergency_phone, data.address, data.pickup]));
+    await connectAndRun(db => db.none("INSERT INTO patient(first_name, last_name, phone, email, age, emergency_phone, address, pickup, password) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);", [data.first_name, data.last_name, data.phone, data.email, data.age, data.emergency_phone, data.address, data.pickup, data.password]));
     res.send({
         'message': 'success'
     });
@@ -84,14 +84,14 @@ app.get('/patients/:id', async (req, res) => {
 
 // PUT Patients 
 app.put('/patients/:id', async (req, res) => {
-    await connectAndRun(db => db.none("update patient set first_name = $1, last_name = $2, phone = $3, email = $4, age = $5, emergency_phone = $6, address = $7, pickup = $8 where id = $9", [data.first_name, data.last_name, data.phone, data.email, data.age, data.emergency_phone, data.address, data.pickup, parseInt(req.params.id)]));
+    await connectAndRun(db => db.none("update patient set first_name = $1, last_name = $2, phone = $3, email = $4, age = $5, emergency_phone = $6, address = $7, pickup = $8, password = $9 where id = $10", [data.first_name, data.last_name, data.phone, data.email, data.age, data.emergency_phone, data.address, data.pickup, data.password, parseInt(req.params.id)]));
     res.send({
         'message': 'success'
     });
 });
 
 // DELETE Patients 
-app.delete('/patients/:id', (req, res) => {
+app.delete('/patients/:id', async (req, res) => {
     await connectAndRun(db => db.none("delete from patient where id = $1", [parseInt(req.params.id)]));
     res.send({
         'message': 'success'
@@ -101,68 +101,35 @@ app.delete('/patients/:id', (req, res) => {
 
 
 // POST Drivers
-app.post('/drivers', (req, res) => {
-    database['drivers'].push(req.body);
+app.post('/drivers', async (req, res) => {
+    const data = req.body;
+    console.log(data);
+    await connectAndRun(db => db.none("INSERT INTO patient(first_name, last_name, phone, email, age, car_make, car_model, car_color, car_plate, password) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);", [data.first_name, data.last_name, data.phone, data.email, data.age, data.car_make, data.car_model, data.car_color, data.car_plate, data.password]));
     res.send({
         'message': 'success'
     });
 });
 
-// GET Patients 
-app.get('/drivers/:id', (req, res) => {
-    if (database['drivers'].find(item => {
-            return item.id === parseInt(req.params.id);
-        })) {
-        res.send(database['drivers'].find(item => {
-            return item.id === parseInt(req.params.id);
-        }));
-    } else {
-        res.send({
-            'message': 'Not Found'
-        });
-    }
+// GET Drivers
+app.get('/drivers/:id', async (req, res) => {
+    const drivers = await connectAndRun(db => db.any("SELECT * FROM driver where id = $1;", [parseInt(req.params.id)]));
+    res.send(JSON.stringify(drivers));
 });
 
-// PUT Patients 
-app.put('/drivers/:id', (req, res) => {
-    if (database['drivers'].find(item => {
-            return item.id === parseInt(req.params.id);
-        })) {
-        for (let i = 0; i < database['drivers'].length; i++) {
-            if (database['drivers'][i].id === parseInt(req.params.id)) {
-                database['drivers'][i] = req.body;
-            }
-
-        }
-        res.send({
-            'Message': 'Success'
-        });
-    } else {
-        res.send({
-            'message': 'error'
-        });
-    }
+// PUT Drivers
+app.put('/drivers/:id', async (req, res) => {
+    await connectAndRun(db => db.none("update patient set first_name = $1, last_name = $2, phone = $3, email = $4, age = $5, car_make = $6, car_model = $7, car_color = $8, car_plate = $9, password = $10 where id = $11", [data.first_name, data.last_name, data.phone, data.email, data.age, data.car_make, data.car_model, data.car_color, data.car_plate, data.password, parseInt(req.params.id)]));
+    res.send({
+        'message': 'success'
+    });
 });
 
-// DELETE Patients 
+// DELETE Drivers
 app.delete('/drivers/:id', (req, res) => {
-    if (database['drivers'].find(item => {
-            return item.id === parseInt(req.params.id);
-        })) {
-        for (let i = 0; i < database['drivers'].length; i++) {
-            if (database['drivers'][i].id === parseInt(req.params.id)) {
-                database['drivers'].splice(i, 1);
-            }
-
-        }
-        res.send({
-            'Message': 'Success'
-        });
-    } else {
-        res.send({
-            'message': 'error'
-        });
-    }
+    await connectAndRun(db => db.none("delete from driver where id = $1", [parseInt(req.params.id)]));
+    res.send({
+        'message': 'success'
+    });
 });
 
 
