@@ -48,17 +48,6 @@ async function getHospital() {
     return await connectAndRun(db => db.any("SELECT * FROM patient;"))
 }
 
-// Print Database  
-app.post('/database', (req, res) => {
-    // const hospitals = await getHospital();
-    // res.send(JSON.stringify(hospitals));
-    console.log(req.body);
-    res.send({
-        'hello': 'world'
-    });
-
-});
-
 
 // POST Patients 
 app.post('/patients', async (req, res) => {
@@ -117,10 +106,21 @@ app.get('/drivers/:id', async (req, res) => {
     res.send(JSON.stringify(drivers));
 });
 
+
 // PUT Drivers
 app.put('/drivers/:id', async (req, res) => {
     const data = req.body;
     await connectAndRun(db => db.none("update driver set first_name = $1, last_name = $2, phone = $3, email = $4, age = $5, car_make = $6, car_model = $7, car_color = $8, car_plate = $9, password = $10 where id = $11", [data.first_name, data.last_name, data.phone, data.email, data.age, data.car_make, data.car_model, data.car_color, data.car_plate, data.password, parseInt(req.params.id)]));
+    res.send({
+        'message': 'success'
+    });
+});
+
+
+// PUT Driver for Verification 
+app.put('/drivers/verify/:id', async (req, res) => {
+    const data = req.body;
+    await connectAndRun(db => db.none("update driver set verified = $1 where id = $2", [data.verified, parseInt(req.params.id)]));
     res.send({
         'message': 'success'
     });
