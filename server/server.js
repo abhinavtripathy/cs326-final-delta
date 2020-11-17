@@ -7,6 +7,7 @@ const port = process.env.PORT || 8080;
 app.use(express.static('public/'));
 app.use(express.json());
 
+let database = {};
 
 const pgp = pgPromise({
     connect(client) {
@@ -43,85 +44,58 @@ async function connectAndRun(task) {
     }
 }
 
+async function getHospital() {
+    return await connectAndRun(db => db.any("SELECT * FROM patient;"))
+}
 
 // Print Database  
-app.get('/database', async (req, res) => {
-    database['patients'].push(req.body);
-    res.send(database);
+app.post('/database', (req, res) => {
+    // const hospitals = await getHospital();
+    // res.send(JSON.stringify(hospitals));
+    console.log(req.body);
+    res.send({
+        'hello': 'world'
+    });
+
 });
 
 
 // POST Patients 
-app.post('/patients', (req, res) => {
-    database['patients'].push(req.body);
+app.post('/patients', async (req, res) => {
+    const data = req.body;
+    console.log(data);
+    await connectAndRun(db => db.none("INSERT INTO patient(first_name, last_name, phone, email, age, emergency_phone, address, pickup) VALUES ($1, $2, $3, $4, $5, $6, $7, $8);", [data.first_name, data.last_name, data.phone, data.email, data.age, data.emergency_phone, data.address, data.pickup]));
     res.send({
         'message': 'success'
     });
 });
 
-// GET Patients 
-app.get('/patients', (req, res) => {
-    res.send(database['patients']);
+// GET All Patients 
+app.get('/patients', async (req, res) => {
+    const patients = await connectAndRun(db => db.any("SELECT * FROM patient;"))
+    res.send(JSON.stringify(patients));
 });
 
 // GET Patients 
-app.get('/patients/:id', (req, res) => {
-
-    if (database['patients'].find(item => {
-            return item.id === parseInt(req.params.id);
-        })) {
-        res.send(database['patients'].find(item => {
-
-            return item.id === parseInt(req.params.id);
-        }));
-    } else {
-        res.send({
-            'message': 'Not Found'
-        });
-    }
+app.get('/patients/:id', async (req, res) => {
+    const patients = await connectAndRun(db => db.any("SELECT * FROM patient where id = $1;", [parseInt(req.params.id)]));
+    res.send(JSON.stringify(patients));
 });
 
 // PUT Patients 
-app.put('/patients/:id', (req, res) => {
-    if (database['patients'].find(item => {
-            return item.id === parseInt(req.params.id);
-        })) {
-        for (let i = 0; i < database['patients'].length; i++) {
-            if (database['patients'][i].id === parseInt(req.params.id)) {
-                console.log("found a patient");
-                database['patients'][i] = req.body;
-            }
-
-        }
-        res.send({
-            'Message': 'Success'
-        });
-    } else {
-        res.send({
-            'message': 'error'
-        });
-    }
+app.put('/patients/:id', async (req, res) => {
+    await connectAndRun(db => db.none("update patient set first_name = $1, last_name = $2, phone = $3, email = $4, age = $5, emergency_phone = $6, address = $7, pickup = $8 where id = $9", [data.first_name, data.last_name, data.phone, data.email, data.age, data.emergency_phone, data.address, data.pickup, parseInt(req.params.id)]));
+    res.send({
+        'message': 'success'
+    });
 });
 
 // DELETE Patients 
 app.delete('/patients/:id', (req, res) => {
-    if (database['patients'].find(item => {
-            return item.id === parseInt(req.params.id);
-        })) {
-        for (let i = 0; i < database['patients'].length; i++) {
-            if (database['patients'][i].id === parseInt(req.params.id)) {
-                database['patients'].splice(i, 1);
-            }
-
-        }
-        res.send({
-            'Message': 'Success'
-        });
-    } else {
-        res.send({
-            'message': 'error'
-        });
-    }
+    await connectAndRun(db => db.none("delete from patient where id = $1", [parseInt(req.params.id)]));
+    res.send({
+        'message': 'success'
+    });
 });
 
 
