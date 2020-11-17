@@ -125,7 +125,7 @@ app.put('/drivers/:id', async (req, res) => {
 });
 
 // DELETE Drivers
-app.delete('/drivers/:id', (req, res) => {
+app.delete('/drivers/:id', async (req, res) => {
     await connectAndRun(db => db.none("delete from driver where id = $1", [parseInt(req.params.id)]));
     res.send({
         'message': 'success'
@@ -134,25 +134,12 @@ app.delete('/drivers/:id', (req, res) => {
 
 
 
-// PUT Patients 
-app.put('/hospitals/:id', (req, res) => {
-    if (database['hospitals'].find(item => {
-            return item.id === parseInt(req.params.id);
-        })) {
-        for (let i = 0; i < database['hospitals'].length; i++) {
-            if (database['hospitals'][i].id === parseInt(req.params.id)) {
-                database['hospitals'][i] = req.body;
-            }
-
-        }
-        res.send({
-            'Message': 'Success'
-        });
-    } else {
-        res.send({
-            'message': 'error'
-        });
-    }
+// PUT Hospitals
+app.put('/hospitals/:id', async (req, res) => {
+    await connectAndRun(db => db.none("update hospital set name = $1 where id = $2", [data.name, parseInt(req.params.id)]));
+    res.send({
+        'message': 'success'
+    });
 });
 
 
