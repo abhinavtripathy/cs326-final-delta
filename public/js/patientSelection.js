@@ -63,6 +63,7 @@ function patientCard(patient) {
     const select = document.createElement('a');
     select.className = 'btn btn-primary';
     select.innerText = 'Select Patient';
+    select.id = "patient-" + patient.id;
 
     cardBody.appendChild(img);
     cardBody.appendChild(title);
@@ -70,6 +71,10 @@ function patientCard(patient) {
     cardBody.appendChild(select);
     card.appendChild(cardBody);
     row.appendChild(card);
+
+    document.getElementById(select).addEventListener('click', function onSelectPatient() {
+
+    });
 
 }
 
@@ -91,3 +96,5 @@ function initCards() {
     container.appendChild(row);
 }
 initCards();
+
+
