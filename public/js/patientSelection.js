@@ -71,11 +71,7 @@ function patientCard(patient) {
     cardBody.appendChild(select);
     card.appendChild(cardBody);
     row.appendChild(card);
-
-    document.getElementById(select).addEventListener('click', function onSelectPatient() {
-
-    });
-
+    
 }
 
 function initCards() {
