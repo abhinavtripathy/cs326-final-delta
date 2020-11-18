@@ -92,5 +92,3 @@ function initCards() {
     container.appendChild(row);
 }
 initCards();
-
-
