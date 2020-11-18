@@ -59,7 +59,7 @@ initDrivers();
 let returnVal = {};
 function getCheckedBoxes() {
     //Create an Array.
-    let selected = [];
+    //let selected = [];
 
     //Reference the Table.
     let mainDiv = document.getElementById("checked");
@@ -77,7 +77,7 @@ function getCheckedBoxes() {
     }
 
     //Display the selected CheckBox values.
-    if (selected.length > 0) {
+    if (Object.keys(returnVal).length.length > 0) {
         for (const id in returnVal) {
             fetch(`/drivers/verify/${id}`, {
                 method: 'PUT',
