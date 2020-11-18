@@ -88,7 +88,7 @@ app.delete('/patients/:id', async (req, res) => {
 app.post('/drivers', async (req, res) => {
     const data = req.body;
     console.log(data);
-    await connectAndRun(db => db.none("INSERT INTO driver(first_name, last_name, phone, email, age, car_make, car_model, car_color, car_plate, password) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);", [data.first_name, data.last_name, data.phone, data.email, data.age, data.car_make, data.car_model, data.car_color, data.car_plate, data.password]));
+    await connectAndRun(db => db.none("INSERT INTO driver(first_name, last_name, phone, email, age, car_make, car_model, car_color, car_plate, password, car_type) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);", [data.first_name, data.last_name, data.phone, data.email, data.age, data.car_make, data.car_model, data.car_color, data.car_plate, data.password, data.car_type]));
     res.send({
         'message': 'success'
     });
@@ -104,7 +104,7 @@ app.get('/drivers/:id', async (req, res) => {
 // PUT Drivers
 app.put('/drivers/:id', async (req, res) => {
     const data = req.body;
-    await connectAndRun(db => db.none("update driver set first_name = $1, last_name = $2, phone = $3, email = $4, age = $5, car_make = $6, car_model = $7, car_color = $8, car_plate = $9, password = $10 where id = $11", [data.first_name, data.last_name, data.phone, data.email, data.age, data.car_make, data.car_model, data.car_color, data.car_plate, data.password, parseInt(req.params.id)]));
+    await connectAndRun(db => db.none("update driver set first_name = $1, last_name = $2, phone = $3, email = $4, age = $5, car_make = $6, car_model = $7, car_color = $8, car_plate = $9, password = $10, car_type = $11 where id = $12", [data.first_name, data.last_name, data.phone, data.email, data.age, data.car_make, data.car_model, data.car_color, data.car_plate, data.password, data.car_type, parseInt(req.params.id)]));
     res.send({
         'message': 'success'
     });
