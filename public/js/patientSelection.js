@@ -63,7 +63,7 @@ function patientCard(patient) {
     const select = document.createElement('a');
     select.className = 'btn btn-primary';
     select.innerText = 'Select Patient';
-    select.id = "patient-" + patient.id;
+    select.id = patient.id;
 
     cardBody.appendChild(img);
     cardBody.appendChild(title);
