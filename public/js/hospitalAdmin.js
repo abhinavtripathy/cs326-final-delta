@@ -58,7 +58,6 @@ function initDrivers() {
 initDrivers();
 let returnVal = {};
 function getCheckedBoxes() {
-    //Create an Array.
     //let selected = [];
 
     // Reference divs with checkboxes.
