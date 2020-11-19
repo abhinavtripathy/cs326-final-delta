@@ -64,7 +64,7 @@ function getCheckedBoxes() {
     // Reference divs with checkboxes.
     let mainDiv = document.getElementById("checked");
 
-    //Reference all the CheckBoxes in Table.
+    //Reference all the CheckBoxes.
     let checks = mainDiv.getElementsByTagName("input");
 
     // Loop and push the checked CheckBox value in Array.
