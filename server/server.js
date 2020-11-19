@@ -70,6 +70,13 @@ const strategy = new LocalStrat(
 	}
 	return done(null, username);
     });
+    
+app.use(expressSession(session));
+passport.use(strategy);
+app.use(passport.initialize());
+app.use(passport.session());
+
+// API Endpoints
 
 // POST Patients 
 app.post('/patients', async (req, res) => {
