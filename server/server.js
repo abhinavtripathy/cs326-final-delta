@@ -1,6 +1,8 @@
 import express from 'express';
 import pgPromise from 'pg-promise';
 import expressSession from 'express-session';
+import pass from 'passport';
+import passportLocal from 'passport-local';
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -8,6 +10,7 @@ const port = process.env.PORT || 8080;
 app.use(express.static('public/'));
 app.use(express.json());
 
+// Postgres Setup
 const pgp = pgPromise({
     connect(client) {
         console.log('Connected to database:', client.connectionParameters.database);
@@ -43,6 +46,30 @@ async function connectAndRun(task) {
     }
 }
 
+// Passport Setup
+const LocalStrat = passportLocal.Strategy;
+const session = (() => {
+  if(!process.env.SECRET) {
+    throw 'The SECRET environment variable is not set in Heroku';
+  }
+  return {
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: false
+  };
+})();
+
+const strategy = new LocalStrat(
+    async (email, pass, done) => {
+    if (!emailExists(email)) {
+	    return done(null, false, { 'message' : 'No user with that email exists' });
+    }
+	if (!checkPass(email, pass)) {
+	    await new Promise((r) => setTimeout(r, 2000)); // This does not stop parallel requests from being sent. A more secure method might be an account-wide retry counter but this implementation was not covered in the scope of the class
+	    return done(null, false, { 'message' : 'Incorrect password' });
+	}
+	return done(null, username);
+    });
 
 // POST Patients 
 app.post('/patients', async (req, res) => {
