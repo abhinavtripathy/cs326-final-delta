@@ -1,5 +1,6 @@
 import express from 'express';
 import pgPromise from 'pg-promise';
+import expressSession from 'express-session';
 
 const app = express();
 const port = process.env.PORT || 8080;
