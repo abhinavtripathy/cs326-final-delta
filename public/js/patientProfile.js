@@ -13,10 +13,8 @@ window.addEventListener('load', async function () {
         fetch('/patients', {
             method: 'POST',
             body: JSON.stringify({
-                name: {
-                    first: firstName,
-                    last: lastName
-                },
+                first_name: firstName,
+                last_name: lastName,
                 age: age,
                 phone: phone,
                 emergency: emergency,

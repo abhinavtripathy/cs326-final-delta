@@ -16,18 +16,15 @@ window.addEventListener('load', async function () {
         fetch('/drivers', {
             method: 'POST',
             body: JSON.stringify({
-                name: {
-                    first: firstName,
-                    last: lastName
-                },
+                first_name: firstName,
+                last_name: lastName,
                 age: age,
                 phone: phone,
-                car: {
-                    model: carModel,
-                    make: carMake,
-                    color: carColor,
-                    type: carType
-                },
+                car_model: carModel,
+                car_make: carMake,
+                car_type: carType,
+                car_color: carColor,
+                car_plate: license,
                 email: email
             }),
             headers: {
