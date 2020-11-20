@@ -48,14 +48,14 @@ function patientCard(patient) {
     cardBody.className = 'card-body';
 
     const title = document.createElement('h5');
-    title.innerText = patient.name.first + ' ' + patient.name.last;
+    title.innerText = patient.first_name + ' ' + patient.last_name;
     title.className = 'card-title';
 
     const text = document.createElement('div');
     text.innerHTML = `<ul>
-<li>Address: ${patient.address}</li>
+<li>Address: ${patient.home_address}</li>
 <li>Phone: ${patient.phone}</li>
-<li>Emergency Number: ${patient.emergency}</li>
+<li>Emergency Number: ${patient.emergency_phone}</li>
 <li>Pick Up: ${patient.pickup}</li>
 </ul>`;
     text.className = 'card-text';
