@@ -17,8 +17,8 @@ window.addEventListener('load', async function () {
                 last_name: lastName,
                 age: age,
                 phone: phone,
-                emergency: emergency,
-                address: address,
+                emergency_phone: emergency,
+                home_address: address,
                 email: email,
                 pickup: pickUpLocation
             }),
