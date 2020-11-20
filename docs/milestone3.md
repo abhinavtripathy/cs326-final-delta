@@ -50,7 +50,7 @@ create table hospital (
     id serial primary key, 
     name varchar(255),
     driver_id int, 
-    foreign key (driver_id) REFERENCES driver(id)
+    foreign key (driver_id) references driver(id)
 );
 ```
 
