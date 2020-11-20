@@ -55,7 +55,7 @@ app.post('/patients', async (req, res) => {
 
 // GET All Patients 
 app.get('/patients', async (req, res) => {
-    const patients = await connectAndRun(db => db.any("SELECT * FROM patient;"))
+    const patients = await connectAndRun(db => db.any("SELECT * FROM patient;"));
     res.send(JSON.stringify(patients));
 });
 
@@ -100,6 +100,11 @@ app.get('/drivers/:id', async (req, res) => {
     res.send(JSON.stringify(drivers));
 });
 
+// Get All Drivers
+app.get('/drivers', async (req, res) => {
+    const drivers = await connectAndRun(db => db.any("SELECT * FROM driver;"));
+    res.send(JSON.stringify(drivers));
+});
 
 // PUT Drivers
 app.put('/drivers/:id', async (req, res) => {
