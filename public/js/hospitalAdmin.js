@@ -7,7 +7,7 @@ col.id = 'checked';
 function addDriver(driverProfile) {
 
     const inputGroup = document.createElement('div');
-    card.className = 'input-group mb-3';
+    inputGroup.className = 'input-group mb-3';
 
     const prepend = document.createElement('div');
     prepend.className = 'input-group-prepend';
