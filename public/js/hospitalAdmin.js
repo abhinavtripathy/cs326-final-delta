@@ -29,7 +29,8 @@ function addDriver(driverProfile) {
     const driver = document.createElement('input');
     driver.type = "text";
     driver.className = "form-control";
-    driver.value = driverProfile.first_name + driverProfile.last_name;
+
+    driver.value = driverProfile.first_name + " " + driverProfile.last_name;
 
     inputGroup.appendChild(prepend);
     inputGroup.appendChild(driver);
