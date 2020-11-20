@@ -29,7 +29,10 @@ function addDriver(driverProfile) {
     const driver = document.createElement('input');
     driver.type = "text";
     driver.className = "form-control";
+<<<<<<< HEAD
 
+=======
+>>>>>>> ba9b7ee... added space between FN and LN
     driver.value = driverProfile.first_name + " " + driverProfile.last_name;
 
     inputGroup.appendChild(prepend);
