@@ -70,14 +70,19 @@ const session = (() => {
   };
 })();
 
-const getSaltHashOf = (async (email, isPatient) => {
-  try {
-    const passwordString = await connectAndRun(db => db.one('SELECT password FROM $1 WHERE email = $2:name', [isPatient ? 'patient' : 'driver', email]));
-    return passwordString.split(","); // returns an array with element 0 as the the salt and element 1 as the hash
-  } catch(e) {
-    return undefined;
-  }
-})();
+const getSaltHashOf = (userEmail, userIsPatient) => {
+  const result = (async (email, isPatient) => {
+    try {
+      const passwordString = await connectAndRun(db => db.one('SELECT password FROM $1:alias WHERE email = $2', [isPatient ? 'patient' : 'driver', email]));
+      console.log("pass string: ");
+      console.log(passwordString);
+      return passwordString.password.split(","); // returns an array with element 0 as the the salt and element 1 as the hash
+    } catch(e) {
+      return undefined;
+    }
+  })(userEmail, userIsPatient);
+  return result;
+};
 
 const strategy = new LocalStrat({usernameField: "email", passwordField: "password"},
     async (email, pass, done) => {
@@ -95,7 +100,7 @@ const mustBeDriver = (req, res, next) => req.isAuthenticated() && !userInfo(req.
 
 const mustBePatient = (req, res, next) => req.isAuthenticated() && userInfo(req.user).isPatient ? next() : res.redirect('/mustBePatient.html');
 
-const userExists = email => getSaltHashOf(email, false) || getSaltHashOf(email, true);
+const userExists = email => getSaltHashOf(email, false) !== undefined || getSaltHashOf(email, true) !== undefined;
 
 const userInfo = email => {
   if(!userExists(email)) {
@@ -115,7 +120,7 @@ const checkPass = (email, pass) => {
   if(!credInfo) {
     return false;
   }
-  return mc.check(pass, credInfo.salt, credInfo.hash);
+  return miniCrypt.check(pass, credInfo.salt, credInfo.hash);
 };
 
 passp.serializeUser((usr, done) => {
@@ -130,6 +135,7 @@ app.use(expressSession(session));
 passp.use(strategy);
 app.use(passp.initialize());
 app.use(passp.session());
+app.use(express.urlencoded({'extended' : true}));
 
 app.get('/logout', (req, res) => {
   req.logout();
