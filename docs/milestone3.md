@@ -52,4 +52,6 @@ create table hospital (
 );
 ```
 
+*Note that the Node.js server will enforce that the same email cannot be used for both a driver and a patient.*
+
 ## Contributions:

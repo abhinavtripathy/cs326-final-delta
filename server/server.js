@@ -78,16 +78,32 @@ const strategy = new LocalStrat({usernameField: "email", passwordField: "passwor
 	    await new Promise((r) => setTimeout(r, 2000)); // This does not stop parallel requests from being sent. A more secure method might be an account-wide retry counter but this implementation was not covered in the scope of the class
 	    return done(null, false, { 'message' : 'Incorrect password' });
 	}
-	return done(null, username);
+	return done(null, email);
     });
     
 const checkAuthentication = (req, res, next) => req.isAuthenticated() ? next() : res.redirect('/login');
 
+const userExists = email => getSaltHashOf(email, false) || getSaltHashOf(email, true);
+
+const userInfo = email => {
+  if(!userExists(email)) {
+    return undefined;
+  }
+  const isPatient = getSaltHashOf(email, true) !== undefined;
+  const saltHash = getSaltHashOf(email, isPatient);
+  return {
+    salt: saltHash[0],
+    hash: saltHash[1],
+    isPatient: isPatient
+  };
+}
+
 const checkPass = (email, pass) => {
-  const patientPassword = getSaltHashOf(email, true);
-  const driverPassword = getSaltHashOf(email, false);
-  const credInfo = patientPassword || driverPassword;
-  return mc.check(pass, credInfo[0]. credInfo[1]);
+  const credInfo = userInfo(email);
+  if(!credInfo) {
+    return false;
+  }
+  return mc.check(pass, credInfo.salt, credInfo.hash);
 };
 
 passp.serializeUser((usr, done) => {
