@@ -7,7 +7,7 @@ col.id = 'checked';
 function addDriver(driverProfile) {
 
     const inputGroup = document.createElement('div');
-    card.className = 'input-group mb-3';
+    inputGroup.className = 'input-group mb-3';
 
     const prepend = document.createElement('div');
     prepend.className = 'input-group-prepend';
@@ -29,7 +29,8 @@ function addDriver(driverProfile) {
     const driver = document.createElement('input');
     driver.type = "text";
     driver.className = "form-control";
-    driver.innerText = driverProfile.first_name + driverProfile.last_name;
+
+    driver.value = driverProfile.first_name + " " + driverProfile.last_name;
 
     inputGroup.appendChild(prepend);
     inputGroup.appendChild(driver);

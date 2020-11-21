@@ -10,7 +10,7 @@ window.addEventListener('load', async function () {
         const carMake = document.getElementById('car-make').value;
         const license = document.getElementById('license').value;
         const email = document.getElementById('email').value;
-        const carColor = document.getElementById('car-color');
+        const carColor = document.getElementById('car-color').value;
         // TODO implement password
 
         fetch('/drivers', {
