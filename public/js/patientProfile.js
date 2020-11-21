@@ -1,6 +1,6 @@
 window.addEventListener('load', async function () {
 
-    document.getElementById('submit-profile').addEventListener('click', () => {
+    document.getElementById('submit-profile').addEventListener('click', async () => {
         const firstName = document.getElementById('first_name').value;
         const lastName = document.getElementById('last_name').value;
         const age = document.getElementById('age').value;

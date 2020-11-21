@@ -82,7 +82,6 @@ const getSaltHashOf = async (email, isPatient) => {
 const strategy = new LocalStrat({usernameField: "email", passwordField: "password"},
     async (email, pass, done) => {
     if (await getSaltHashOf(email, true) === undefined && await getSaltHashOf(email, false) === undefined) {
-      console.log("problem is here");
 	    return done(null, false, { 'message' : 'No user with that email exists' });
     }
 	if (!(await checkPass(email, pass))) {
@@ -104,8 +103,6 @@ const userInfo = async email => {
   }
   const isPatient = await getSaltHashOf(email, true) !== undefined;
   const saltHash = await getSaltHashOf(email, isPatient);
-  console.log("Salt hash: ");
-  console.log(saltHash);
   return {
     salt: saltHash[0],
     hash: saltHash[1],
@@ -148,14 +145,14 @@ app.post('/login', passp.authenticate('local', { 'successRedirect': '/', 'failur
 app.post('/patients', async (req, res) => {
     const data = req.body;
     console.log(data);
-    await connectAndRun(db => db.none("INSERT INTO patient(first_name, last_name, phone, email, age, emergency_phone, home_address, pickup, password) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);", [data.first_name, data.last_name, data.phone, data.email, data.age, data.emergency_phone, data.home_address, data.pickup, data.password]));
+    await connectAndRun(db => db.none("INSERT INTO patient(first_name, last_name, phone, email, age, emergency_phone, home_address, pickup, password) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);", [data.first_name, data.last_name, data.phone, data.email, data.age, data.emergency_phone, data.home_address, data.pickup, miniCrypt.hash(data.password).join(",")]));
     res.send({
         'message': 'success'
     });
 });
 
 // GET All Patients 
-app.get('/patients', async (req, res) => {
+app.get('/patients', mustBeDriver, async (req, res) => {
     const patients = await connectAndRun(db => db.any("SELECT * FROM patient;"));
     res.send(JSON.stringify(patients));
 });
@@ -167,16 +164,16 @@ app.get('/patients/:id', async (req, res) => {
 });
 
 // PUT Patients 
-app.put('/patients/:id', async (req, res) => {
+app.put('/patients/:id', mustBePatient, async (req, res) => {
     const data = req.body;
-    await connectAndRun(db => db.none("update patient set first_name = $1, last_name = $2, phone = $3, email = $4, age = $5, emergency_phone = $6, home_address = $7, pickup = $8, password = $9 where id = $10", [data.first_name, data.last_name, data.phone, data.email, data.age, data.emergency_phone, data.home_address, data.pickup, data.password, parseInt(req.params.id)]));
+    await connectAndRun(db => db.none("update patient set first_name = $1, last_name = $2, phone = $3, email = $4, age = $5, emergency_phone = $6, home_address = $7, pickup = $8, password = $9 where id = $10", [data.first_name, data.last_name, data.phone, data.email, data.age, data.emergency_phone, data.home_address, data.pickup, miniCrypt.hash(data.password).join(","), parseInt(req.params.id)]));
     res.send({
         'message': 'success'
     });
 });
 
 // DELETE Patients 
-app.delete('/patients/:id', async (req, res) => {
+app.delete('/patients/:id', mustBePatient, async (req, res) => {
     await connectAndRun(db => db.none("delete from patient where id = $1", [parseInt(req.params.id)]));
     res.send({
         'message': 'success'
@@ -210,7 +207,7 @@ app.get('/drivers', async (req, res) => {
 // PUT Drivers
 app.put('/drivers/:id', async (req, res) => {
     const data = req.body;
-    await connectAndRun(db => db.none("update driver set first_name = $1, last_name = $2, phone = $3, email = $4, age = $5, car_make = $6, car_model = $7, car_color = $8, car_plate = $9, password = $10, car_type = $11 where id = $12", [data.first_name, data.last_name, data.phone, data.email, data.age, data.car_make, data.car_model, data.car_color, data.car_plate, data.password, data.car_type, parseInt(req.params.id)]));
+    await connectAndRun(db => db.none("update driver set first_name = $1, last_name = $2, phone = $3, email = $4, age = $5, car_make = $6, car_model = $7, car_color = $8, car_plate = $9, password = $10, car_type = $11 where id = $12", [data.first_name, data.last_name, data.phone, data.email, data.age, data.car_make, data.car_model, data.car_color, data.car_plate, miniCrypt.hash(data.password).join(","), data.car_type, parseInt(req.params.id)]));
     res.send({
         'message': 'success'
     });
