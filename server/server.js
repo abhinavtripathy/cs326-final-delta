@@ -71,16 +71,15 @@ const session = (() => {
 })();
 
 const getSaltHashOf = (userEmail, userIsPatient) => {
-  const result = (async (email, isPatient) => {
+  let result = undefined;
+  (async (email, isPatient, setter) => {
     try {
       const passwordString = await connectAndRun(db => db.one('SELECT password FROM $1:alias WHERE email = $2', [isPatient ? 'patient' : 'driver', email]));
-      console.log("pass string: ");
-      console.log(passwordString);
-      return passwordString.password.split(","); // returns an array with element 0 as the the salt and element 1 as the hash
+      setter(passwordString.password.split(",")); // returns an array with element 0 as the the salt and element 1 as the hash
     } catch(e) {
-      return undefined;
+      setter(undefined);
     }
-  })(userEmail, userIsPatient);
+  })(userEmail, userIsPatient, pass => result = pass);
   return result;
 };
 
