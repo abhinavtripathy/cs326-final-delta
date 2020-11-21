@@ -71,7 +71,7 @@ const getPasswordOf = (async (email, isPatient) => {
 
 const strategy = new LocalStrat({usernameField: "email", passwordField: "password"},
     async (email, pass, done) => {
-    if (!(emailExists(email, true) || emailExists(email, false))) {
+    if (!(getPasswordOf(email, true) || getPasswordOf(email, false))) {
 	    return done(null, false, { 'message' : 'No user with that email exists' });
     }
 	if (!checkPass(email, pass)) {
@@ -84,10 +84,8 @@ const strategy = new LocalStrat({usernameField: "email", passwordField: "passwor
 const checkAuthentication = (req, res, next) => req.isAuthenticated() ? next() : res.redirect('/login');
 
 const checkPass = (async (email, pass) => {
-  if(emailExists(email, true)) {
-    const pass = await connectAndRun(db => db.one('SELECT password FROM Patient WHERE email = $2', [email]);
-    
-  }
+  const patientPassword = getPasswordOf(email, true);
+  const driverPassword = getPasswordOf(email, false);
 })();
 
 passp.serializeUser((usr, done) => {
