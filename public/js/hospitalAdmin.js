@@ -95,4 +95,5 @@ initDrivers();
 const update = document.getElementById('update')
 update.addEventListener('click', () => {
     getCheckedBoxes();
+    alert("Driver verification complete!")
 });
