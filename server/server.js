@@ -63,9 +63,9 @@ const emailExists = (async (email, isPatient) => {
   const userWithEmail = await connectAndRun(db => db.any('SELECT COUNT(*) FROM $1 WHERE email = $2', [isPatient ? 'Patient' : 'driver', email]));
 })();
 
-const strategy = new LocalStrat(
+const strategy = new LocalStrat({usernameField: "email", passwordField: "password"},
     async (email, pass, done) => {
-    if (!emailExists(email)) {
+    if (!(emailExists(email, true) || emailExists(email, false))) {
 	    return done(null, false, { 'message' : 'No user with that email exists' });
     }
 	if (!checkPass(email, pass)) {
