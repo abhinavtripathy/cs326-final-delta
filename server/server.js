@@ -1,7 +1,7 @@
 import express from 'express';
 import pgPromise from 'pg-promise';
 import expressSession from 'express-session';
-import pass from 'passport';
+import passp from 'passport';
 import passportLocal from 'passport-local';
 
 const app = express();
@@ -75,10 +75,16 @@ const strategy = new LocalStrat(
 	return done(null, username);
     });
     
+const checkAuthentication = (req, res, next) => req.isAuthenticated() ? next() : res.redirect('/login');
+
+passp.serializeUser((usr, done) => {
+  done(null, {id: usr.id, id: usr.type});
+});
+    
 app.use(expressSession(session));
-passport.use(strategy);
-app.use(passport.initialize());
-app.use(passport.session());
+passp.use(strategy);
+app.use(passp.initialize());
+app.use(passp.session());
 
 // API Endpoints
 
