@@ -81,7 +81,7 @@ function getCheckedBoxes() {
             fetch(`/drivers/verify/${id}`, {
                 method: 'PUT',
                 body: JSON.stringify({
-                    "verify": returnVal[id]
+                    "verified": returnVal[id]
                 }),
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8'
