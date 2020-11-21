@@ -80,6 +80,10 @@ const checkAuthentication = (req, res, next) => req.isAuthenticated() ? next() :
 passp.serializeUser((usr, done) => {
   done(null, {id: usr.id, id: usr.type});
 });
+
+passp.deserializeUser((usr, done) => {
+  
+});
     
 app.use(expressSession(session));
 passp.use(strategy);
