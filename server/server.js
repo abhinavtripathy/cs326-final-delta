@@ -3,8 +3,8 @@ import pgPromise from 'pg-promise';
 import expressSession from 'express-session';
 import passp from 'passport';
 import passportLocal from 'passport-local';
-import * as miniCrypt from './miniCrypt.js';
-
+import mc from './miniCrypt.js';
+const miniCrypt = new mc();
 const app = express();
 const port = process.env.PORT || 8080;
 
@@ -72,7 +72,7 @@ const session = (() => {
 
 const getSaltHashOf = (async (email, isPatient) => {
   try {
-    const passwordString = await connectAndRun(db => db.one('SELECT password FROM $1 WHERE email = $2', [isPatient ? 'patient' : 'driver', email]));
+    const passwordString = await connectAndRun(db => db.one('SELECT password FROM $1 WHERE email = $2:name', [isPatient ? 'patient' : 'driver', email]));
     return passwordString.split(","); // returns an array with element 0 as the the salt and element 1 as the hash
   } catch(e) {
     return undefined;
@@ -133,8 +133,10 @@ app.use(passp.session());
 
 app.get('/logout', (req, res) => {
   req.logout();
-  res.redirect('/login');
+  res.redirect('/login.html');
 });
+
+app.post('/login', passp.authenticate('local', { 'successRedirect': '/', 'failureRedirect': '/login.html' }));
 
 // API Endpoints
 
