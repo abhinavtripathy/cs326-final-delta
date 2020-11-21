@@ -3,6 +3,7 @@ import pgPromise from 'pg-promise';
 import expressSession from 'express-session';
 import passp from 'passport';
 import passportLocal from 'passport-local';
+import miniCrypt from './miniCrypt';
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -63,11 +64,6 @@ const emailExists = (async (email, isPatient) => {
   const userWithEmail = await connectAndRun(db => db.any('SELECT COUNT(*) FROM $1 WHERE email = $2', [isPatient ? 'Patient' : 'driver', email]));
 })();
 
-const addUser = (email, pass, isPatient) => {
-  const data = req.body;
-  await connectAndRun(db => db.none('INSERT INTO $1 VALUES('
-};
-
 const strategy = new LocalStrat({usernameField: "email", passwordField: "password"},
     async (email, pass, done) => {
     if (!(emailExists(email, true) || emailExists(email, false))) {
@@ -89,8 +85,6 @@ passp.serializeUser((usr, done) => {
 passp.deserializeUser((usr, done) => {
   done(null, usr);
 });
-
-const getDriverValues = data => [data.first_name, data.last_name, data.phone, data.email, data.age, data.car_make, data.car_model, data.car_color, data.car_plate, data.password, data.car_type];
     
 app.use(expressSession(session));
 passp.use(strategy);
@@ -144,7 +138,7 @@ app.delete('/patients/:id', async (req, res) => {
 app.post('/drivers', async (req, res) => {
     const data = req.body;
     console.log(data);
-    await connectAndRun(db => db.none("INSERT INTO driver(first_name, last_name, phone, email, age, car_make, car_model, car_color, car_plate, password, car_type) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);", getDriverValues(req.body)));
+    await connectAndRun(db => db.none("INSERT INTO driver(first_name, last_name, phone, email, age, car_make, car_model, car_color, car_plate, password, car_type) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);", [data.first_name, data.last_name, data.phone, data.email, data.age, data.car_make, data.car_model, data.car_color, data.car_plate, miniCrypt.hash(data.password).join(","), data.car_type]));
     res.send({
         'message': 'success'
     });
