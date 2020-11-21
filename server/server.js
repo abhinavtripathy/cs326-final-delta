@@ -81,7 +81,9 @@ const strategy = new LocalStrat({usernameField: "email", passwordField: "passwor
 	return done(null, email);
     });
     
-const checkAuthentication = (req, res, next) => req.isAuthenticated() ? next() : res.redirect('/login');
+const mustBeDriver = (req, res, next) => req.isAuthenticated() && !userInfo(req.user).isPatient ? next() : res.redirect('/login');
+
+const mustBePatient = (req, res, next) => req.isAuthenticated() && userInfo(req.user).isPatient ? next() : res.redirect('/login');
 
 const userExists = email => getSaltHashOf(email, false) || getSaltHashOf(email, true);
 
