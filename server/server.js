@@ -70,43 +70,42 @@ const session = (() => {
   };
 })();
 
-const getSaltHashOf = (userEmail, userIsPatient) => {
-  let result = undefined;
-  (async (email, isPatient, setter) => {
+const getSaltHashOf = async (email, isPatient) => {
     try {
       const passwordString = await connectAndRun(db => db.one('SELECT password FROM $1:alias WHERE email = $2', [isPatient ? 'patient' : 'driver', email]));
-      setter(passwordString.password.split(",")); // returns an array with element 0 as the the salt and element 1 as the hash
+      return passwordString.password.split(","); // returns an array with element 0 as the the salt and element 1 as the hash
     } catch(e) {
-      setter(undefined);
+      return undefined;
     }
-  })(userEmail, userIsPatient, pass => result = pass);
-  return result;
-};
+  };
 
 const strategy = new LocalStrat({usernameField: "email", passwordField: "password"},
     async (email, pass, done) => {
-    if (!(getSaltHashOf(email, true) || getSaltHashOf(email, false))) {
+    if (await getSaltHashOf(email, true) === undefined && await getSaltHashOf(email, false) === undefined) {
+      console.log("problem is here");
 	    return done(null, false, { 'message' : 'No user with that email exists' });
     }
-	if (!checkPass(email, pass)) {
+	if (!(await checkPass(email, pass))) {
 	    await new Promise((r) => setTimeout(r, 2000)); // This does not stop parallel requests from being sent. A more secure method might be an account-wide retry counter but this implementation was not covered in the scope of the class
 	    return done(null, false, { 'message' : 'Incorrect password' });
 	}
 	return done(null, email);
     });
     
-const mustBeDriver = (req, res, next) => req.isAuthenticated() && !userInfo(req.user).isPatient ? next() : res.redirect('/mustBeDriver.html');
+const mustBeDriver = async (req, res, next) => req.isAuthenticated() && !(await userInfo(req.user)).isPatient ? next() : res.redirect('/mustBeDriver.html');
 
-const mustBePatient = (req, res, next) => req.isAuthenticated() && userInfo(req.user).isPatient ? next() : res.redirect('/mustBePatient.html');
+const mustBePatient = async (req, res, next) => req.isAuthenticated() && await userInfo(req.user).isPatient ? next() : res.redirect('/mustBePatient.html');
 
-const userExists = email => getSaltHashOf(email, false) !== undefined || getSaltHashOf(email, true) !== undefined;
+const userExists = async email => await getSaltHashOf(email, false) !== undefined || await getSaltHashOf(email, true) !== undefined;
 
-const userInfo = email => {
-  if(!userExists(email)) {
+const userInfo = async email => {
+  if(!(await userExists(email))) {
     return undefined;
   }
-  const isPatient = getSaltHashOf(email, true) !== undefined;
-  const saltHash = getSaltHashOf(email, isPatient);
+  const isPatient = await getSaltHashOf(email, true) !== undefined;
+  const saltHash = await getSaltHashOf(email, isPatient);
+  console.log("Salt hash: ");
+  console.log(saltHash);
   return {
     salt: saltHash[0],
     hash: saltHash[1],
@@ -114,9 +113,9 @@ const userInfo = email => {
   };
 }
 
-const checkPass = (email, pass) => {
-  const credInfo = userInfo(email);
-  if(!credInfo) {
+const checkPass = async (email, pass) => {
+  const credInfo = await userInfo(email);
+  if(credInfo === undefined) {
     return false;
   }
   return miniCrypt.check(pass, credInfo.salt, credInfo.hash);
