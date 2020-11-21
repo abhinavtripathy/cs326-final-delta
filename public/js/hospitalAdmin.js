@@ -29,7 +29,6 @@ function addDriver(driverProfile) {
     const driver = document.createElement('input');
     driver.type = "text";
     driver.className = "form-control";
-
     driver.value = driverProfile.first_name + " " + driverProfile.last_name;
 
     inputGroup.appendChild(prepend);
@@ -56,7 +55,7 @@ function initDrivers() {
         });
     container.appendChild(col);
 }
-initDrivers();
+
 let returnVal = {};
 function getCheckedBoxes() {
     //let selected = [];
@@ -90,4 +89,10 @@ function getCheckedBoxes() {
             });
         }
     }
-};
+}
+
+initDrivers();
+const update = document.getElementById('update')
+update.addEventListener('click', () => {
+    getCheckedBoxes();
+});
