@@ -7,7 +7,7 @@
     <title>Profile Page</title>
 
     <link href="css/health-pool.css" rel="stylesheet">
-    <!-- <script src="js/patientProfile.js" defer></script> -->
+    <script src="js/profileView.js" defer></script>
     <!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->    
   </head>
@@ -36,14 +36,14 @@
                 <a class="nav-link" href="driverProfile.html">Volunteer as a Driver</a>
             </li>
             <!-- <li class="nav-item">
-                <a class="nav-link" href="profilePage.html">User Profile</a>
+                <a class="nav-link" href="profileView.html">User Profile</a>
             </li> -->
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   User Profile
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="profilePage.html">View Profile</a>
+                  <a class="dropdown-item" href="profileView.html">View Profile</a>
                 </div>
               </li>
         </ul>
@@ -53,7 +53,7 @@
   <div class="page-header text-center">
     <h1>User Profile</h1>
   </div>
-<div class="container p-1 mt-5 mb-1 rounded bg-light">
+<div class="container p-1 mt-5 rounded bg-light">
             <form method="post">
                 <div class="row">
                     <div class="col-md-4">
@@ -62,15 +62,12 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="profile-head">
+                        <div class="profile-head mt-3">
                                     <h5 id="name">
                                         Full Name
                                     </h5>
-                                    <h6 id="role">
-                                        Role: Patient or Driver
-                                    </h6>
                                     
-                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <ul class="nav nav-tabs mt-5" id="myTab" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
                                 </li>
@@ -105,6 +102,14 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
+                                                <label>Age</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p id="age">age</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
                                                 <label>Email</label>
                                             </div>
                                             <div class="col-md-6">
@@ -127,6 +132,7 @@
                                                 <p id="user_role">Patient or Driver</p>
                                             </div>
                                         </div>
+                                        
                             </div>
                             
                         </div>
