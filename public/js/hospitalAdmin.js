@@ -70,7 +70,7 @@ function getCheckedBoxes() {
     for (let i = 0; i < checks.length; i++) {
         if (checks[i].checked) {
             
-            returnVal[checks[i].id] = checks[i].value;
+            returnVal[checks[i].id] = checks[i].checked;
             //selected.push(returnVal);
         }
     }
