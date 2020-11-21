@@ -76,7 +76,7 @@ function getCheckedBoxes() {
     }
 
     //Display the selected CheckBox values.
-    if (Object.keys(returnVal).length.length > 0) {
+    if (Object.keys(returnVal).length > 0) {
         for (const id in returnVal) {
             fetch(`/drivers/verify/${id}`, {
                 method: 'PUT',
