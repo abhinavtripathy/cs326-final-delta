@@ -141,6 +141,18 @@ app.post('/login', passp.authenticate('local', { 'successRedirect': '/', 'failur
 
 // API Endpoints
 
+// Get Current User 
+app.get('/currentUser'), async (req, res) => {
+    const patientBool = await userInfo(req.user).isPatient;
+    const id = await connectAndRun(db => db.one('SELECT id FROM $1:alias WHERE email = $2', [isPatient ? 'patient' : 'driver', email]));
+    res.send({
+        'isPatient': patientBool,
+        'id': id
+    });
+
+};
+
+
 // POST Patients 
 app.post('/patients', async (req, res) => {
     const data = req.body;
