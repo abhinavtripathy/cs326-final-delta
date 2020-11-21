@@ -81,9 +81,9 @@ const strategy = new LocalStrat({usernameField: "email", passwordField: "passwor
 	return done(null, email);
     });
     
-const mustBeDriver = (req, res, next) => req.isAuthenticated() && !userInfo(req.user).isPatient ? next() : res.redirect('/login');
+const mustBeDriver = (req, res, next) => req.isAuthenticated() && !userInfo(req.user).isPatient ? next() : res.redirect('/mustBeDriver.html');
 
-const mustBePatient = (req, res, next) => req.isAuthenticated() && userInfo(req.user).isPatient ? next() : res.redirect('/login');
+const mustBePatient = (req, res, next) => req.isAuthenticated() && userInfo(req.user).isPatient ? next() : res.redirect('/mustBePatient.html');
 
 const userExists = email => getSaltHashOf(email, false) || getSaltHashOf(email, true);
 
@@ -120,6 +120,11 @@ app.use(expressSession(session));
 passp.use(strategy);
 app.use(passp.initialize());
 app.use(passp.session());
+
+app.get('/logout', (req, res) => {
+  req.logout();
+  res.redirect('/login');
+});
 
 // API Endpoints
 
