@@ -11,7 +11,7 @@ window.addEventListener('load', async function () {
         const license = document.getElementById('license').value;
         const email = document.getElementById('email').value;
         const carColor = document.getElementById('car-color').value;
-        // TODO implement password
+        const password = document.getElementById('password').value;
 
         const response = await fetch('/drivers', {
             method: 'POST',
@@ -25,7 +25,8 @@ window.addEventListener('load', async function () {
                 car_type: carType,
                 car_color: carColor,
                 car_plate: license,
-                email: email
+                email: email,
+                password: password
             }),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8'
