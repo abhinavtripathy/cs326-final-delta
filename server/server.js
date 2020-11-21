@@ -60,8 +60,13 @@ const session = (() => {
   };
 })();
 
-const emailExists = (async (email, isPatient) => {
-  const userWithEmail = await connectAndRun(db => db.any('SELECT COUNT(*) FROM $1 WHERE email = $2', [isPatient ? 'Patient' : 'driver', email]));
+const getPasswordOf = (async (email, isPatient) => {
+  try {
+    const passwordString = await connectAndRun(db => db.one('SELECT password FROM $1 WHERE email = $2', [isPatient ? 'Patient' : 'driver', email]));
+    return passwordString.split(","); // returns an array with element 0 as the the password and element 1 as the salt
+  } catch(e) {
+    return undefined;
+  }
 })();
 
 const strategy = new LocalStrat({usernameField: "email", passwordField: "password"},
@@ -77,6 +82,13 @@ const strategy = new LocalStrat({usernameField: "email", passwordField: "passwor
     });
     
 const checkAuthentication = (req, res, next) => req.isAuthenticated() ? next() : res.redirect('/login');
+
+const checkPass = (async (email, pass) => {
+  if(emailExists(email, true)) {
+    const pass = await connectAndRun(db => db.one('SELECT password FROM Patient WHERE email = $2', [email]);
+    
+  }
+})();
 
 passp.serializeUser((usr, done) => {
   done(null, usr);
