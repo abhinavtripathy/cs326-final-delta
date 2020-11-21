@@ -56,7 +56,7 @@ await connectAndRun(db => db.none('create table if not exists patient (id serial
 
 await connectAndRun(db => db.none('create table if not exists hospital (id serial primary key,name varchar(255),driver_id int,foreign key (driver_id) references driver(id));'));
 })();
-/*
+
 // Passport Setup
 const LocalStrat = passportLocal.Strategy;
 const session = (() => {
@@ -239,7 +239,6 @@ app.put('/hospitals/:id', async (req, res) => {
     });
 });
 
-*/
 
 
 app.listen(port, () => {

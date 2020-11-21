@@ -1,6 +1,6 @@
 window.addEventListener('load', async function () {
 
-    document.getElementById('submit-profile').addEventListener('click', () => {
+    document.getElementById('submit-profile').addEventListener('click', async () => {
         const firstName = document.getElementById('first_name').value;
         const lastName = document.getElementById('last_name').value;
         const age = document.getElementById('age').value;
@@ -13,7 +13,7 @@ window.addEventListener('load', async function () {
         const carColor = document.getElementById('car-color').value;
         // TODO implement password
 
-        fetch('/drivers', {
+        const response = await fetch('/drivers', {
             method: 'POST',
             body: JSON.stringify({
                 first_name: firstName,
@@ -31,6 +31,10 @@ window.addEventListener('load', async function () {
                 'Content-type': 'application/json; charset=UTF-8'
             }
         });
-
+        if(response.ok) {
+            alert('Signed up successfully.');
+        } else {
+            alert('Error signing up.');
+        }
     });
 });
