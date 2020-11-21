@@ -35,9 +35,17 @@
             <li class="nav-item">
                 <a class="nav-link" href="driverProfile.html">Volunteer as a Driver</a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link" href="profilePage.html">User Profile</a>
-            </li>
+            </li> -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  User Profile
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="profilePage.html">View Profile</a>
+                </div>
+              </li>
         </ul>
         </div>
     </nav>
@@ -50,7 +58,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="profile-img">
-                            <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" alt=""/>
+                            <img class="ml-3 mt-3 rounded img-fluid" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" alt=""/>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -70,7 +78,7 @@
                         </div>
                     </div>
                     <div class="col-md-2">
-                        <button class="btn btn-lg btn-success bg-info" id="edit-profile" type="button" onclick="location.href='patientProfile.html'">Edit Profile</button>
+                        <button class=" mt-2 btn btn-lg btn-success bg-info" id="edit-profile" type="button" onclick="location.href='patientProfile.html'">Edit Profile</button>
                     </div>
                 </div>
                 <div class="row">
@@ -108,7 +116,7 @@
                                                 <label>Phone</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <p id="phone_num">123 456 7890</p>
+                                                <p id="phone_num">phone_number</p>
                                             </div>
                                         </div>
                                         <div class="row">
