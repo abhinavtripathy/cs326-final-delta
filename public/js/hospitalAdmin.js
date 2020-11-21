@@ -4,6 +4,11 @@ const col = document.createElement('div');
 col.className = 'col';
 col.id = 'checked';
 
+const h2 = document.createElement('h2');
+h2.className = "h2 text-secondary";
+h2.innerHTML = "Verified Drivers";
+col.appendChild(h2);
+
 function addDriver(driverProfile) {
 
     const inputGroup = document.createElement('div');
@@ -19,10 +24,6 @@ function addDriver(driverProfile) {
     checkbox.type = "checkbox";
     checkbox.id = driverProfile.id;
 
-    const h2 = document.createElement('h2');
-    h2.className = "h2 text-secondary";
-    h2.innerHTML = "Verified Drivers";
-
     selection.appendChild(checkbox);
     prepend.appendChild(selection);
 
@@ -34,7 +35,6 @@ function addDriver(driverProfile) {
     inputGroup.appendChild(prepend);
     inputGroup.appendChild(driver);
 
-    col.appendChild(h2);
     col.appendChild(inputGroup);
 }
 
