@@ -78,11 +78,11 @@ const strategy = new LocalStrat(
 const checkAuthentication = (req, res, next) => req.isAuthenticated() ? next() : res.redirect('/login');
 
 passp.serializeUser((usr, done) => {
-  done(null, {id: usr.id, id: usr.type});
+  done(null, usr);
 });
 
 passp.deserializeUser((usr, done) => {
-  
+  done(null, usr);
 });
     
 app.use(expressSession(session));
