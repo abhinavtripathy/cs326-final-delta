@@ -60,10 +60,10 @@ const session = (() => {
   };
 })();
 
-const getPasswordOf = (async (email, isPatient) => {
+const getSaltHashOf = (async (email, isPatient) => {
   try {
     const passwordString = await connectAndRun(db => db.one('SELECT password FROM $1 WHERE email = $2', [isPatient ? 'Patient' : 'driver', email]));
-    return passwordString.split(","); // returns an array with element 0 as the the password and element 1 as the salt
+    return passwordString.split(","); // returns an array with element 0 as the the salt and element 1 as the hash
   } catch(e) {
     return undefined;
   }
@@ -71,7 +71,7 @@ const getPasswordOf = (async (email, isPatient) => {
 
 const strategy = new LocalStrat({usernameField: "email", passwordField: "password"},
     async (email, pass, done) => {
-    if (!(getPasswordOf(email, true) || getPasswordOf(email, false))) {
+    if (!(getSaltHashOf(email, true) || getSaltHashOf(email, false))) {
 	    return done(null, false, { 'message' : 'No user with that email exists' });
     }
 	if (!checkPass(email, pass)) {
@@ -83,10 +83,12 @@ const strategy = new LocalStrat({usernameField: "email", passwordField: "passwor
     
 const checkAuthentication = (req, res, next) => req.isAuthenticated() ? next() : res.redirect('/login');
 
-const checkPass = (async (email, pass) => {
-  const patientPassword = getPasswordOf(email, true);
-  const driverPassword = getPasswordOf(email, false);
-})();
+const checkPass = (email, pass) => {
+  const patientPassword = getSaltHashOf(email, true);
+  const driverPassword = getSaltHashOf(email, false);
+  const credInfo = patientPassword || driverPassword;
+  return mc.check(pass, credInfo[0]. credInfo[1]);
+};
 
 passp.serializeUser((usr, done) => {
   done(null, usr);
