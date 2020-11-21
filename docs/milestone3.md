@@ -25,8 +25,7 @@ create table driver (
     car_model varchar (255),
     car_color varchar (255),
     car_plate varchar (255),
-    verified boolean,
-    check (age >= 0 and age < 150)
+    verified boolean
 );
 
 create table patient (
@@ -42,8 +41,7 @@ create table patient (
     pickup varchar (255),
     driver_id integer, 
     current_status varchar (30),
-    foreign key (driver_id) references driver(id),
-    check (age >= 0 and age < 150)
+    foreign key (driver_id) references driver(id)
 );
 
 create table hospital (
