@@ -1,6 +1,6 @@
 window.addEventListener('load', async function () {
 
-    document.getElementById('submit-profile').addEventListener('click', () => {
+    document.getElementById('submit-profile').addEventListener('click', async () => {
         const firstName = document.getElementById('first_name').value;
         const lastName = document.getElementById('last_name').value;
         const age = document.getElementById('age').value;
@@ -11,9 +11,9 @@ window.addEventListener('load', async function () {
         const license = document.getElementById('license').value;
         const email = document.getElementById('email').value;
         const carColor = document.getElementById('car-color').value;
-        // TODO implement password
+        const password = document.getElementById('password').value;
 
-        fetch('/drivers', {
+        const response = await fetch('/drivers', {
             method: 'POST',
             body: JSON.stringify({
                 first_name: firstName,
@@ -25,12 +25,17 @@ window.addEventListener('load', async function () {
                 car_type: carType,
                 car_color: carColor,
                 car_plate: license,
-                email: email
+                email: email,
+                password: password
             }),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8'
             }
         });
-
+        if(response.ok) {
+            alert('Signed up successfully.');
+        } else {
+            alert('Error signing up.');
+        }
     });
 });

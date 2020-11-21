@@ -52,4 +52,8 @@ create table hospital (
 );
 ```
 
+*Note that the Node.js server will enforce that the same email cannot be used for both a driver and a patient.*
+
 ## Contributions:
+
+1. Joseph Black: Wrote MiniCrypt logic so that hashed passwords and salts are saved to the database instead of plaintext passwords, and applied it to the existing POST routes in the server. Created frontend logic to allow users' passwords to get sent to the appropriate POST endpoint from the existing driver and patient signup forms, and display a response depending on whether the signup was successful. Adapted passport to read salts/hashes from the Postgres database and create a login session for the user if it matches the sent password. Created a login HTML form so that users or drivers can log in in the same place, and wrote SQL queries so that the server will match the email to the correct role. Created functions that allow accessing certain endpoints only if the user is in the correct role (driver or patient). Removed outdated instructions for creating Postgres tables manually, and added code so that the server will create the tables automatically if they do not exist. Fixed bugs with asynchronous code on both the client and the server. Researched the appropriate Bootstrap classes to use for styling. Created notification pages for when users have insufficient permissions.
