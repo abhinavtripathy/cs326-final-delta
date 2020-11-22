@@ -25,7 +25,7 @@ function createHTMLElements(row_name, col_name, label_name, p_id, para) {
     home.appendChild(row);
 }
 
-function getPatientOrDriver() {
+function showPatientOrDriver() {
     fetch('/currentUser')
         // Converting received data to JSON 
         .then(response => response.json())
@@ -74,3 +74,4 @@ function getPatientOrDriver() {
             });
         });
 }
+showPatientOrDriver();
