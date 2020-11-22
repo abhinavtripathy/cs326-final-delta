@@ -76,30 +76,34 @@ function showPatientOrDriver() {
 }
 showPatientOrDriver();
 
-document.getElementById("delete-profile").addEventListener('click', () => {
+function deleteUser() {
+    document.getElementById("delete-profile").addEventListener('click', () => {
 
-    fetch('/currentUser')
-        // Converting received data to JSON 
-        .then(response => response.json())
-        .then(users => {
-            users.forEach((user) => {
-                if (user.isPatient) {
-                    fetch(`/patients/${user.id}`, {
-                        method: 'DELETE',
-                        headers: {
-                            'Content-type': 'application/json; charset=UTF-8'
-                        }
-                    });
-                } else {
-                    fetch(`/drivers/${user.id}`, {
-                        method: 'DELETE',
-                        headers: {
-                            'Content-type': 'application/json; charset=UTF-8'
-                        }
-                    });
-                }
+        fetch('/currentUser')
+            // Converting received data to JSON 
+            .then(response => response.json())
+            .then(users => {
+                users.forEach((user) => {
+                    if (user.isPatient) {
+                        fetch(`/patients/${user.id}`, {
+                            method: 'DELETE',
+                            headers: {
+                                'Content-type': 'application/json; charset=UTF-8'
+                            }
+                        });
+                    } else {
+                        fetch(`/drivers/${user.id}`, {
+                            method: 'DELETE',
+                            headers: {
+                                'Content-type': 'application/json; charset=UTF-8'
+                            }
+                        });
+                    }
 
+                });
             });
-        });
 
-})
+    });
+
+}
+deleteUser();
