@@ -157,7 +157,7 @@ app.get('/currentUser'), async (req, res) => {
 app.post('/patients', async (req, res) => {
     const data = req.body;
     console.log(data);
-    await connectAndRun(db => db.none("INSERT INTO patient(first_name, last_name, phone, email, age, emergency_phone, home_address, pickup, password) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);", [data.first_name, data.last_name, data.phone, data.email, data.age, data.emergency_phone, data.home_address, data.pickup, miniCrypt.hash(data.password).join(",")]));
+    await connectAndRun(db => db.none("INSERT INTO patient(first_name, last_name, phone, email, age, emergency_phone, home_address, pickup, password, current_status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);", [data.first_name, data.last_name, data.phone, data.email, data.age, data.emergency_phone, data.home_address, data.pickup, miniCrypt.hash(data.password).join(","), data.current_status]));
     res.send({
         'message': 'success'
     });
