@@ -96,61 +96,61 @@ initCards();
 
 
 function getPatientId() {
-  let patientIds = []
-  let mainDiv = document.getElementById("container");
+    const patientIds = [];
+    const mainDiv = document.getElementById('container');
 
     //Reference all the CheckBoxes.
-    let buttons = mainDiv.getElementsByTagName("a");
+    const buttons = mainDiv.getElementsByTagName('a');
 
     // Loop and push the checked CheckBox value in Array.
     for (let i = 0; i < buttons.length; i++) {
-          patientIds.push(parseInt(buttons[i].id));
-          //selected.push(returnVal);
+        patientIds.push(parseInt(buttons[i].id));
+        //selected.push(returnVal);
     }
     return patientIds;
 }
 
 function getDriverId() {
-  let id;
-  fetch('/currentUser')
+    let id;
+    fetch('/currentUser')
     // Converting received data to JSON 
         .then(response => response.json())
         .then(users => {
             users.forEach((user) => {
                 if(user['isPatient'] === false) {
-                  id = user.id;
+                    id = user.id;
                 }
                 else {
-                  id = 0;
+                    id = 0;
                 }
             });
         });
-  return parseInt(id);
+    return parseInt(id);
 }
 
 function selectPatients() {
-  let patientIds = getPatientId();
-  patientIds.forEach((id) => {
-    document.getElementById(id.toString()).addEventListener('click', () => {
-      const driver_id = getDriverId();
-      if (driver_id === 0) {
-        alert("Only Drivers can select Patients");
-      }
-      else {
-        fetch(`/patients/${id}`, {
-          method: 'PUT',
-          body: JSON.stringify({
-              "driver_id": driver_id,
-              "current_status": "Selected"
-          }),
-          headers: {
-              'Content-type': 'application/json; charset=UTF-8'
-          }
-      });
-      alert("Patient has been selected")
+    const patientIds = getPatientId();
+    patientIds.forEach((id) => {
+        document.getElementById(id.toString()).addEventListener('click', () => {
+            const driver_id = getDriverId();
+            if (driver_id === 0) {
+                alert('Only Drivers can select Patients');
+            }
+            else {
+                fetch(`/patients/${id}`, {
+                    method: 'PUT',
+                    body: JSON.stringify({
+                        'driver_id': driver_id,
+                        'current_status': 'Selected'
+                    }),
+                    headers: {
+                        'Content-type': 'application/json; charset=UTF-8'
+                    }
+                });
+                alert('Patient has been selected');
 
-      }
-    })
-  });
+            }
+        });
+    });
 }
 selectPatients();

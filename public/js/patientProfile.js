@@ -22,7 +22,7 @@ window.addEventListener('load', async function () {
                 email: email,
                 pickup: pickUpLocation,
                 password: password,
-                current_status: "Not Selected"
+                current_status: 'Not Selected'
             }),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8'

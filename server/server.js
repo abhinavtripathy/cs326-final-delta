@@ -23,8 +23,8 @@ const pgp = pgPromise({
 });
 
 // Local PostgreSQL credentials
-const username = "postgres";
-const password = "postgres";
+const username = 'postgres';
+const password = 'postgres';
 
 const url = process.env.DATABASE_URL || `postgres://${username}:${password}@localhost/`;
 const db = pgp(url);
@@ -50,45 +50,45 @@ async function connectAndRun(task) {
 // Table initialization
 
 (async () => {
-  await connectAndRun(db => db.none('create table if not exists driver (id serial primary key,password varchar (255),first_name varchar(255),last_name varchar (255),age integer,phone varchar (20),email varchar (255),car_make varchar (255),car_type varchar(255),car_model varchar (255),car_color varchar (255),car_plate varchar (255),verified boolean);'));
+    await connectAndRun(db => db.none('create table if not exists driver (id serial primary key,password varchar (255),first_name varchar(255),last_name varchar (255),age integer,phone varchar (20),email varchar (255),car_make varchar (255),car_type varchar(255),car_model varchar (255),car_color varchar (255),car_plate varchar (255),verified boolean);'));
 
-await connectAndRun(db => db.none('create table if not exists patient (id serial primary key,password varchar (255),first_name varchar(255),last_name varchar (255),age integer,phone varchar (20),email varchar (255),emergency_phone varchar (20),home_address varchar (255),pickup varchar (255),driver_id integer,current_status varchar (30),foreign key (driver_id) references driver(id));'));
+    await connectAndRun(db => db.none('create table if not exists patient (id serial primary key,password varchar (255),first_name varchar(255),last_name varchar (255),age integer,phone varchar (20),email varchar (255),emergency_phone varchar (20),home_address varchar (255),pickup varchar (255),driver_id integer,current_status varchar (30),foreign key (driver_id) references driver(id));'));
 
-await connectAndRun(db => db.none('create table if not exists hospital (id serial primary key,name varchar(255),driver_id int,foreign key (driver_id) references driver(id));'));
+    await connectAndRun(db => db.none('create table if not exists hospital (id serial primary key,name varchar(255),driver_id int,foreign key (driver_id) references driver(id));'));
 })();
 
 // Passport Setup
 const LocalStrat = passportLocal.Strategy;
 const session = (() => {
-  if(!process.env.SECRET) {
-    throw 'The SECRET environment variable is not set in Heroku';
-  }
-  return {
-    secret: process.env.SECRET,
-    resave: false,
-    saveUninitialized: false
-  };
+    if(!process.env.SECRET) {
+        throw 'The SECRET environment variable is not set in Heroku';
+    }
+    return {
+        secret: process.env.SECRET,
+        resave: false,
+        saveUninitialized: false
+    };
 })();
 
 const getSaltHashOf = async (email, isPatient) => {
     try {
-      const passwordString = await connectAndRun(db => db.one('SELECT password FROM $1:alias WHERE email = $2', [isPatient ? 'patient' : 'driver', email]));
-      return passwordString.password.split(","); // returns an array with element 0 as the the salt and element 1 as the hash
+        const passwordString = await connectAndRun(db => db.one('SELECT password FROM $1:alias WHERE email = $2', [isPatient ? 'patient' : 'driver', email]));
+        return passwordString.password.split(','); // returns an array with element 0 as the the salt and element 1 as the hash
     } catch(e) {
-      return undefined;
+        return undefined;
     }
-  };
+};
 
-const strategy = new LocalStrat({usernameField: "email", passwordField: "password"},
+const strategy = new LocalStrat({usernameField: 'email', passwordField: 'password'},
     async (email, pass, done) => {
-    if (await getSaltHashOf(email, true) === undefined && await getSaltHashOf(email, false) === undefined) {
+        if (await getSaltHashOf(email, true) === undefined && await getSaltHashOf(email, false) === undefined) {
 	    return done(null, false, { 'message' : 'No user with that email exists' });
-    }
-	if (!(await checkPass(email, pass))) {
+        }
+        if (!(await checkPass(email, pass))) {
 	    await new Promise((r) => setTimeout(r, 2000)); // This does not stop parallel requests from being sent. A more secure method might be an account-wide retry counter but this implementation was not covered in the scope of the class
 	    return done(null, false, { 'message' : 'Incorrect password' });
-	}
-	return done(null, email);
+        }
+        return done(null, email);
     });
     
 const mustBeDriver = async (req, res, next) => req.isAuthenticated() && !(await userInfo(req.user)).isPatient ? next() : res.redirect('/mustBeDriver.html');
@@ -98,32 +98,32 @@ const mustBePatient = async (req, res, next) => req.isAuthenticated() && await u
 const userExists = async email => await getSaltHashOf(email, false) !== undefined || await getSaltHashOf(email, true) !== undefined;
 
 const userInfo = async email => {
-  if(!(await userExists(email))) {
-    return undefined;
-  }
-  const isPatient = await getSaltHashOf(email, true) !== undefined;
-  const saltHash = await getSaltHashOf(email, isPatient);
-  return {
-    salt: saltHash[0],
-    hash: saltHash[1],
-    isPatient: isPatient
-  };
-}
+    if(!(await userExists(email))) {
+        return undefined;
+    }
+    const isPatient = await getSaltHashOf(email, true) !== undefined;
+    const saltHash = await getSaltHashOf(email, isPatient);
+    return {
+        salt: saltHash[0],
+        hash: saltHash[1],
+        isPatient: isPatient
+    };
+};
 
 const checkPass = async (email, pass) => {
-  const credInfo = await userInfo(email);
-  if(credInfo === undefined) {
-    return false;
-  }
-  return miniCrypt.check(pass, credInfo.salt, credInfo.hash);
+    const credInfo = await userInfo(email);
+    if(credInfo === undefined) {
+        return false;
+    }
+    return miniCrypt.check(pass, credInfo.salt, credInfo.hash);
 };
 
 passp.serializeUser((usr, done) => {
-  done(null, usr);
+    done(null, usr);
 });
 
 passp.deserializeUser((usr, done) => {
-  done(null, usr);
+    done(null, usr);
 });
     
 app.use(expressSession(session));
@@ -133,8 +133,8 @@ app.use(passp.session());
 app.use(express.urlencoded({'extended' : true}));
 
 app.get('/logout', (req, res) => {
-  req.logout();
-  res.redirect('/login.html');
+    req.logout();
+    res.redirect('/login.html');
 });
 
 app.post('/login', passp.authenticate('local', { 'successRedirect': '/', 'failureRedirect': '/login.html' }));
@@ -144,7 +144,7 @@ app.post('/login', passp.authenticate('local', { 'successRedirect': '/', 'failur
 // Get Current User 
 app.get('/currentUser'), async (req, res) => {
     const patientBool = await userInfo(req.user).isPatient;
-    const id = await connectAndRun(db => db.one('SELECT id FROM $1:alias WHERE email = $2', [isPatient ? 'patient' : 'driver', email]));
+    const id = await connectAndRun(db => db.one('SELECT id FROM $1:alias WHERE email = $2', [patientBool ? 'patient' : 'driver', req.user]));
     res.send(JSON.stringify([{
         'isPatient': patientBool,
         'id': id
@@ -157,7 +157,7 @@ app.get('/currentUser'), async (req, res) => {
 app.post('/patients', async (req, res) => {
     const data = req.body;
     console.log(data);
-    await connectAndRun(db => db.none("INSERT INTO patient(first_name, last_name, phone, email, age, emergency_phone, home_address, pickup, password, current_status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);", [data.first_name, data.last_name, data.phone, data.email, data.age, data.emergency_phone, data.home_address, data.pickup, miniCrypt.hash(data.password).join(","), data.current_status]));
+    await connectAndRun(db => db.none('INSERT INTO patient(first_name, last_name, phone, email, age, emergency_phone, home_address, pickup, password, current_status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);', [data.first_name, data.last_name, data.phone, data.email, data.age, data.emergency_phone, data.home_address, data.pickup, miniCrypt.hash(data.password).join(','), data.current_status]));
     res.send({
         'message': 'success'
     });
@@ -165,20 +165,20 @@ app.post('/patients', async (req, res) => {
 
 // GET All Patients 
 app.get('/patients', mustBeDriver, async (req, res) => {
-    const patients = await connectAndRun(db => db.any("SELECT * FROM patient;"));
+    const patients = await connectAndRun(db => db.any('SELECT * FROM patient;'));
     res.send(JSON.stringify(patients));
 });
 
 // GET Patients 
 app.get('/patients/:id', async (req, res) => {
-    const patients = await connectAndRun(db => db.any("SELECT * FROM patient where id = $1;", [parseInt(req.params.id)]));
+    const patients = await connectAndRun(db => db.any('SELECT * FROM patient where id = $1;', [parseInt(req.params.id)]));
     res.send(JSON.stringify(patients));
 });
 
 // PUT Patients 
 app.put('/patients/:id', mustBePatient, async (req, res) => {
     const data = req.body;
-    await connectAndRun(db => db.none("update patient set first_name = $1, last_name = $2, phone = $3, email = $4, age = $5, emergency_phone = $6, home_address = $7, pickup = $8, password = $9, driver_id = $10, current_status = $11 where id = $12", [data.first_name, data.last_name, data.phone, data.email, data.age, data.emergency_phone, data.home_address, data.pickup, miniCrypt.hash(data.password).join(","), data.driver_id, data.current_status, parseInt(req.params.id)]));
+    await connectAndRun(db => db.none('update patient set first_name = $1, last_name = $2, phone = $3, email = $4, age = $5, emergency_phone = $6, home_address = $7, pickup = $8, password = $9, driver_id = $10, current_status = $11 where id = $12', [data.first_name, data.last_name, data.phone, data.email, data.age, data.emergency_phone, data.home_address, data.pickup, miniCrypt.hash(data.password).join(','), data.driver_id, data.current_status, parseInt(req.params.id)]));
     res.send({
         'message': 'success'
     });
@@ -186,7 +186,7 @@ app.put('/patients/:id', mustBePatient, async (req, res) => {
 
 // DELETE Patients 
 app.delete('/patients/:id', mustBePatient, async (req, res) => {
-    await connectAndRun(db => db.none("delete from patient where id = $1", [parseInt(req.params.id)]));
+    await connectAndRun(db => db.none('delete from patient where id = $1', [parseInt(req.params.id)]));
     res.send({
         'message': 'success'
     });
@@ -198,7 +198,7 @@ app.delete('/patients/:id', mustBePatient, async (req, res) => {
 app.post('/drivers', async (req, res) => {
     const data = req.body;
     console.log(data);
-    await connectAndRun(db => db.none("INSERT INTO driver(first_name, last_name, phone, email, age, car_make, car_model, car_color, car_plate, password, car_type) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);", [data.first_name, data.last_name, data.phone, data.email, data.age, data.car_make, data.car_model, data.car_color, data.car_plate, miniCrypt.hash(data.password).join(","), data.car_type]));
+    await connectAndRun(db => db.none('INSERT INTO driver(first_name, last_name, phone, email, age, car_make, car_model, car_color, car_plate, password, car_type) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);', [data.first_name, data.last_name, data.phone, data.email, data.age, data.car_make, data.car_model, data.car_color, data.car_plate, miniCrypt.hash(data.password).join(','), data.car_type]));
     res.send({
         'message': 'success'
     });
@@ -206,20 +206,20 @@ app.post('/drivers', async (req, res) => {
 
 // GET Drivers
 app.get('/drivers/:id', async (req, res) => {
-    const drivers = await connectAndRun(db => db.any("SELECT * FROM driver where id = $1;", [parseInt(req.params.id)]));
+    const drivers = await connectAndRun(db => db.any('SELECT * FROM driver where id = $1;', [parseInt(req.params.id)]));
     res.send(JSON.stringify(drivers));
 });
 
 // Get All Drivers
 app.get('/drivers', async (req, res) => {
-    const drivers = await connectAndRun(db => db.any("SELECT * FROM driver;"));
+    const drivers = await connectAndRun(db => db.any('SELECT * FROM driver;'));
     res.send(JSON.stringify(drivers));
 });
 
 // PUT Drivers
 app.put('/drivers/:id', async (req, res) => {
     const data = req.body;
-    await connectAndRun(db => db.none("update driver set first_name = $1, last_name = $2, phone = $3, email = $4, age = $5, car_make = $6, car_model = $7, car_color = $8, car_plate = $9, password = $10, car_type = $11 where id = $12", [data.first_name, data.last_name, data.phone, data.email, data.age, data.car_make, data.car_model, data.car_color, data.car_plate, miniCrypt.hash(data.password).join(","), data.car_type, parseInt(req.params.id)]));
+    await connectAndRun(db => db.none('update driver set first_name = $1, last_name = $2, phone = $3, email = $4, age = $5, car_make = $6, car_model = $7, car_color = $8, car_plate = $9, password = $10, car_type = $11 where id = $12', [data.first_name, data.last_name, data.phone, data.email, data.age, data.car_make, data.car_model, data.car_color, data.car_plate, miniCrypt.hash(data.password).join(','), data.car_type, parseInt(req.params.id)]));
     res.send({
         'message': 'success'
     });
@@ -229,7 +229,7 @@ app.put('/drivers/:id', async (req, res) => {
 // PUT Driver for Verification 
 app.put('/drivers/verify/:id', async (req, res) => {
     const data = req.body;
-    await connectAndRun(db => db.none("update driver set verified = $1 where id = $2", [data.verified, parseInt(req.params.id)]));
+    await connectAndRun(db => db.none('update driver set verified = $1 where id = $2', [data.verified, parseInt(req.params.id)]));
     res.send({
         'message': 'success'
     });
@@ -237,7 +237,7 @@ app.put('/drivers/verify/:id', async (req, res) => {
 
 // DELETE Drivers
 app.delete('/drivers/:id', async (req, res) => {
-    await connectAndRun(db => db.none("delete from driver where id = $1", [parseInt(req.params.id)]));
+    await connectAndRun(db => db.none('delete from driver where id = $1', [parseInt(req.params.id)]));
     res.send({
         'message': 'success'
     });
@@ -248,7 +248,7 @@ app.delete('/drivers/:id', async (req, res) => {
 // PUT Hospitals
 app.put('/hospitals/:id', async (req, res) => {
     const data = req.body;
-    await connectAndRun(db => db.none("update hospital set name = $1 where id = $2", [data.name, parseInt(req.params.id)]));
+    await connectAndRun(db => db.none('update hospital set name = $1 where id = $2', [data.name, parseInt(req.params.id)]));
     res.send({
         'message': 'success'
     });
