@@ -178,7 +178,7 @@ app.get('/patients/:id', async (req, res) => {
 // PUT Patients 
 app.put('/patients/:id', mustBePatient, async (req, res) => {
     const data = req.body;
-    await connectAndRun(db => db.none("update patient set first_name = $1, last_name = $2, phone = $3, email = $4, age = $5, emergency_phone = $6, home_address = $7, pickup = $8, password = $9 where id = $10", [data.first_name, data.last_name, data.phone, data.email, data.age, data.emergency_phone, data.home_address, data.pickup, miniCrypt.hash(data.password).join(","), parseInt(req.params.id)]));
+    await connectAndRun(db => db.none("update patient set first_name = $1, last_name = $2, phone = $3, email = $4, age = $5, emergency_phone = $6, home_address = $7, pickup = $8, password = $9, driver_id = $10 where id = $11", [data.first_name, data.last_name, data.phone, data.email, data.age, data.emergency_phone, data.home_address, data.pickup, miniCrypt.hash(data.password).join(","), data.driver_id, parseInt(req.params.id)]));
     res.send({
         'message': 'success'
     });
