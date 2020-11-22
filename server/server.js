@@ -145,10 +145,10 @@ app.post('/login', passp.authenticate('local', { 'successRedirect': '/', 'failur
 app.get('/currentUser'), async (req, res) => {
     const patientBool = await userInfo(req.user).isPatient;
     const id = await connectAndRun(db => db.one('SELECT id FROM $1:alias WHERE email = $2', [isPatient ? 'patient' : 'driver', email]));
-    res.send([{
+    res.send(JSON.stringify([{
         'isPatient': patientBool,
         'id': id
-    }]);
+    }]));
 
 };
 
