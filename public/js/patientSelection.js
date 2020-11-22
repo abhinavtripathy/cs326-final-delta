@@ -117,7 +117,7 @@ function getDriverId() {
         .then(users => {
             users.forEach((user) => {
                 if(user['isPatient'] === false) {
-                  id = user['id'];
+                  id = user.id;
                 }
                 else {
                   id = 0;

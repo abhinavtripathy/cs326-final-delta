@@ -24,7 +24,7 @@ const pgp = pgPromise({
 
 // Local PostgreSQL credentials
 const username = "postgres";
-const password = "postgres";
+const password = "admin";
 
 const url = process.env.DATABASE_URL || `postgres://${username}:${password}@localhost/`;
 const db = pgp(url);
