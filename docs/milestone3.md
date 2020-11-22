@@ -58,7 +58,7 @@ create table hospital (
 
 ## Contributions:
 
-1. 
+1. Abhinav Tripathy: Wrote all the API endpoints for handling data from the server and database for all the CRUD operations. Wrote all the queries for all the endpoints. Designed all the 3 SQL table schemas to allow for a relational database. Managed deployment issues with heroku specifically with the database. Helped debug client side errors in JavaScript. Added instructions on setup.md to setup a local instance of the repo. 
 
 2. Aditya Narayanan: Wrote and handled all the client side logic. The implementation first includes functionality for when a driver selects a patient. Second, when a user wants to view their profile, it will show differently according to their user role, that is driver or patient. Created profile view page using HTML, CSS, JS and Bootstrap. Wrote the logic for driver verification from the hospital Admin page. Customized navbar for each page to show important redirects from that particular page. Utilized endpoints from the server to achieve GET, POST, PUT and DELETE requests. Implemented a feature to show current status of a patient on their card which updates when a driver selects them. 
 
