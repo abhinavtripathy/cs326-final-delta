@@ -157,7 +157,7 @@ app.get('/currentUser'), async (req, res) => {
 app.post('/patients', async (req, res) => {
     const data = req.body;
     console.log(data);
-    await connectAndRun(db => db.none("INSERT INTO patient(first_name, last_name, phone, email, age, emergency_phone, home_address, pickup, password) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);", [data.first_name, data.last_name, data.phone, data.email, data.age, data.emergency_phone, data.home_address, data.pickup, miniCrypt.hash(data.password).join(",")]));
+    await connectAndRun(db => db.none("INSERT INTO patient(first_name, last_name, phone, email, age, emergency_phone, home_address, pickup, password, current_status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);", [data.first_name, data.last_name, data.phone, data.email, data.age, data.emergency_phone, data.home_address, data.pickup, miniCrypt.hash(data.password).join(","), data.current_status]));
     res.send({
         'message': 'success'
     });
@@ -178,7 +178,7 @@ app.get('/patients/:id', async (req, res) => {
 // PUT Patients 
 app.put('/patients/:id', mustBePatient, async (req, res) => {
     const data = req.body;
-    await connectAndRun(db => db.none("update patient set first_name = $1, last_name = $2, phone = $3, email = $4, age = $5, emergency_phone = $6, home_address = $7, pickup = $8, password = $9 where id = $10", [data.first_name, data.last_name, data.phone, data.email, data.age, data.emergency_phone, data.home_address, data.pickup, miniCrypt.hash(data.password).join(","), parseInt(req.params.id)]));
+    await connectAndRun(db => db.none("update patient set first_name = $1, last_name = $2, phone = $3, email = $4, age = $5, emergency_phone = $6, home_address = $7, pickup = $8, password = $9, driver_id = $10, current_status = $11 where id = $12", [data.first_name, data.last_name, data.phone, data.email, data.age, data.emergency_phone, data.home_address, data.pickup, miniCrypt.hash(data.password).join(","), data.driver_id, data.current_status, parseInt(req.params.id)]));
     res.send({
         'message': 'success'
     });

@@ -21,7 +21,8 @@ window.addEventListener('load', async function () {
                 home_address: address,
                 email: email,
                 pickup: pickUpLocation,
-                password: password
+                password: password,
+                current_status: "Not Selected"
             }),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8'
