@@ -3,7 +3,7 @@
  * If driver is viewing profile, add details like car details to existing data.
  */
 
- // Function to create HTML elements for this page
+// Function to create HTML elements for this page
 function createHTMLElements(row_name, col_name, label_name, p_id, para) {
     const home = document.getElementById("home");
     const row = document.createElement("div");
@@ -75,3 +75,31 @@ function showPatientOrDriver() {
         });
 }
 showPatientOrDriver();
+
+document.getElementById("delete-profile").addEventListener('click', () => {
+
+    fetch('/currentUser')
+        // Converting received data to JSON 
+        .then(response => response.json())
+        .then(users => {
+            users.forEach((user) => {
+                if (user.isPatient) {
+                    fetch(`/patients/${user.id}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-type': 'application/json; charset=UTF-8'
+                        }
+                    });
+                } else {
+                    fetch(`/drivers/${user.id}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-type': 'application/json; charset=UTF-8'
+                        }
+                    });
+                }
+
+            });
+        });
+
+})
