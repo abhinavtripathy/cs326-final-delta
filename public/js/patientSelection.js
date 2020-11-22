@@ -57,6 +57,7 @@ function patientCard(patient) {
 <li>Phone: ${patient.phone}</li>
 <li>Emergency Number: ${patient.emergency_phone}</li>
 <li>Pick Up: ${patient.pickup}</li>
+<li>Current Status: ${patient.current_status}</li>
 </ul>`;
     text.className = 'card-text';
 
@@ -139,12 +140,15 @@ function selectPatients() {
         fetch(`/patients/${id}`, {
           method: 'PUT',
           body: JSON.stringify({
-              "driver_id": driver_id
+              "driver_id": driver_id,
+              "current_status": "Selected"
           }),
           headers: {
               'Content-type': 'application/json; charset=UTF-8'
           }
       });
+      alert("Patient has been selected")
+
       }
     })
   });
