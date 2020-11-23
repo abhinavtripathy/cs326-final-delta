@@ -24,7 +24,7 @@ const pgp = pgPromise({
 
 // Local PostgreSQL credentials
 const username = 'postgres';
-const password = 'postgres';
+const password = 'admin';
 
 const url = process.env.DATABASE_URL || `postgres://${username}:${password}@localhost/`;
 const db = pgp(url);
@@ -142,15 +142,14 @@ app.post('/login', passp.authenticate('local', { 'successRedirect': '/', 'failur
 // API Endpoints
 
 // Get Current User 
-app.get('/currentUser'), async (req, res) => {
+app.get('/currentUser', async (req, res) => {
     const patientBool = await userInfo(req.user).isPatient;
     const id = await connectAndRun(db => db.one('SELECT id FROM $1:alias WHERE email = $2', [patientBool ? 'patient' : 'driver', req.user]));
     res.send(JSON.stringify([{
         'isPatient': patientBool,
         'id': id
     }]));
-
-};
+});
 
 
 // POST Patients 
@@ -176,9 +175,18 @@ app.get('/patients/:id', async (req, res) => {
 });
 
 // PUT Patients 
-app.put('/patients/:id', mustBePatient, async (req, res) => {
+app.put('/patients/:id', async (req, res) => {
     const data = req.body;
     await connectAndRun(db => db.none('update patient set first_name = $1, last_name = $2, phone = $3, email = $4, age = $5, emergency_phone = $6, home_address = $7, pickup = $8, password = $9, driver_id = $10, current_status = $11 where id = $12', [data.first_name, data.last_name, data.phone, data.email, data.age, data.emergency_phone, data.home_address, data.pickup, miniCrypt.hash(data.password).join(','), data.driver_id, data.current_status, parseInt(req.params.id)]));
+    res.send({
+        'message': 'success'
+    });
+});
+
+// PUT Patients - update status
+app.put('/patients/status/:id', async (req, res) => {
+    const data = req.body;
+    await connectAndRun(db => db.none('update patient set driver_id = $1, current_status = $2 where id = $3', [data.driver_id, data.current_status, parseInt(req.params.id)]));
     res.send({
         'message': 'success'
     });
@@ -236,7 +244,7 @@ app.put('/drivers/verify/:id', async (req, res) => {
 });
 
 // DELETE Drivers
-app.delete('/drivers/:id', async (req, res) => {
+app.delete('/drivers/:id', mustBeDriver, async (req, res) => {
     await connectAndRun(db => db.none('delete from driver where id = $1', [parseInt(req.params.id)]));
     res.send({
         'message': 'success'
