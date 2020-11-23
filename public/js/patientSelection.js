@@ -1,36 +1,3 @@
-/*
-const patients = [{
-    name: {
-      first: "John",
-      last: "Doe"
-    },
-    age: 29,
-    phone: 1234567890,
-    emergency: 1234098765,
-    email: "john@example.com",
-    address: "1600 Pennsylvania Avenue",
-    pickup: "Door C",
-    driver: 93205912492513350566463886604965037953,
-    status: "waiting"
-  },
-  {
-    name: {
-      first: "Jane",
-      last: "Doe"
-    },
-    age: 27,
-    phone: 1234567890,
-    emergency: 1234098765,
-    email: "jane@example.com",
-    address: "1600 Pennsylvania Avenue",
-    pickup: "Door C",
-    driver: 93205912492513350566463886604965037953,
-    status: "confirmed"
-  }
-  
-];
-*/
-
 let container;
 const row = document.createElement('div');
 row.className = 'row';
@@ -61,7 +28,7 @@ function patientCard(patient) {
 </ul>`;
     text.className = 'card-text';
 
-    const select = document.createElement('a');
+    const select = document.createElement('button');
     select.className = 'btn btn-primary';
     select.innerText = 'Select Patient';
     select.id = patient.id;
@@ -72,7 +39,7 @@ function patientCard(patient) {
     cardBody.appendChild(select);
     card.appendChild(cardBody);
     row.appendChild(card);
-    
+
 }
 
 function initCards() {
@@ -94,50 +61,45 @@ function initCards() {
 }
 initCards();
 
+window.addEventListener('load', async () => {
 
-function getPatientId() {
-    const patientIds = [];
-    const mainDiv = document.getElementById('container');
-
-    //Reference all the CheckBoxes.
-    const buttons = mainDiv.getElementsByTagName('a');
-
-    // Loop and push the checked CheckBox value in Array.
-    for (let i = 0; i < buttons.length; i++) {
-        patientIds.push(parseInt(buttons[i].id));
-        //selected.push(returnVal);
+    async function getPatients() {
+        const patientIds = [];
+        const response = await fetch('/patients');
+        if(response.ok) {
+            const patients = await response.json();
+            patients.forEach((patient) => {
+                patientIds.push(patient.id);
+            });
+        }
+        console.log(patientIds);
+        return patientIds;
     }
-    return patientIds;
-}
 
-function getDriverId() {
-    let id;
-    fetch('/currentUser')
-    // Converting received data to JSON 
-        .then(response => response.json())
-        .then(users => {
+    async function getDrivers() {
+        let id;
+        const response = await fetch('/currentUser');
+        if(response.ok) {
+            const users = await response.json();
             users.forEach((user) => {
-                if(user['isPatient'] === false) {
-                    id = user.id;
+                if(user.isPatient) {
+                    id=0;
                 }
                 else {
-                    id = 0;
+                    id = user.id;
                 }
             });
-        });
-    return parseInt(id);
-}
+        }
+        return parseInt(id.id);
+    }
 
-function selectPatients() {
-    const patientIds = getPatientId();
-    patientIds.forEach((id) => {
-        document.getElementById(id.toString()).addEventListener('click', () => {
-            const driver_id = getDriverId();
-            if (driver_id === 0) {
-                alert('Only Drivers can select Patients');
-            }
-            else {
-                fetch(`/patients/${id}`, {
+    async function selectPatients() {
+        const patientIds = await getPatients();
+        console.log(patientIds);
+        patientIds.forEach((id) => {
+            document.getElementById(id.toString()).addEventListener('click', async () => {
+                const driver_id = await getDrivers();
+                const putDriver = await fetch(`/patients/status/${id}`, {
                     method: 'PUT',
                     body: JSON.stringify({
                         'driver_id': driver_id,
@@ -147,10 +109,14 @@ function selectPatients() {
                         'Content-type': 'application/json; charset=UTF-8'
                     }
                 });
-                alert('Patient has been selected');
-
-            }
+                if(putDriver.ok) {
+                    alert('Patient has been selected');
+                } else {
+                    alert('Error selecting patient.');
+                }
+                
+            });
         });
-    });
-}
-selectPatients();
+    }
+    await selectPatients();
+});
