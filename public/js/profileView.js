@@ -35,9 +35,7 @@ window.addEventListener('load', async () => {
             const currUser = await response.json();
             console.log(currUser);
             currUser.forEach(async (user) => {
-                console.log(user.id.id);
-                if (user.isPatient === true) {
-                    
+                if (user.isPatient === true) { // check this line, isParient not showing up
                     const response1 = await fetch(`/patients/${user.id.id}`);
                     // Converting received data to JSON 
                     if(response1.ok) {
@@ -57,7 +55,6 @@ window.addEventListener('load', async () => {
                     }
                 } // end of if user is patient
                 else {
-                    console.log(user);
                     const response2 = await fetch(`/drivers/${user.id.id}`);
                     // Converting received data to JSON 
                     if(response2.ok) {
@@ -92,7 +89,7 @@ window.addEventListener('load', async () => {
             if(response.ok) {
                 const users = await response.json();
                 users.forEach(async (user) => {
-                    if (user.isPatient) {
+                    if (user.isPatient) { //check this
                         const deletePatient = await fetch(`/patients/${user.id.id}`, {
                             method: 'DELETE',
                             headers: {

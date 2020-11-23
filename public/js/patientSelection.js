@@ -90,27 +90,8 @@ window.addEventListener('load', async () => {
                 }
             });
         }
-        console.log(id.id);
         return parseInt(id.id);
     }
-
-    // function getDriverId() {
-    //     let id;
-    //     fetch('/currentUser')
-    //     // Converting received data to JSON 
-    //         .then(response => response.json())
-    //         .then(users => {
-    //             users.forEach((user) => {
-    //                 if (user.isPatient === false) {
-    //                     id = user.id;
-    //                 } else {
-    //                     id = 0;
-    //                 }
-    //             });
-    //         });
-    //     return parseInt(id);
-    // }
-    // console.log(getDriverId());
 
     async function selectPatients() {
         const patientIds = await getPatients();
@@ -118,9 +99,6 @@ window.addEventListener('load', async () => {
         patientIds.forEach((id) => {
             document.getElementById(id.toString()).addEventListener('click', async () => {
                 const driver_id = await getDrivers();
-                console.log(driver_id);
-                console.log(id);
-                
                 const putDriver = await fetch(`/patients/status/${id}`, {
                     method: 'PUT',
                     body: JSON.stringify({

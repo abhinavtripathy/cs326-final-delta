@@ -24,7 +24,7 @@ const pgp = pgPromise({
 
 // Local PostgreSQL credentials
 const username = 'postgres';
-const password = 'admin';
+const password = 'postgres';
 
 const url = process.env.DATABASE_URL || `postgres://${username}:${password}@localhost/`;
 const db = pgp(url);
@@ -137,7 +137,7 @@ app.get('/logout', (req, res) => {
     res.redirect('/login.html');
 });
 
-app.post('/login', passp.authenticate('local', { 'successRedirect': '/', 'failureRedirect': '/login.html' }));
+app.post('/login', passp.authenticate('local', { 'successRedirect': '/patientView.html', 'failureRedirect': '/login.html' }));
 
 // API Endpoints
 
