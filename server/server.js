@@ -137,7 +137,7 @@ app.get('/logout', (req, res) => {
     res.redirect('/login.html');
 });
 
-app.post('/login', passp.authenticate('local', { 'successRedirect': '/patientView.html', 'failureRedirect': '/login.html' }));
+app.post('/login', passp.authenticate('local', { 'successRedirect': '/profileView.html', 'failureRedirect': '/login.html' }));
 
 // API Endpoints
 
