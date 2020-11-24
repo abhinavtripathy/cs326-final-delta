@@ -32,6 +32,7 @@ function patientCard(patient) {
     select.className = 'btn btn-primary';
     select.innerText = 'Select Patient';
     select.id = patient.id;
+    select.type = 'submit';
 
     cardBody.appendChild(img);
     cardBody.appendChild(title);
