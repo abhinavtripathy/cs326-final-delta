@@ -24,7 +24,7 @@ const pgp = pgPromise({
 
 // Local PostgreSQL credentials
 const username = 'postgres';
-const password = 'postgres';
+const password = 'admin';
 
 const url = process.env.DATABASE_URL || `postgres://${username}:${password}@localhost/`;
 const db = pgp(url);
@@ -263,7 +263,11 @@ app.delete('/drivers/:id', mustBeDriver, async (req, res) => {
     });
 });
 
-
+// GET Patient Info for the current driver
+app.get('/drivers/pickup/:id', async (req, res) => {
+    const patients = await connectAndRun(db => db.any('SELECT first_name, last_name, pickup  FROM patient where driver_id = $1;', [parseInt(req.params.id)]));
+    res.send(JSON.stringify(patients));
+});
 
 // PUT Hospitals
 app.put('/hospitals/:id', async (req, res) => {

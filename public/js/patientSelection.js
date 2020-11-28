@@ -42,27 +42,24 @@ function patientCard(patient) {
     row.appendChild(card);
 
 }
+window.addEventListener('load', async () => {
+    async function initCards() {
+        if (container) {
+            document.getElementById('container').replaceWith(container);
+            return;
+        }
 
-function initCards() {
-    if (container) {
-        document.getElementById('container').replaceWith(container);
-        return;
-    }
-
-    container = document.getElementById('container');
-    fetch('/patients')
-    // Converting received data to JSON 
-        .then(response => response.json())
-        .then(patients => {
+        container = document.getElementById('container');
+        const resp = await fetch('/patients');
+        if(resp.ok) {
+            const patients = await resp.json();
             patients.forEach((patient) => {
                 patientCard(patient);
             });
-        });
-    container.appendChild(row);
-}
-initCards();
-
-window.addEventListener('load', async () => {
+        }
+        container.appendChild(row);
+    }
+    await initCards();
 
     async function getPatients() {
         const patientIds = [];
@@ -119,5 +116,5 @@ window.addEventListener('load', async () => {
         });
     }
     await selectPatients();
-    initCards();
+    await initCards();
 });
