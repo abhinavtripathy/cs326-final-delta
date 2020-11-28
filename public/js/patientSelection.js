@@ -118,3 +118,11 @@ window.addEventListener('load', async () => {
     await selectPatients();
     await initCards();
 });
+
+
+function process(response) {
+  if(response.redirected) {
+    window.location.replace(response.url);
+  }
+  return response;
+}
