@@ -96,7 +96,6 @@ window.addEventListener('load', async () => {
 
     async function selectPatients() {
         const patientIds = await getPatients();
-        console.log(patientIds);
         patientIds.forEach((id) => {
             document.getElementById(id.toString()).addEventListener('click', async () => {
                 const driver_id = await getDrivers();

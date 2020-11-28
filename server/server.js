@@ -143,7 +143,19 @@ app.post('/login', passp.authenticate('local', { 'successRedirect': '/profileVie
 
 // Get Current User 
 app.get('/currentUser', async (req, res) => {
-    const patientBool = await userInfo(req.user).isPatient;
+    let patientBool;
+    try {
+        await connectAndRun(db => db.one('SELECT id FROM $1:alias WHERE email = $2', ['patient', req.user]));
+        patientBool = true;
+    }
+    catch(err) {
+    }
+    try {
+        await connectAndRun(db => db.one('SELECT id FROM $1:alias WHERE email = $2', ['driver', req.user]));
+        patientBool = false;
+    }
+    catch(err) {
+    }
     const id = await connectAndRun(db => db.one('SELECT id FROM $1:alias WHERE email = $2', [patientBool ? 'patient' : 'driver', req.user]));
     res.send(JSON.stringify([{
         'isPatient': patientBool,
