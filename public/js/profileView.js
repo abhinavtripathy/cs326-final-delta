@@ -58,7 +58,7 @@ window.addEventListener('load', async () => {
                     // Converting received data to JSON 
                     if(response2.ok) {
                         const drivers = await response2.json();
-                        drivers.forEach((driver) => {
+                        drivers.forEach(async (driver) => {
                             document.getElementById('name').innerHTML = driver.first_name + ' ' + driver.last_name;
                             document.getElementById('user_id').innerHTML = driver.id;
                             document.getElementById('full_name').innerHTML = driver.first_name + ' ' + driver.last_name;
@@ -67,6 +67,14 @@ window.addEventListener('load', async () => {
                             document.getElementById('phone_num').innerHTML = driver.phone;
                             document.getElementById('user_role').innerHTML = 'Driver';
                             document.getElementById('edit-profile').href = 'driverProfile.html';
+                            const resp = await fetch('/drivers/pickup');
+                            if(resp.ok) {
+                                const patientPickups = await resp.json();
+                                patientPickups.forEach((patientPickup) => {
+                                    createHTMLElements('row', 'col-md-6', 'Patient for Pickup', 'patient_ride', (patientPickup.first_name + patientPickup.last_name));
+                                    createHTMLElements('row', 'col-md-6', 'Pickup Address', 'pickup_address', patientPickup.pickup);
+                                });
+                            }
                             createHTMLElements('row', 'col-md-6', 'Car Model', 'car_model', driver.car_model);
                             createHTMLElements('row', 'col-md-6', 'Car Type', 'car_type', driver.car_type);
                             createHTMLElements('row', 'col-md-6', 'Car Make', 'car_make', driver.car_make);
