@@ -36,7 +36,7 @@ window.addEventListener('load', async () => {
             currUser.forEach(async (user) => {
                 if (user.isPatient === true) { // check this line, isParient not showing up
                     const response1 = process(await fetch(`/patients/${user.id.id}`));
-                    // Converting received data to JSON 
+                    // Converting received data to JSON
                     if(response1.ok) {
                         const patients = await response1.json();
                         patients.forEach((patient) => {
@@ -55,7 +55,7 @@ window.addEventListener('load', async () => {
                 } // end of if user is patient
                 else {
                     const response2 = process(await fetch(`/drivers/${user.id.id}`));
-                    // Converting received data to JSON 
+                    // Converting received data to JSON
                     if(response2.ok) {
                         const drivers = await response2.json();
                         drivers.forEach(async (driver) => {
@@ -92,7 +92,7 @@ window.addEventListener('load', async () => {
         document.getElementById('delete-profile').addEventListener('click', async () => {
 
             const response = process(await fetch('/currentUser'));
-            // Converting received data to JSON 
+            // Converting received data to JSON
             if(response.ok) {
                 const users = await response.json();
                 users.forEach(async (user) => {
@@ -130,3 +130,10 @@ window.addEventListener('load', async () => {
     await deleteUser();
 
 });
+
+function process(response) {
+  if(response.redirected) {
+    window.location.replace(response.url);
+  }
+  return response;
+}
