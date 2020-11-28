@@ -4,6 +4,12 @@
  */
 
 //const { response } = require("express");
+function process(response) {
+  if(response.redirected) {
+    window.location.replace(response.url);
+  }
+  return response;
+}
 
 // Function to create HTML elements for this page
 function createHTMLElements(row_name, col_name, label_name, p_id, para) {
@@ -130,10 +136,3 @@ window.addEventListener('load', async () => {
     await deleteUser();
 
 });
-
-function process(response) {
-  if(response.redirected) {
-    window.location.replace(response.url);
-  }
-  return response;
-}
