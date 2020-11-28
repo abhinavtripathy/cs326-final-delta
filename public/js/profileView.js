@@ -35,6 +35,7 @@ window.addEventListener('load', async () => {
             const currUser = await response.json();
             console.log(currUser);
             currUser.forEach(async (user) => {
+                console.log(user);
                 if (user.isPatient === true) { // check this line, isParient not showing up
                     const response1 = await fetch(`/patients/${user.id.id}`);
                     // Converting received data to JSON 

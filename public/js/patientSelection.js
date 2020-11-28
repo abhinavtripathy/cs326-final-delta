@@ -120,4 +120,5 @@ window.addEventListener('load', async () => {
         });
     }
     await selectPatients();
+    initCards();
 });
