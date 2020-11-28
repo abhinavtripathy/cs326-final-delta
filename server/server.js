@@ -263,7 +263,12 @@ app.delete('/drivers/:id', mustBeDriver, async (req, res) => {
     });
 });
 
-
+// GET Patient Info for the current driver
+app.get('/drivers/pickup', async (req, res) => {
+    const driver_id = await connectAndRun(db => db.one('SELECT id FROM driver WHERE email = $1', [req.user]));
+    const patients = await connectAndRun(db => db.any('SELECT first_name, last_name, pickup  FROM patient where driver_id = $1;', [driver_id]));
+    res.send(JSON.stringify(patients));
+});
 
 // PUT Hospitals
 app.put('/hospitals/:id', async (req, res) => {
