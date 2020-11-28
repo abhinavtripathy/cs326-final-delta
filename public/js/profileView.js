@@ -30,12 +30,12 @@ function createHTMLElements(row_name, col_name, label_name, p_id, para) {
 window.addEventListener('load', async () => {
 
     async function showPatientOrDriver() {
-        const response = await fetch('/currentUser');
+        const response = process(await fetch('/currentUser'));
         if(response.ok) {
             const currUser = await response.json();
             currUser.forEach(async (user) => {
                 if (user.isPatient === true) { // check this line, isParient not showing up
-                    const response1 = await fetch(`/patients/${user.id.id}`);
+                    const response1 = process(await fetch(`/patients/${user.id.id}`));
                     // Converting received data to JSON 
                     if(response1.ok) {
                         const patients = await response1.json();
@@ -54,7 +54,7 @@ window.addEventListener('load', async () => {
                     }
                 } // end of if user is patient
                 else {
-                    const response2 = await fetch(`/drivers/${user.id.id}`);
+                    const response2 = process(await fetch(`/drivers/${user.id.id}`));
                     // Converting received data to JSON 
                     if(response2.ok) {
                         const drivers = await response2.json();
@@ -67,7 +67,7 @@ window.addEventListener('load', async () => {
                             document.getElementById('phone_num').innerHTML = driver.phone;
                             document.getElementById('user_role').innerHTML = 'Driver';
                             document.getElementById('edit-profile').href = 'driverProfile.html';
-                            const resp = await fetch(`/drivers/pickup/${user.id.id}`);
+                            const resp = process(await fetch(`/drivers/pickup/${user.id.id}`));
                             if(resp.ok) {
                                 const patientPickups = await resp.json();
                                 patientPickups.forEach((patientPickup) => {
@@ -91,7 +91,7 @@ window.addEventListener('load', async () => {
     async function deleteUser() {
         document.getElementById('delete-profile').addEventListener('click', async () => {
 
-            const response = await fetch('/currentUser');
+            const response = process(await fetch('/currentUser'));
             // Converting received data to JSON 
             if(response.ok) {
                 const users = await response.json();
