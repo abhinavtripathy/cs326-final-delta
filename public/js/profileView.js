@@ -67,11 +67,11 @@ window.addEventListener('load', async () => {
                             document.getElementById('phone_num').innerHTML = driver.phone;
                             document.getElementById('user_role').innerHTML = 'Driver';
                             document.getElementById('edit-profile').href = 'driverProfile.html';
-                            const resp = await fetch('/drivers/pickup');
+                            const resp = await fetch(`/drivers/pickup/${user.id.id}`);
                             if(resp.ok) {
                                 const patientPickups = await resp.json();
                                 patientPickups.forEach((patientPickup) => {
-                                    createHTMLElements('row', 'col-md-6', 'Patient for Pickup', 'patient_ride', (patientPickup.first_name + patientPickup.last_name));
+                                    createHTMLElements('row', 'col-md-6', 'Patient for Pickup', 'patient_ride', (patientPickup.first_name + ' ' + patientPickup.last_name));
                                     createHTMLElements('row', 'col-md-6', 'Pickup Address', 'pickup_address', patientPickup.pickup);
                                 });
                             }
