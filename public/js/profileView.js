@@ -5,10 +5,10 @@
 
 //const { response } = require("express");
 function process(response) {
-  if(response.redirected) {
-    window.location.replace(response.url);
-  }
-  return response;
+    if(response.redirected) {
+        window.location.replace(response.url);
+    }
+    return response;
 }
 
 // Function to create HTML elements for this page
