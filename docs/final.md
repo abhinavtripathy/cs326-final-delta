@@ -22,6 +22,51 @@ Similarly, once a driver selects a patient, the patient can go to their `View Pr
 
 ### User Interface
 
+#### Home Page
+
+This page is served to users as `index.html` and serves as the page to allow users to naviagte to sign up or login pages.
+![Home Page]()
+
+#### Login Page
+
+This page is served to users as `login.html` and allows users to login to their profile after signing up.
+![Login Page]()
+
+#### Patient Profile Page
+
+This page is served to users as `patientProfile.html` and serves as the page for users to create their patient profile adding data such as name, phone number, emergency number, address, age, etc. When patients want to opt into this program, they would go to this page to register. Their details and credentials will get registered in our `patient` database.
+![Patient Profile]()
+
+#### Patient Display Page
+
+This page is served to users as `patientSelectionPage.html` and serves as the page for drivers to select patients who they volunteer to pick up. When drivers select patients, it will register the driver as a volunteer driver. This page can only be accessed by Drivers. Once they select a patient, their ID gets registered into the patientDB. One driver can pick up multiple patients.
+![Active Patient Profiles]()
+
+#### Driver Profile Page
+
+This page is served to users as `driverProfile.html` and serves as the page for users to create their volunteer driver profile adding data such as name, phone number, car model, car license plate number, car type, etc. When drivers want to volunteer for this program, they would go to this page to register. Their details and credentials get stores in our `driver` database.
+![Driver Profile](wireframes/driverProfile.png?raw=true)
+
+#### Edit Patient Profile Page
+
+This page is served to users as `editPatientProfile.html` and serves as the page for patients to edit their profile. Changes after edit reflect in the database.
+![Edit Patient Profile]()
+
+#### Edit Driver Profile Page
+
+This page is served to users as `editDriverProfile.html` and serves as the page for drivers to edit their profiles. Changes after edit reflect in the database. 
+![Edit Driver Profile]()
+
+#### View Profile
+
+This page is served to users as `profileView.html` and serves as the page for the current user on the platform to view their profile. If the current user is a driver, they can see all their profile information from when they signed up. If a driver selects a patient, they can see the details for the patient who they have to pick up which includes name and pickup address. If the current user is a patient, they can view their inforamtion from when they signed up, and can view the name car license plate of the driver picking them up.
+![View Profile]()
+
+#### Hospital Admin Page
+
+This page would be served to users as "hospitalAdmin.html" and would serve as the page for hospitals to manage their driver-patient volunteer program adding data such as hospital name, verified drivers, number of rides completed at the hospital, etc. Hospitals can even update their data from this page.
+![Hospital Admin Profile]()
+
 ### APIs
 
 ### Database
@@ -31,5 +76,11 @@ Similarly, once a driver selects a patient, the patient can go to their `View Pr
 ### Authentication/Authorization
 
 ### Division of Labor
+
+1. Abhinav Tripathy:
+
+2. Aditya Narayanan:
+
+3. Joseph Black
 
 ### Conclusion
