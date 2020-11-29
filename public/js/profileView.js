@@ -45,7 +45,7 @@ window.addEventListener('load', async () => {
                     // Converting received data to JSON
                     if(response1.ok) {
                         const patients = await response1.json();
-                        patients.forEach((patient) => {
+                        patients.forEach(async (patient) => {
                             document.getElementById('name').innerHTML = patient.first_name + ' ' + patient.last_name;
                             document.getElementById('user_id').innerHTML = patient.id;
                             document.getElementById('full_name').innerHTML = patient.first_name + ' ' + patient.last_name;
@@ -54,6 +54,16 @@ window.addEventListener('load', async () => {
                             document.getElementById('phone_num').innerHTML = patient.phone;
                             document.getElementById('user_role').innerHTML = 'Patient';
                             document.getElementById('edit-profile').href = 'editPatientProfile.html';
+                            const resp = process(await fetch(`/patients/driver/${user.id.id}`));
+                            if(resp.ok) {
+                                const volDriver = await resp.json();
+                                volDriver.forEach((driver) => {
+                                    createHTMLElements('row', 'col-md-6', 'Volunteer Driver Name', 'vol_driver', (driver.first_name + ' ' + driver.last_name));
+                                    createHTMLElements('row', 'col-md-6', 'Car License Plate', 'vol_car_plate', driver.car_plate);
+                                    createHTMLElements('row', 'col-md-6', 'Car Color', 'vol_car_color', driver.car_color);
+                                    createHTMLElements('row', 'col-md-6', 'Car License Plate', 'vol_car_plate', driver.car_plate);
+                                });
+                            }
                             createHTMLElements('row', 'col-md-6', 'Emergency Contact', 'emergency', patient.emergency_phone);
                             createHTMLElements('row', 'col-md-6', 'Home Address', 'address', patient.home_address);
                         });
