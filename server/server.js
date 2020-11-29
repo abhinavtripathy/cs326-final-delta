@@ -90,12 +90,14 @@ const strategy = new LocalStrat({usernameField: 'email', passwordField: 'passwor
         }
         return done(null, email);
     });
-    
-const mustBeDriver = async (req, res, next) => req.isAuthenticated() && !(await userInfo(req.user)).isPatient ? next() : res.redirect('/mustBeDriver.html');
 
-const mustBePatient = async (req, res, next) => req.isAuthenticated() && await userInfo(req.user).isPatient ? next() : res.redirect('/mustBePatient.html');
+const mustBeDriver = mustBeAuthenticated(req, res, async (req, res, next) => !(await userInfo(req.user)).isPatient ? next() : res.redirect('/mustBeDriver.html'));
+
+const mustBePatient = mustBeAuthenticated(req, res, async (req, res, next) => await userInfo(req.user).isPatient ? next() : res.redirect('/mustBePatient.html'));
 
 const userExists = async email => await getSaltHashOf(email, false) !== undefined || await getSaltHashOf(email, true) !== undefined;
+
+const mustBeAuthenticated = async(req, res, next) => req.isAuthenticated() ? next() : res.redirect('/login.html');
 
 const userInfo = async email => {
     if(!(await userExists(email))) {
@@ -125,7 +127,7 @@ passp.serializeUser((usr, done) => {
 passp.deserializeUser((usr, done) => {
     done(null, usr);
 });
-    
+
 app.use(expressSession(session));
 passp.use(strategy);
 app.use(passp.initialize());
@@ -141,7 +143,7 @@ app.post('/login', passp.authenticate('local', { 'successRedirect': '/profileVie
 
 // API Endpoints
 
-// Get Current User 
+// Get Current User
 app.get('/currentUser', async (req, res) => {
     let patientBool;
     try {
@@ -164,7 +166,7 @@ app.get('/currentUser', async (req, res) => {
 });
 
 
-// POST Patients 
+// POST Patients
 app.post('/patients', async (req, res) => {
     const data = req.body;
     console.log(data);
@@ -174,19 +176,19 @@ app.post('/patients', async (req, res) => {
     });
 });
 
-// GET All Patients 
+// GET All Patients
 app.get('/patients', mustBeDriver, async (req, res) => {
     const patients = await connectAndRun(db => db.any('SELECT * FROM patient;'));
     res.send(JSON.stringify(patients));
 });
 
-// GET Patients 
+// GET Patients
 app.get('/patients/:id', async (req, res) => {
     const patients = await connectAndRun(db => db.any('SELECT * FROM patient where id = $1;', [parseInt(req.params.id)]));
     res.send(JSON.stringify(patients));
 });
 
-// PUT Patients 
+// PUT Patients
 app.put('/patients/:id', async (req, res) => {
     const data = req.body;
     await connectAndRun(db => db.none('update patient set first_name = $1, last_name = $2, phone = $3, email = $4, age = $5, emergency_phone = $6, home_address = $7, pickup = $8, password = $9, driver_id = $10, current_status = $11 where id = $12', [data.first_name, data.last_name, data.phone, data.email, data.age, data.emergency_phone, data.home_address, data.pickup, miniCrypt.hash(data.password).join(','), data.driver_id, data.current_status, parseInt(req.params.id)]));
@@ -204,7 +206,7 @@ app.put('/patients/status/:id', async (req, res) => {
     });
 });
 
-// DELETE Patients 
+// DELETE Patients
 app.delete('/patients/:id', async (req, res) => {
     await connectAndRun(db => db.none('delete from patient where id = $1', [parseInt(req.params.id)]));
     res.send({
@@ -259,7 +261,7 @@ app.put('/drivers/:id', async (req, res) => {
 });
 
 
-// PUT Driver for Verification 
+// PUT Driver for Verification
 app.put('/drivers/verify/:id', async (req, res) => {
     const data = req.body;
     await connectAndRun(db => db.none('update driver set verified = $1 where id = $2', [data.verified, parseInt(req.params.id)]));
