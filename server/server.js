@@ -144,7 +144,7 @@ app.post('/login', passp.authenticate('local', { 'successRedirect': '/profileVie
 // API Endpoints
 
 // Get Current User
-app.get('/currentUser', async (req, res) => {
+app.get('/currentUser', mustBeAuthenticated, async (req, res) => {
     let patientBool;
     try {
         await connectAndRun(db => db.one('SELECT id FROM $1:alias WHERE email = $2', ['patient', req.user]));
