@@ -91,9 +91,9 @@ const strategy = new LocalStrat({usernameField: 'email', passwordField: 'passwor
         return done(null, email);
     });
 
-const mustBeDriver = mustBeAuthenticated(req, res, async (req, res, next) => !(await userInfo(req.user)).isPatient ? next() : res.redirect('/mustBeDriver.html'));
+const mustBeDriver = [mustBeAuthenticated, async (req, res, next) => !(await userInfo(req.user)).isPatient ? next() : res.redirect('/mustBeDriver.html')];
 
-const mustBePatient = mustBeAuthenticated(req, res, async (req, res, next) => await userInfo(req.user).isPatient ? next() : res.redirect('/mustBePatient.html'));
+const mustBePatient = [mustBeAuthenticated, async (req, res, next) => await userInfo(req.user).isPatient ? next() : res.redirect('/mustBePatient.html')];
 
 const userExists = async email => await getSaltHashOf(email, false) !== undefined || await getSaltHashOf(email, true) !== undefined;
 
