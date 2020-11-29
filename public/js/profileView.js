@@ -47,7 +47,7 @@ window.addEventListener('load', async () => {
                             document.getElementById('email_id').innerHTML = patient.email;
                             document.getElementById('phone_num').innerHTML = patient.phone;
                             document.getElementById('user_role').innerHTML = 'Patient';
-                            document.getElementById('edit-profile').href = 'patientProfile.html';
+                            document.getElementById('edit-profile').href = 'editPatientProfile.html';
                             createHTMLElements('row', 'col-md-6', 'Emergency Contact', 'emergency', patient.emergency_phone);
                             createHTMLElements('row', 'col-md-6', 'Home Address', 'address', patient.home_address);
                         });
@@ -66,7 +66,7 @@ window.addEventListener('load', async () => {
                             document.getElementById('email_id').innerHTML = driver.email;
                             document.getElementById('phone_num').innerHTML = driver.phone;
                             document.getElementById('user_role').innerHTML = 'Driver';
-                            document.getElementById('edit-profile').href = 'driverProfile.html';
+                            document.getElementById('edit-profile').href = 'editDriverProfile.html';
                             const resp = await fetch(`/drivers/pickup/${user.id.id}`);
                             if(resp.ok) {
                                 const patientPickups = await resp.json();
@@ -106,7 +106,7 @@ window.addEventListener('load', async () => {
                         if(deletePatient.ok) {
                             alert('Deleted successfully.');
                         } else {
-                            alert('Error signing up.');
+                            alert('Error deleting patient.');
                         }
                     } else {
                         const deleteDriver = await fetch(`/drivers/${user.id.id}`, {
@@ -118,7 +118,7 @@ window.addEventListener('load', async () => {
                         if(deleteDriver.ok) {
                             alert('Deleted successfully.');
                         } else {
-                            alert('Error signing up.');
+                            alert('Error deleting driver.');
                         }
                     }
 
