@@ -24,7 +24,7 @@ const pgp = pgPromise({
 
 // Local PostgreSQL credentials
 const username = 'postgres';
-const password = 'admin';
+const password = 'postgres';
 
 const url = process.env.DATABASE_URL || `postgres://${username}:${password}@localhost/`;
 const db = pgp(url);
@@ -205,7 +205,7 @@ app.put('/patients/status/:id', async (req, res) => {
 });
 
 // DELETE Patients 
-app.delete('/patients/:id', mustBePatient, async (req, res) => {
+app.delete('/patients/:id', async (req, res) => {
     await connectAndRun(db => db.none('delete from patient where id = $1', [parseInt(req.params.id)]));
     res.send({
         'message': 'success'
