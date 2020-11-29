@@ -212,6 +212,19 @@ app.delete('/patients/:id', async (req, res) => {
     });
 });
 
+// GET driver Info for the current patient
+app.get('/patients/driver/:id', async (req, res) => {
+    try {
+        const driver = await connectAndRun(db => db.one('SELECT d.first_name, d.last_name, d.car_color, d.car_plate FROM patient p, driver d where p.driver_id = d.id and p.id = $1;', [parseInt(req.params.id)]));
+        res.send(JSON.stringify(driver));
+    }
+    catch(err) {
+        console.log("none found in DB");
+        res.send(JSON.stringify("None"))
+    }
+   
+});
+
 
 
 // POST Drivers
@@ -265,8 +278,16 @@ app.delete('/drivers/:id', mustBeDriver, async (req, res) => {
 
 // GET Patient Info for the current driver
 app.get('/drivers/pickup/:id', async (req, res) => {
-    const patients = await connectAndRun(db => db.any('SELECT first_name, last_name, pickup  FROM patient where driver_id = $1;', [parseInt(req.params.id)]));
-    res.send(JSON.stringify(patients));
+    try {
+        const patients = await connectAndRun(db => db.any('SELECT first_name, last_name, pickup  FROM patient where driver_id = $1;', [parseInt(req.params.id)]));
+        res.send(JSON.stringify(patients));
+    }
+    catch(err) {
+        console.log("none found in DB");
+        res.send(JSON.stringify("None"))
+    }
+
+    
 });
 
 // PUT Hospitals
