@@ -256,7 +256,7 @@ app.put('/drivers/verify/:id', async (req, res) => {
 });
 
 // DELETE Drivers
-app.delete('/drivers/:id', async (req, res) => {
+app.delete('/drivers/:id', mustBeDriver, async (req, res) => {
     await connectAndRun(db => db.none('delete from driver where id = $1', [parseInt(req.params.id)]));
     res.send({
         'message': 'success'

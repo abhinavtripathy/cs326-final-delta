@@ -96,7 +96,7 @@ window.addEventListener('load', async () => {
             if(response.ok) {
                 const users = await response.json();
                 users.forEach(async (user) => {
-                    if (user.isPatient) { //check this
+                    if (user.isPatient === true) { //check this
                         const deletePatient = await fetch(`/patients/${user.id.id}`, {
                             method: 'DELETE',
                             headers: {
