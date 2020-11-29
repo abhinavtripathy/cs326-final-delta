@@ -22,6 +22,7 @@ Similarly, once a driver selects a patient, the patient can go to their `View Pr
 
 ### User Interface
 
+<<<<<<< HEAD
 #### Home Page
 
 This page is served to users as `index.html` and serves as the page to allow users to naviagte to sign up or login pages.
@@ -67,6 +68,8 @@ This page is served to users as `profileView.html` and serves as the page for th
 This page would be served to users as "hospitalAdmin.html" and would serve as the page for hospitals to manage their driver-patient volunteer program adding data such as hospital name, verified drivers, number of rides completed at the hospital, etc. Hospitals can even update their data from this page.
 ![Hospital Admin Profile]()
 
+=======
+>>>>>>> 3d8c9b9... added template for final.md
 ### APIs
 
 ### Database
@@ -77,10 +80,13 @@ This page would be served to users as "hospitalAdmin.html" and would serve as th
 
 ### Division of Labor
 
+<<<<<<< HEAD
 1. Abhinav Tripathy:
 
 2. Aditya Narayanan:
 
 3. Joseph Black
 
+=======
+>>>>>>> 3d8c9b9... added template for final.md
 ### Conclusion
