@@ -34,6 +34,7 @@ window.addEventListener('load', async function () {
         });
         if(response.ok) {
             alert('Signed up successfully.');
+            window.location.href = 'login.html';
         } else {
             alert('Error signing up.');
         }

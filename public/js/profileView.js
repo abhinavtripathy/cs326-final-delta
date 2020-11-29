@@ -111,6 +111,7 @@ window.addEventListener('load', async () => {
                         });
                         if(deletePatient.ok) {
                             alert('Deleted successfully.');
+                            window.location.href = 'patientProfile.html';
                         } else {
                             alert('Error deleting patient.');
                         }
@@ -123,6 +124,7 @@ window.addEventListener('load', async () => {
                         });
                         if(deleteDriver.ok) {
                             alert('Deleted successfully.');
+                            window.location.href = 'driverProfile.html';
                         } else {
                             alert('Error deleting driver.');
                         }
