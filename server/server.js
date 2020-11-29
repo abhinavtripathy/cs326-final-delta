@@ -222,8 +222,8 @@ app.get('/patients/driver/:id', async (req, res) => {
         res.send(JSON.stringify(driver));
     }
     catch(err) {
-        console.log("none found in DB");
-        res.send(JSON.stringify("None"))
+        console.log('none found in DB');
+        res.send(JSON.stringify('None'))
     }
    
 });
@@ -286,8 +286,8 @@ app.get('/drivers/pickup/:id', async (req, res) => {
         res.send(JSON.stringify(patients));
     }
     catch(err) {
-        console.log("none found in DB");
-        res.send(JSON.stringify("None"))
+        console.log('none found in DB');
+        res.send(JSON.stringify('None'));
     }
 
     
