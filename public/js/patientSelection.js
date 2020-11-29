@@ -1,3 +1,10 @@
+function process(response) {
+  if(response.redirected) {
+    window.location.replace(response.url);
+  }
+  return response;
+}
+
 let container;
 const row = document.createElement('div');
 row.className = 'row';
@@ -50,7 +57,7 @@ window.addEventListener('load', async () => {
         }
 
         container = document.getElementById('container');
-        const resp = await fetch('/patients');
+        const resp = process(await fetch('/patients'));
         if(resp.ok) {
             const patients = await resp.json();
             patients.forEach((patient) => {
@@ -63,7 +70,7 @@ window.addEventListener('load', async () => {
 
     async function getPatients() {
         const patientIds = [];
-        const response = await fetch('/patients');
+        const response = process(await fetch('/patients'));
         if(response.ok) {
             const patients = await response.json();
             patients.forEach((patient) => {
@@ -76,7 +83,7 @@ window.addEventListener('load', async () => {
 
     async function getDrivers() {
         let id;
-        const response = await fetch('/currentUser');
+        const response = process(await fetch('/patients'));
         if(response.ok) {
             const users = await response.json();
             users.forEach((user) => {
@@ -111,7 +118,7 @@ window.addEventListener('load', async () => {
                 } else {
                     alert('Error selecting patient.');
                 }
-                
+
             });
         });
     }
