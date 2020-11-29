@@ -43,14 +43,14 @@ create table patient (
     pickup varchar (255),
     driver_id integer, 
     current_status varchar (30),
-    foreign key (driver_id) references driver(id)
+    foreign key (driver_id) references driver(id) on delete set null
 );
 
 create table hospital (
     id serial primary key, 
     name varchar(255),
     driver_id int, 
-    foreign key (driver_id) references driver(id)
+    foreign key (driver_id) references driver(id) on delete set null 
 );
 ```
 

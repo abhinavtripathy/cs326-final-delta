@@ -30,7 +30,7 @@ psql postgres postgres
 ```
 cd cs326-final-delta
 
-npm start
+SECRET=healthpool npm start
 ```
 
 2. Open your browser and access the website on [http://localhost:8080/](http://localhost:8080/)
