@@ -52,7 +52,7 @@ async function connectAndRun(task) {
 (async () => {
     await connectAndRun(db => db.none('create table if not exists driver (id serial primary key,password varchar (255),first_name varchar(255),last_name varchar (255),age integer,phone varchar (20),email varchar (255),car_make varchar (255),car_type varchar(255),car_model varchar (255),car_color varchar (255),car_plate varchar (255),verified boolean);'));
 
-    await connectAndRun(db => db.none('create table if not exists patient (id serial primary key,password varchar (255),first_name varchar(255),last_name varchar (255),age integer,phone varchar (20),email varchar (255),emergency_phone varchar (20),home_address varchar (255),pickup varchar (255),driver_id integer,current_status varchar (30),foreign key (driver_id) references driver(id) on delete set null);'));
+    await connectAndRun(db => db.none('create table if not exists patient (id serial primary key,password varchar (255),first_name varchar(255),last_name varchar (255),age integer,phone varchar (20),email varchar (255),emergency_phone varchar (20),home_address varchar (255),pickup varchar (255),driver_id integer,current_status varchar (30), pickup_time varchar (50) foreign key (driver_id) references driver(id) on delete set null);'));
 
     await connectAndRun(db => db.none('create table if not exists hospital (id serial primary key,name varchar(255),driver_id int,foreign key (driver_id) references driver(id) on delete set null);'));
 })();
@@ -171,7 +171,7 @@ app.get('/currentUser', mustBeAuthenticated, async (req, res) => {
 app.post('/patients', async (req, res) => {
     const data = req.body;
     console.log(data);
-    await connectAndRun(db => db.none('INSERT INTO patient(first_name, last_name, phone, email, age, emergency_phone, home_address, pickup, password, current_status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);', [data.first_name, data.last_name, data.phone, data.email, data.age, data.emergency_phone, data.home_address, data.pickup, miniCrypt.hash(data.password).join(','), data.current_status]));
+    await connectAndRun(db => db.none('INSERT INTO patient(first_name, last_name, phone, email, age, emergency_phone, home_address, pickup, password, current_status, pickup_time) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);', [data.first_name, data.last_name, data.phone, data.email, data.age, data.emergency_phone, data.home_address, data.pickup, miniCrypt.hash(data.password).join(','), data.current_status, data.pickup_time]));
     res.send({
         'message': 'success'
     });
@@ -192,7 +192,7 @@ app.get('/patients/:id', async (req, res) => {
 // PUT Patients
 app.put('/patients/:id', async (req, res) => {
     const data = req.body;
-    await connectAndRun(db => db.none('update patient set first_name = $1, last_name = $2, phone = $3, email = $4, age = $5, emergency_phone = $6, home_address = $7, pickup = $8, password = $9, driver_id = $10, current_status = $11 where id = $12', [data.first_name, data.last_name, data.phone, data.email, data.age, data.emergency_phone, data.home_address, data.pickup, miniCrypt.hash(data.password).join(','), data.driver_id, data.current_status, parseInt(req.params.id)]));
+    await connectAndRun(db => db.none('update patient set first_name = $1, last_name = $2, phone = $3, email = $4, age = $5, emergency_phone = $6, home_address = $7, pickup = $8, password = $9, driver_id = $10, current_status = $11, pickup_time = $12 where id = $13', [data.first_name, data.last_name, data.phone, data.email, data.age, data.emergency_phone, data.home_address, data.pickup, miniCrypt.hash(data.password).join(','), data.driver_id, data.current_status, data.pickup_time, parseInt(req.params.id)]));
     res.send({
         'message': 'success'
     });
