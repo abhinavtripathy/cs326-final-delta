@@ -84,7 +84,7 @@ window.addEventListener('load', async () => {
 
     async function getDrivers() {
         let id;
-        const response = process(await fetch('/patients'));
+        const response = process(await fetch('/currentUser'));
         if(response.ok) {
             const users = await response.json();
             users.forEach((user) => {
@@ -124,5 +124,4 @@ window.addEventListener('load', async () => {
         });
     }
     await selectPatients();
-    await initCards();
 });
