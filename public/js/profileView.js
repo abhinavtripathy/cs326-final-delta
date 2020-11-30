@@ -89,6 +89,7 @@ window.addEventListener('load', async () => {
                                 patientPickups.forEach((patientPickup) => {
                                     createHTMLElements('row', 'col-md-6', 'Patient for Pickup', 'patient_ride', (patientPickup.first_name + ' ' + patientPickup.last_name));
                                     createHTMLElements('row', 'col-md-6', 'Pickup Address', 'pickup_address', patientPickup.pickup);
+                                    createHTMLElements('row', 'col-md-6', 'Pickup Time', 'pickup_time', patientPickup.pickup_time);
                                 });
                             }
                             createHTMLElements('row', 'col-md-6', 'Car Model', 'car_model', driver.car_model);

@@ -30,7 +30,8 @@ function patientCard(patient) {
 <li>Address: ${patient.home_address}</li>
 <li>Phone: ${patient.phone}</li>
 <li>Emergency Number: ${patient.emergency_phone}</li>
-<li>Pick Up: ${patient.pickup}</li>
+<li>Pick Up Location: ${patient.pickup}</li>
+<li>Pick Up Time: ${patient.pickup_time}</li>
 <li>Current Status: ${patient.current_status}</li>
 </ul>`;
     text.className = 'card-text';
