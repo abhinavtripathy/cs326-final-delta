@@ -59,12 +59,11 @@ window.addEventListener('load', async () => {
                                 const volDriver = await resp.json();
                                 if(!(volDriver['message'])) {
                                     console.log(volDriver);
-                                    volDriver.forEach((driver) => {
+                                    let driver = volDriver;
                                         createHTMLElements('row', 'col-md-6', 'Volunteer Driver Name', 'vol_driver', (driver.first_name + ' ' + driver.last_name));
                                         createHTMLElements('row', 'col-md-6', 'Car License Plate', 'vol_car_plate', driver.car_plate);
                                         createHTMLElements('row', 'col-md-6', 'Car Color', 'vol_car_color', driver.car_color);
                                         createHTMLElements('row', 'col-md-6', 'Car License Plate', 'vol_car_plate', driver.car_plate);
-                                    });
                                 }
                             }
                             createHTMLElements('row', 'col-md-6', 'Emergency Contact', 'emergency', patient.emergency_phone);
