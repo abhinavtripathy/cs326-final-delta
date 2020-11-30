@@ -9,6 +9,7 @@ window.addEventListener('load', async function () {
         const address = document.getElementById('address').value;
         const email = document.getElementById('email').value;
         const pickUpLocation = document.getElementById('pickup').value;
+        const pickUpTime = document.getElementById('pickup-time').value;
         const password = document.getElementById('password').value;
         const response = await fetch('/patients', {
             method: 'POST',
@@ -21,6 +22,7 @@ window.addEventListener('load', async function () {
                 home_address: address,
                 email: email,
                 pickup: pickUpLocation,
+                pickup_time: pickUpTime,
                 password: password,
                 current_status: 'Not Selected'
             }),

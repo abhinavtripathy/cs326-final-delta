@@ -9,6 +9,7 @@ window.addEventListener('load', async function () {
         const address = document.getElementById('address').value;
         const email = document.getElementById('email').value;
         const pickUpLocation = document.getElementById('pickup').value;
+        const pickUpTime = document.getElementById('pcikup-time').value;
         const resp = await fetch('/currentUser');
         if(resp.ok) {
             const users = await resp.json();
@@ -24,6 +25,7 @@ window.addEventListener('load', async function () {
                         home_address: address,
                         email: email,
                         pickup: pickUpLocation,
+                        pickup_time: pickUpTime
                     }),
                     headers: {
                         'Content-type': 'application/json; charset=UTF-8'
