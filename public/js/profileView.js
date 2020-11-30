@@ -57,12 +57,15 @@ window.addEventListener('load', async () => {
                             const resp = process(await fetch(`/patients/driver/${user.id.id}`));
                             if(resp.ok) {
                                 const volDriver = await resp.json();
-                                volDriver.forEach((driver) => {
-                                    createHTMLElements('row', 'col-md-6', 'Volunteer Driver Name', 'vol_driver', (driver.first_name + ' ' + driver.last_name));
-                                    createHTMLElements('row', 'col-md-6', 'Car License Plate', 'vol_car_plate', driver.car_plate);
-                                    createHTMLElements('row', 'col-md-6', 'Car Color', 'vol_car_color', driver.car_color);
-                                    createHTMLElements('row', 'col-md-6', 'Car License Plate', 'vol_car_plate', driver.car_plate);
-                                });
+                                if(!(volDriver['message'])) {
+                                    console.log(volDriver);
+                                    volDriver.forEach((driver) => {
+                                        createHTMLElements('row', 'col-md-6', 'Volunteer Driver Name', 'vol_driver', (driver.first_name + ' ' + driver.last_name));
+                                        createHTMLElements('row', 'col-md-6', 'Car License Plate', 'vol_car_plate', driver.car_plate);
+                                        createHTMLElements('row', 'col-md-6', 'Car Color', 'vol_car_color', driver.car_color);
+                                        createHTMLElements('row', 'col-md-6', 'Car License Plate', 'vol_car_plate', driver.car_plate);
+                                    });
+                                }
                             }
                             createHTMLElements('row', 'col-md-6', 'Emergency Contact', 'emergency', patient.emergency_phone);
                             createHTMLElements('row', 'col-md-6', 'Home Address', 'address', patient.home_address);
@@ -86,10 +89,15 @@ window.addEventListener('load', async () => {
                             const resp = process(await fetch(`/drivers/pickup/${user.id.id}`));
                             if(resp.ok) {
                                 const patientPickups = await resp.json();
-                                patientPickups.forEach((patientPickup) => {
-                                    createHTMLElements('row', 'col-md-6', 'Patient for Pickup', 'patient_ride', (patientPickup.first_name + ' ' + patientPickup.last_name));
-                                    createHTMLElements('row', 'col-md-6', 'Pickup Address', 'pickup_address', patientPickup.pickup);
-                                });
+                                console.log(patientPickups);
+                                if(!(patientPickups['message'])) {
+                                    patientPickups.forEach((patientPickup) => {
+                                        console.log(patientPickup);
+                                        createHTMLElements('row', 'col-md-6', 'Patient for Pickup', 'patient_ride', (patientPickup.first_name + ' ' + patientPickup.last_name));
+                                        createHTMLElements('row', 'col-md-6', 'Pickup Address', 'pickup_address', patientPickup.pickup);
+                                        createHTMLElements('row', 'col-md-6', 'Pickup Time', 'pickup_time', patientPickup.pickup_time);
+                                    });
+                                }
                             }
                             createHTMLElements('row', 'col-md-6', 'Car Model', 'car_model', driver.car_model);
                             createHTMLElements('row', 'col-md-6', 'Car Type', 'car_type', driver.car_type);

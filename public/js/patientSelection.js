@@ -1,8 +1,8 @@
 function process(response) {
-  if(response.redirected) {
-    window.location.replace(response.url);
-  }
-  return response;
+    if(response.redirected) {
+        window.location.replace(response.url);
+    }
+    return response;
 }
 
 let container;
@@ -30,7 +30,8 @@ function patientCard(patient) {
 <li>Address: ${patient.home_address}</li>
 <li>Phone: ${patient.phone}</li>
 <li>Emergency Number: ${patient.emergency_phone}</li>
-<li>Pick Up: ${patient.pickup}</li>
+<li>Pick Up Location: ${patient.pickup}</li>
+<li>Pick Up Time: ${patient.pickup_time}</li>
 <li>Current Status: ${patient.current_status}</li>
 </ul>`;
     text.className = 'card-text';
@@ -83,7 +84,7 @@ window.addEventListener('load', async () => {
 
     async function getDrivers() {
         let id;
-        const response = process(await fetch('/patients'));
+        const response = process(await fetch('/currentUser'));
         if(response.ok) {
             const users = await response.json();
             users.forEach((user) => {
@@ -123,5 +124,4 @@ window.addEventListener('load', async () => {
         });
     }
     await selectPatients();
-    await initCards();
 });

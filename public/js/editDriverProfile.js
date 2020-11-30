@@ -27,7 +27,7 @@ window.addEventListener('load', async function () {
                         car_type: carType,
                         car_color: carColor,
                         car_plate: license,
-                        email: email,
+                        email: email
                     }),
                     headers: {
                         'Content-type': 'application/json; charset=UTF-8'
