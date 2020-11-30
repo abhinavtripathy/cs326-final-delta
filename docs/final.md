@@ -75,6 +75,8 @@ This page would be served to users as "hospitalAdmin.html" and would serve as th
 
 ### Authentication/Authorization
 
+*Note: in a true production-ready implementation of HealthPool, security through obscurity is not an acceptable way to protect the Hospital admin interface. Our existing authentication system, however, relies on the existence of exactly two user groups so implementing a Hospital user type is not feasible in this timeframe.*
+
 ### Division of Labor
 
 1. Abhinav Tripathy:
