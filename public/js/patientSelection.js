@@ -1,8 +1,8 @@
 function process(response) {
-  if(response.redirected) {
-    window.location.replace(response.url);
-  }
-  return response;
+    if(response.redirected) {
+        window.location.replace(response.url);
+    }
+    return response;
 }
 
 let container;
