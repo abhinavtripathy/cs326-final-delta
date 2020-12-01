@@ -82,11 +82,11 @@ const getSaltHashOf = async (email, isPatient) => {
 const strategy = new LocalStrat({usernameField: 'email', passwordField: 'password'},
     async (email, pass, done) => {
         if (await getSaltHashOf(email, true) === undefined && await getSaltHashOf(email, false) === undefined) {
-	        return done(null, false, {'message' : 'No user with that email exists'});
+            return done(null, false, {'message' : 'No user with that email exists'});
         }
         if (!(await checkPass(email, pass))) {
-	        await new Promise((r) => setTimeout(r, 2000)); // This does not stop parallel requests from being sent. A more secure method might be an account-wide retry counter but this implementation was not covered in the scope of the class
-	        return done(null, false, { 'message' : 'Incorrect password' });
+            await new Promise((r) => setTimeout(r, 2000)); // This does not stop parallel requests from being sent. A more secure method might be an account-wide retry counter but this implementation was not covered in the scope of the class
+            return done(null, false, { 'message' : 'Incorrect password' });
         }
         return done(null, email);
     });
