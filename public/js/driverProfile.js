@@ -32,7 +32,7 @@ window.addEventListener('load', async function () {
                 'Content-type': 'application/json; charset=UTF-8'
             }
         });
-        if(response.ok) {
+        if (response.ok) {
             alert('Signed up successfully.');
             window.location.href = 'login.html';
         } else {
