@@ -4,7 +4,7 @@
  */
 
 function process(response) {
-    if(response.redirected) {
+    if (response.redirected) {
         window.location.replace(response.url);
     }
     return response;
@@ -36,13 +36,13 @@ window.addEventListener('load', async () => {
 
     async function showPatientOrDriver() {
         const response = process(await fetch('/currentUser'));
-        if(response.ok) {
+        if (response.ok) {
             const currUser = await response.json();
             currUser.forEach(async (user) => {
-                if (user.isPatient === true) { // check this line, isParient not showing up
+                if (user.isPatient === true) {
                     const response1 = process(await fetch(`/patients/${user.id.id}`));
                     // Converting received data to JSON
-                    if(response1.ok) {
+                    if (response1.ok) {
                         const patients = await response1.json();
                         patients.forEach(async (patient) => {
                             document.getElementById('name').innerHTML = patient.first_name + ' ' + patient.last_name;
@@ -54,15 +54,14 @@ window.addEventListener('load', async () => {
                             document.getElementById('user_role').innerHTML = 'Patient';
                             document.getElementById('edit-profile').href = 'editPatientProfile.html';
                             const resp = process(await fetch(`/patients/driver/${user.id.id}`));
-                            if(resp.ok) {
+                            if (resp.ok) {
                                 const volDriver = await resp.json();
-                                if(!(volDriver['message'])) {
-                                    console.log(volDriver);
-                                    let driver = volDriver;
-                                        createHTMLElements('row', 'col-md-6', 'Volunteer Driver Name', 'vol_driver', (driver.first_name + ' ' + driver.last_name));
-                                        createHTMLElements('row', 'col-md-6', 'Car License Plate', 'vol_car_plate', driver.car_plate);
-                                        createHTMLElements('row', 'col-md-6', 'Car Color', 'vol_car_color', driver.car_color);
-                                        createHTMLElements('row', 'col-md-6', 'Car License Plate', 'vol_car_plate', driver.car_plate);
+                                if (!(volDriver['message'])) {
+                                    const driver = volDriver;
+                                    createHTMLElements('row', 'col-md-6', 'Volunteer Driver Name', 'vol_driver', (driver.first_name + ' ' + driver.last_name));
+                                    createHTMLElements('row', 'col-md-6', 'Car License Plate', 'vol_car_plate', driver.car_plate);
+                                    createHTMLElements('row', 'col-md-6', 'Car Color', 'vol_car_color', driver.car_color);
+                                    createHTMLElements('row', 'col-md-6', 'Car License Plate', 'vol_car_plate', driver.car_plate);
                                 }
                             }
                             createHTMLElements('row', 'col-md-6', 'Emergency Contact', 'emergency', patient.emergency_phone);
@@ -73,7 +72,7 @@ window.addEventListener('load', async () => {
                 else {
                     const response2 = process(await fetch(`/drivers/${user.id.id}`));
                     // Converting received data to JSON
-                    if(response2.ok) {
+                    if (response2.ok) {
                         const drivers = await response2.json();
                         drivers.forEach(async (driver) => {
                             document.getElementById('name').innerHTML = driver.first_name + ' ' + driver.last_name;
@@ -85,12 +84,10 @@ window.addEventListener('load', async () => {
                             document.getElementById('user_role').innerHTML = 'Driver';
                             document.getElementById('edit-profile').href = 'editDriverProfile.html';
                             const resp = process(await fetch(`/drivers/pickup/${user.id.id}`));
-                            if(resp.ok) {
+                            if (resp.ok) {
                                 const patientPickups = await resp.json();
-                                console.log(patientPickups);
-                                if(!(patientPickups['message'])) {
+                                if (!(patientPickups['message'])) {
                                     patientPickups.forEach((patientPickup) => {
-                                        console.log(patientPickup);
                                         createHTMLElements('row', 'col-md-6', 'Patient for Pickup', 'patient_ride', (patientPickup.first_name + ' ' + patientPickup.last_name));
                                         createHTMLElements('row', 'col-md-6', 'Pickup Address', 'pickup_address', patientPickup.pickup);
                                         createHTMLElements('row', 'col-md-6', 'Pickup Time', 'pickup_time', patientPickup.pickup_time);
@@ -115,17 +112,17 @@ window.addEventListener('load', async () => {
 
             const response = process(await fetch('/currentUser'));
             // Converting received data to JSON
-            if(response.ok) {
+            if (response.ok) {
                 const users = await response.json();
                 users.forEach(async (user) => {
-                    if (user.isPatient === true) { //check this
+                    if (user.isPatient === true) {
                         const deletePatient = await fetch(`/patients/${user.id.id}`, {
                             method: 'DELETE',
                             headers: {
                                 'Content-type': 'application/json; charset=UTF-8'
                             }
                         });
-                        if(deletePatient.ok) {
+                        if (deletePatient.ok) {
                             alert('Deleted successfully.');
                             window.location.href = 'patientProfile.html';
                         } else {
@@ -138,7 +135,7 @@ window.addEventListener('load', async () => {
                                 'Content-type': 'application/json; charset=UTF-8'
                             }
                         });
-                        if(deleteDriver.ok) {
+                        if (deleteDriver.ok) {
                             alert('Deleted successfully.');
                             window.location.href = 'driverProfile.html';
                         } else {
