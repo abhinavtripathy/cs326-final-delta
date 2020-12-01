@@ -36,13 +36,11 @@ async function connectAndRun(task) {
     try {
         connection = await db.connect();
         return await task(connection);
-    } catch (e) {
-        throw e;
     } finally {
         try {
             connection.done();
         } catch (ignored) {
-
+            // ignore 
         }
     }
 }
