@@ -5,8 +5,8 @@ col.className = 'col';
 col.id = 'checked';
 
 const h2 = document.createElement('h2');
-h2.className = "h2 text-secondary";
-h2.innerHTML = "Verified Drivers";
+h2.className = 'h2 text-secondary';
+h2.innerHTML = 'Verified Drivers';
 col.appendChild(h2);
 
 function addDriver(driverProfile) {
