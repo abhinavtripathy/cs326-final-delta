@@ -3,7 +3,6 @@
  * If driver is viewing profile, add details like car details to existing data.
  */
 
-//const { response } = require("express");
 function process(response) {
     if(response.redirected) {
         window.location.replace(response.url);
