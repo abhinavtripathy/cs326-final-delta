@@ -1,4 +1,3 @@
-
 let container;
 const col = document.createElement('div');
 col.className = 'col';
