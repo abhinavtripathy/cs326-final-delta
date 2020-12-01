@@ -170,7 +170,6 @@ app.get('/currentUser', mustBeAuthenticated, async (req, res) => {
 // POST Patients
 app.post('/patients', async (req, res) => {
     const data = req.body;
-    console.log(data);
     await connectAndRun(db => db.none('INSERT INTO patient(first_name, last_name, phone, email, age, emergency_phone, home_address, pickup, password, current_status, pickup_time) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);', [data.first_name, data.last_name, data.phone, data.email, data.age, data.emergency_phone, data.home_address, data.pickup, miniCrypt.hash(data.password).join(','), data.current_status, data.pickup_time]));
     res.send({
         'message': 'success'
@@ -222,7 +221,6 @@ app.get('/patients/driver/:id', async (req, res) => {
         res.send(JSON.stringify(driver));
     }
     catch(err) {
-        console.log('none found in DB');
         res.send({
             'message':'None'
         });
@@ -235,7 +233,6 @@ app.get('/patients/driver/:id', async (req, res) => {
 // POST Drivers
 app.post('/drivers', async (req, res) => {
     const data = req.body;
-    console.log(data);
     await connectAndRun(db => db.none('INSERT INTO driver(first_name, last_name, phone, email, age, car_make, car_model, car_color, car_plate, password, car_type) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);', [data.first_name, data.last_name, data.phone, data.email, data.age, data.car_make, data.car_model, data.car_color, data.car_plate, miniCrypt.hash(data.password).join(','), data.car_type]));
     res.send({
         'message': 'success'
@@ -288,7 +285,6 @@ app.get('/drivers/pickup/:id', async (req, res) => {
         res.send(JSON.stringify(patients));
     }
     catch(err) {
-        console.log('none found in DB');
         res.send({'message':'None'});
     }
 
