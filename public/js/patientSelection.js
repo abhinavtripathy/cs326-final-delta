@@ -1,5 +1,5 @@
 function process(response) {
-    if(response.redirected) {
+    if (response.redirected) {
         window.location.replace(response.url);
     }
     return response;
@@ -59,7 +59,7 @@ window.addEventListener('load', async () => {
 
         container = document.getElementById('container');
         const resp = process(await fetch('/patients'));
-        if(resp.ok) {
+        if (resp.ok) {
             const patients = await resp.json();
             patients.forEach((patient) => {
                 patientCard(patient);
@@ -72,7 +72,7 @@ window.addEventListener('load', async () => {
     async function getPatients() {
         const patientIds = [];
         const response = process(await fetch('/patients'));
-        if(response.ok) {
+        if (response.ok) {
             const patients = await response.json();
             patients.forEach((patient) => {
                 patientIds.push(patient.id);
@@ -84,13 +84,12 @@ window.addEventListener('load', async () => {
     async function getDrivers() {
         let id;
         const response = process(await fetch('/currentUser'));
-        if(response.ok) {
+        if (response.ok) {
             const users = await response.json();
             users.forEach((user) => {
-                if(user.isPatient) {
-                    id=0;
-                }
-                else {
+                if (user.isPatient) {
+                    id = 0;
+                } else {
                     id = user.id;
                 }
             });
@@ -113,7 +112,7 @@ window.addEventListener('load', async () => {
                         'Content-type': 'application/json; charset=UTF-8'
                     }
                 });
-                if(putDriver.ok) {
+                if (putDriver.ok) {
                     alert('Patient has been selected');
                 } else {
                     alert('Error selecting patient.');
