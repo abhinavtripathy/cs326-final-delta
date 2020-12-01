@@ -28,9 +28,9 @@ function addDriver(driverProfile) {
     prepend.appendChild(selection);
 
     const driver = document.createElement('input');
-    driver.type = "text";
-    driver.className = "form-control";
-    driver.value = driverProfile.first_name + " " + driverProfile.last_name;
+    driver.type = 'text';
+    driver.className = 'form-control';
+    driver.value = driverProfile.first_name + ' ' + driverProfile.last_name;
 
     inputGroup.appendChild(prepend);
     inputGroup.appendChild(driver);
@@ -61,10 +61,10 @@ function getCheckedBoxes() {
     //let selected = [];
 
     // Reference divs with checkboxes.
-    let mainDiv = document.getElementById("checked");
+    let mainDiv = document.getElementById('checked');
 
     //Reference all the CheckBoxes.
-    let checks = mainDiv.getElementsByTagName("input");
+    let checks = mainDiv.getElementsByTagName('input');
 
     // Loop and push the checked CheckBox value in Array.
     for (let i = 0; i < checks.length; i++) {
