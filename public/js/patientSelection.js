@@ -78,7 +78,6 @@ window.addEventListener('load', async () => {
                 patientIds.push(patient.id);
             });
         }
-        console.log(patientIds);
         return patientIds;
     }
 
