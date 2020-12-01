@@ -82,11 +82,11 @@ const getSaltHashOf = async (email, isPatient) => {
 const strategy = new LocalStrat({usernameField: 'email', passwordField: 'password'},
     async (email, pass, done) => {
         if (await getSaltHashOf(email, true) === undefined && await getSaltHashOf(email, false) === undefined) {
-	    return done(null, false, { 'message' : 'No user with that email exists' });
+	    return done(null, false, {'message' : 'No user with that email exists'});
         }
         if (!(await checkPass(email, pass))) {
 	    await new Promise((r) => setTimeout(r, 2000)); // This does not stop parallel requests from being sent. A more secure method might be an account-wide retry counter but this implementation was not covered in the scope of the class
-	    return done(null, false, { 'message' : 'Incorrect password' });
+	        return done(null, false, { 'message' : 'Incorrect password' });
         }
         return done(null, email);
     });
@@ -147,18 +147,17 @@ app.post('/login', passp.authenticate('local', { 'successRedirect': '/profileVie
 // Get Current User
 app.get('/currentUser', mustBeAuthenticated, async (req, res) => {
     let patientBool;
-    try {
-        await connectAndRun(db => db.one('SELECT id FROM $1:alias WHERE email = $2', ['patient', req.user]));
+
+    const patientResp = await connectAndRun(db => db.one('SELECT count(*) FROM patient WHERE email = $1', [req.user]));
+    const driverResp = await connectAndRun(db => db.one('SELECT count(*) FROM driver WHERE email = $1', [req.user]));
+    
+    if(patientResp['count'] !== '0') {
         patientBool = true;
     }
-    catch(err) {
-    }
-    try {
-        await connectAndRun(db => db.one('SELECT id FROM $1:alias WHERE email = $2', ['driver', req.user]));
+    else if(driverResp['count'] !== '0') {
         patientBool = false;
     }
-    catch(err) {
-    }
+
     const id = await connectAndRun(db => db.one('SELECT id FROM $1:alias WHERE email = $2', [patientBool ? 'patient' : 'driver', req.user]));
     res.send(JSON.stringify([{
         'isPatient': patientBool,
