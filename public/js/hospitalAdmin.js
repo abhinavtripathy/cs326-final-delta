@@ -58,7 +58,6 @@ function initDrivers() {
 
 let returnVal = {};
 function getCheckedBoxes() {
-    //let selected = [];
 
     // Reference divs with checkboxes.
     let mainDiv = document.getElementById('checked');
@@ -69,9 +68,7 @@ function getCheckedBoxes() {
     // Loop and push the checked CheckBox value in Array.
     for (let i = 0; i < checks.length; i++) {
         if (checks[i].checked) {
-            
             returnVal[parseInt(checks[i].id)] = checks[i].checked;
-            //selected.push(returnVal);
         }
     }
 
@@ -81,7 +78,7 @@ function getCheckedBoxes() {
             fetch(`/drivers/verify/${id}`, {
                 method: 'PUT',
                 body: JSON.stringify({
-                    "verified": returnVal[id]
+                    'verified': returnVal[id]
                 }),
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8'
@@ -92,8 +89,8 @@ function getCheckedBoxes() {
 }
 
 initDrivers();
-const update = document.getElementById('update')
+const update = document.getElementById('update');
 update.addEventListener('click', () => {
     getCheckedBoxes();
-    alert("Driver verification complete!")
+    alert('Driver verification complete!');
 });
