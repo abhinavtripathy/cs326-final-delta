@@ -20,7 +20,7 @@ function addDriver(driverProfile) {
     selection.className = 'input-group-text';
 
     const checkbox = document.createElement('input');
-    checkbox.type = "checkbox";
+    checkbox.type = 'checkbox';
     checkbox.id = driverProfile.id;
 
     selection.appendChild(checkbox);
@@ -55,14 +55,14 @@ function initDrivers() {
     container.appendChild(col);
 }
 
-let returnVal = {};
+const returnVal = {};
 function getCheckedBoxes() {
 
     // Reference divs with checkboxes.
-    let mainDiv = document.getElementById('checked');
+    const mainDiv = document.getElementById('checked');
 
     //Reference all the CheckBoxes.
-    let checks = mainDiv.getElementsByTagName('input');
+    const checks = mainDiv.getElementsByTagName('input');
 
     // Loop and push the checked CheckBox value in Array.
     for (let i = 0; i < checks.length; i++) {
