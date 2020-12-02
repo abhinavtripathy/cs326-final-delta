@@ -43,6 +43,7 @@ create table patient (
     pickup varchar (255),
     driver_id integer, 
     current_status varchar (30),
+    pickup_time varchar(50),
     foreign key (driver_id) references driver(id) on delete set null
 );
 
