@@ -71,17 +71,17 @@ This page would be served to users as "hospitalAdmin.html" and would serve as th
 
 ### Database
 
-The final database schema looks like the following. 
+The final database schema looks like the following.
 
 ```sql
 create table driver (
-    id serial primary key, 
+    id serial primary key,
     password varchar (255),
-    first_name varchar(255), 
+    first_name varchar(255),
     last_name varchar (255),
-    age integer, 
+    age integer,
     phone varchar (20),
-    email varchar (255), 
+    email varchar (255),
     car_make varchar (255),
     car_type varchar(255),
     car_model varchar (255),
@@ -91,33 +91,33 @@ create table driver (
 );
 
 create table patient (
-    id serial primary key, 
+    id serial primary key,
     password varchar (255),
-    first_name varchar(255), 
+    first_name varchar(255),
     last_name varchar (255),
-    age integer, 
+    age integer,
     phone varchar (20),
-    email varchar (255), 
-    emergency_phone varchar (20), 
+    email varchar (255),
+    emergency_phone varchar (20),
     home_address varchar (255),
     pickup varchar (255),
-    driver_id integer, 
+    driver_id integer,
     current_status varchar (30),
     pickup_time varchar(50),
     foreign key (driver_id) references driver(id) on delete set null
 );
 
 create table hospital (
-    id serial primary key, 
+    id serial primary key,
     name varchar(255),
-    driver_id int, 
-    foreign key (driver_id) references driver(id) on delete set null 
+    driver_id int,
+    foreign key (driver_id) references driver(id) on delete set null
 );
 ```
 
-Each table has a pimary key field as id which is automatically created by postgres and is incremented serially to ensure unique ids for every record. Patients and Drivers both have informations about their name, age phone, email. The driver table specifically has information about the type of car they have, the plate number, the color and other details. There is a boolean to determine whether they are verified or not. The patient table has a home address, an emergency phone number, a pickup location and a pickup time along with a current status which determines whether a driver has been assigned to them or not. The hospital table has a name. 
+Each table has a pimary key field as id which is automatically created by postgres and is incremented serially to ensure unique ids for every record. Patients and Drivers both have informations about their name, age phone, email. The driver table specifically has information about the type of car they have, the plate number, the color and other details. There is a boolean to determine whether they are verified or not. The patient table has a home address, an emergency phone number, a pickup location and a pickup time along with a current status which determines whether a driver has been assigned to them or not. The hospital table has a name.
 
-The patient and hospital tables have a foreign key (driver_id column) that refer to the driver. There is also constraint which sets them to null in the case that the driver is deleted. 
+The patient and hospital tables have a foreign key (driver_id column) that refer to the driver. There is also constraint which sets them to null in the case that the driver is deleted.
 
 ### URL Routes/Mappings
 
@@ -129,10 +129,12 @@ The patient and hospital tables have a foreign key (driver_id column) that refer
 
 1. Abhinav Tripathy:
 
-Designed a wireframe for the driver profile page. Implemented and styled the driver profile design using grid elements and other Bootstrap components. Initialized the GitHub repository. Created all the endpoints in `server.js` for Create, Read, Update and Delete for Patients, Drivers and Hospitals utilizing the API spec. Used faker to generate fake data for the endpoints. Connected the repo to heroku auto deploy pipeline for deployment. Wrote all the API endpoints for handling data from the server and database for all the CRUD operations. Wrote all the queries for all the endpoints. Designed all the 3 SQL table schemas to allow for a relational database. Managed deployment issues with heroku specifically with the database. Helped debug client side errors in JavaScript specifically related to sending requests to the endpoints from the driverProfile and active patient pages. Added instructions on setup.md to setup a local instance of the repo. Did a final code cleanup for the entire repo that included adding final endpoints to the server, simplifying some database queries (specifically using inner joins), resolving linter issues such as use of const, try/catch block and beatified all the code files in the repo. 
+Designed a wireframe for the driver profile page. Implemented and styled the driver profile design using grid elements and other Bootstrap components. Initialized the GitHub repository. Created all the endpoints in `server.js` for Create, Read, Update and Delete for Patients, Drivers and Hospitals utilizing the API spec. Used faker to generate fake data for the endpoints. Connected the repo to heroku auto deploy pipeline for deployment. Wrote all the API endpoints for handling data from the server and database for all the CRUD operations. Wrote all the queries for all the endpoints. Designed all the 3 SQL table schemas to allow for a relational database. Managed deployment issues with heroku specifically with the database. Helped debug client side errors in JavaScript specifically related to sending requests to the endpoints from the driverProfile and active patient pages. Added instructions on setup.md to setup a local instance of the repo. Did a final code cleanup for the entire repo that included adding final endpoints to the server, simplifying some database queries (specifically using inner joins), resolving linter issues such as use of const, try/catch block and beatified all the code files in the repo.
 
 2. Aditya Narayanan:
 
-3. Joseph Black
+3. Joseph Black:
+
+Documented the server routes and API spec. Configured frontend to follow redirects from the API through a special wrapper function. Protected endpoints that require authentication such as the view profile page. Edited and published the demo video.
 
 ### Conclusion
