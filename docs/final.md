@@ -25,47 +25,33 @@ Similarly, once a driver selects a patient, the patient can go to their `View Pr
 #### Home Page
 
 This page is served to users as `index.html` and serves as the page to allow users to naviagte to sign up or login pages.  
-![Home Page]()
+![Home Page](final_images/main.png?raw=true)
 
 #### Login Page
 
 This page is served to users as `login.html` and allows users to login to their profile after signing up.  
-![Login Page]()
+![Login Page](final_images/login.png?raw=true)
 
 #### Patient Profile Page
 
 This page is served to users as `patientProfile.html` and serves as the page for users to create their patient profile adding data such as name, phone number, emergency number, address, age, etc. When patients want to opt into this program, they would go to this page to register. Their details and credentials will get registered in our `patient` database.  
-![Patient Profile]()
+![Patient Profile](final_images/patient_signup.png?raw=true)
 
 #### Patient Display Page
 
 This page is served to users as `patientSelectionPage.html` and serves as the page for drivers to select patients who they volunteer to pick up. When drivers select patients, it will register the driver as a volunteer driver. This page can only be accessed by Drivers. Once they select a patient, their ID gets registered into the patientDB. One driver can pick up multiple patients.  
-![Active Patient Profiles]()
+![Active Patient Profiles](final_images/active_patients.png?raw=true)
 
 #### Driver Profile Page
 
 This page is served to users as `driverProfile.html` and serves as the page for users to create their volunteer driver profile adding data such as name, phone number, car model, car license plate number, car type, etc. When drivers want to volunteer for this program, they would go to this page to register. Their details and credentials get stores in our `driver` database.
-![Driver Profile](wireframes/driverProfile.png?raw=true)
-
-#### Edit Patient Profile Page
-
-This page is served to users as `editPatientProfile.html` and serves as the page for patients to edit their profile. Changes after edit reflect in the database.  
-![Edit Patient Profile]()
-
-#### Edit Driver Profile Page
-
-This page is served to users as `editDriverProfile.html` and serves as the page for drivers to edit their profiles. Changes after edit reflect in the database.  
-![Edit Driver Profile]()
+![Driver Profile](final_images/driver_signup.png?raw=true)
 
 #### View Profile
 
 This page is served to users as `profileView.html` and serves as the page for the current user on the platform to view their profile. If the current user is a driver, they can see all their profile information from when they signed up. If a driver selects a patient, they can see the details for the patient who they have to pick up which includes name and pickup address. If the current user is a patient, they can view their inforamtion from when they signed up, and can view the name car license plate of the driver picking them up.  
-![View Profile]()
-
-#### Hospital Admin Page
-
-This page would be served to users as "hospitalAdmin.html" and would serve as the page for hospitals to manage their driver-patient volunteer program adding data such as hospital name, verified drivers, number of rides completed at the hospital, etc. Hospitals can even update their data from this page.  
-![Hospital Admin Profile]()
+![View Patient](final_images/view_patient.png?raw=true)
+![View Driver](final_images/driver_signup.png?raw=true)
 
 ### APIs
 
@@ -131,7 +117,7 @@ The patient and hospital tables have a foreign key (driver_id column) that refer
 
 Designed a wireframe for the driver profile page. Implemented and styled the driver profile design using grid elements and other Bootstrap components. Initialized the GitHub repository. Created all the endpoints in `server.js` for Create, Read, Update and Delete for Patients, Drivers and Hospitals utilizing the API spec. Used faker to generate fake data for the endpoints. Connected the repo to heroku auto deploy pipeline for deployment. Wrote all the API endpoints for handling data from the server and database for all the CRUD operations. Wrote all the queries for all the endpoints. Designed all the 3 SQL table schemas to allow for a relational database. Managed deployment issues with heroku specifically with the database. Helped debug client side errors in JavaScript specifically related to sending requests to the endpoints from the driverProfile and active patient pages. Added instructions on setup.md to setup a local instance of the repo. Did a final code cleanup for the entire repo that included adding final endpoints to the server, simplifying some database queries (specifically using inner joins), resolving linter issues such as use of const, try/catch block and beatified all the code files in the repo. 
 
-2. Aditya Narayanan:
+2. Aditya Narayanan: Created wireframe for patient registration page and patient selelction page (where drivers select patients). Developed and designed the patient profile page using a two column grid and bootstrap, and developed the patient selection page with Bootstrap cards. Implemented the JavaScript code to add an image in the registration page, and added content to `milestone1.md`. Created a sample navigation bar for the HTML pages which can be viewed in branch HP-14 under `patientProfile.html`. Built out the front end for patientSelectionPage.html using `patientSelelction.js`; this file displays all active patients. Utilized Javascript to populate bootstrap cards with user information from the server. Also wrote the code to POST data from the patient sign up form to the server in `patientprofile.js`. Designed the navigation bar for the application. Added the screenshots to the milestone2 document. Wrote and handled all the client side logic. The implementation first includes functionality for when a driver selects a patient. Second, when a user wants to view their profile, it will show differently according to their user role, that is driver or patient. Created profile view page using HTML, CSS, JS and Bootstrap. Wrote the logic for driver verification from the hospital Admin page. Customized navbar for each page to show important redirects from that particular page. Utilized endpoints from the server to achieve GET, POST, PUT and DELETE requests. Implemented a feature to show current status of a patient on their card which updates when a driver selects them. For the final milestone, I debugged the client side of the platform and fixed all the bugs to make a fully working application. Also added client side content for the final document.
 
 3. Joseph Black
 
