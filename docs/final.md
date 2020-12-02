@@ -135,6 +135,10 @@ Designed a wireframe for the driver profile page. Implemented and styled the dri
 
 3. Joseph Black:
 
+Created the Bootstrap page template with viewport, stylesheet, and container. Customized the Bootstrap theme using Sass. Designed the Hospital Admin Page wireframe and created the layout using Bootstrap grid elements. Set up the agile board and pull request workflow. Performed HTML validation.
+Wrote the API specification and documentation including endpoints, HTTP methods, and JSON request/response structure to follow the RESTful style. Implemented front end logic for the driver profile and added additional fields to the signup form for car manufacturer and color. Updated CSS to support dynamic content in the *Active Patients* page. Created a homepage. Investigated automated testing for the backend. Performed linter fixes on both the server and frontend JavaScript. Added screenshots of the form pages.
+Wrote MiniCrypt logic so that hashed passwords and salts are saved to the database instead of plaintext passwords. Created frontend logic to allow users' passwords to get sent to the appropriate POST endpoints, and display a response depending on whether the signup was successful. Created a login HTML form so that users or drivers can log in in the same place, and wrote SQL queries so that the server will match the email to the correct role. Added code so that the server will create the tables automatically if they do not exist.
+Researched the appropriate Bootstrap classes to use for styling. Created notification pages for when users have insufficient permissions.
 Documented the server routes and API spec. Configured frontend to follow redirects from the API through a special wrapper function. Protected endpoints that require authentication such as the view profile page. Edited and published the demo video.
 
 ### Conclusion
