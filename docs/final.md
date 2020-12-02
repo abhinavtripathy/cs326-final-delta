@@ -122,8 +122,9 @@ The patient and hospital tables have a foreign key (driver_id column) that refer
 ### URL Routes/Mappings
 
 ### Authentication/Authorization
+Passport reads salts and hashes from the Postgres database and creates a login session for the user if it matches the sent password. Additionally, functions search through the database to see if the user's current session matches an email which is either in the driver or patient table. This determines the user's access permissions, and these functions are used in middleware for each route to ensure that only the correct type of user has access.
 
-*Note: in a true production-ready implementation of HealthPool, security through obscurity is not an acceptable way to protect the Hospital admin interface. Our existing authentication system, however, relies on the existence of exactly two user groups so implementing a Hospital user type is not feasible in this timeframe.*
+The hospital admin page which controls the name of the hospital and verified drivers is not publicly visible on the website. It exists as a separate hidden/unlinked page. *Note: in a true production-ready implementation of HealthPool, security through obscurity is not an acceptable way to protect the Hospital admin interface. Our existing authentication system, however, relies on the existence of exactly two user groups so implementing a Hospital user type is not feasible in this timeframe.*
 
 ### Division of Labor
 
