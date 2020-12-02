@@ -69,6 +69,8 @@ This page would be served to users as "hospitalAdmin.html" and would serve as th
 
 ### APIs
 
+See the [URL Routes/Mappings Section](#URL-Routes-Mappings)
+
 ### Database
 
 The final database schema looks like the following.
@@ -121,6 +123,8 @@ The patient and hospital tables have a foreign key (driver_id column) that refer
 
 ### URL Routes/Mappings
 
+See the separate [API file](api.md)
+
 ### Authentication/Authorization
 Passport reads salts and hashes from the Postgres database and creates a login session for the user if it matches the sent password. Additionally, functions search through the database to see if the user's current session matches an email which is either in the driver or patient table. This determines the user's access permissions, and these functions are used in middleware for each route to ensure that only the correct type of user has access.
 
@@ -141,5 +145,16 @@ Wrote the API specification and documentation including endpoints, HTTP methods,
 Wrote MiniCrypt logic so that hashed passwords and salts are saved to the database instead of plaintext passwords. Created frontend logic to allow users' passwords to get sent to the appropriate POST endpoints, and display a response depending on whether the signup was successful. Created a login HTML form so that users or drivers can log in in the same place, and wrote SQL queries so that the server will match the email to the correct role. Added code so that the server will create the tables automatically if they do not exist.
 Researched the appropriate Bootstrap classes to use for styling. Created notification pages for when users have insufficient permissions.
 Documented the server routes and API spec. Configured frontend to follow redirects from the API through a special wrapper function. Protected endpoints that require authentication such as the view profile page. Edited and published the demo video.
+
+### Rubric
+
+We suggest that our work be evaluated based on the extent to which we met our goal of developing a web application to coordinate rides for hospital patients from volunteer drivers. As stated in our original planning document, we implemented the following features:
+
+* An interface for drivers to view patients who need rides and their desired destination
+* Secure password authentication for patients and drivers
+* Signup for drivers which includes information about their car type/color/license plate for safety
+* Signup for passengers which includes emergency contact information and their home address
+* Clear instructions to help drivers and patients navigate the interface, such as warnings if they have visited a restricted page for their user role
+* Profile management capabilities, such as the option for a user to delete their profile
 
 ### Conclusion

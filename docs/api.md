@@ -16,18 +16,17 @@ For our API, we will need CRUD operations for each of these 3 objects. Some exam
 
             ```
 {
-  name: {
-    first: "Juan",
-    last: "Tanamera"
-  },
+  first_name: "Juan",
+  last_name: "Tanamera",
   age: 29,
   phone: 1234567890,
-  emergency: 1234098765,
+  emergency_phone: 1234098765,
   email: "juan@example.com",
-  address: "1600 Pennsylvania Avenue",
+  home_address: "1600 Pennsylvania Avenue",
   pickup: "Door C",
-  driver: 93205912492513350566463886604965037953,
-  status: "waiting"
+  pickup_time: "December 14th 12:00pm",
+  password: "$omethings3cure",
+  current_status: "Not selected"
 }
             ```
 
@@ -35,7 +34,7 @@ For our API, we will need CRUD operations for each of these 3 objects. Some exam
 
             ```
 {
-  id: 166426039573329213731786786340393070639
+  id: 1
 }
 ```
 
@@ -51,21 +50,17 @@ For our API, we will need CRUD operations for each of these 3 objects. Some exam
 
             ```
 {
-  name: {
-    first: "Joseph",
-    last: "Black"
-  },
+  first_name: "Joseph",
+  last_name: "Black",
   age: 19,
   phone: 19876543210,
   email: "joseph@example.com",
-  car: {
-    make: "Ferrari",
-    model: "F8 Spider",
-    color: "Blue",
-    plate: "31337ST"
-  },
-  patients: [166426039573329213731786786340393070639],
-  verified: true
+  car_make: "Ferrari",
+  car_model: "F8 Spider",
+  car_color: "Blue",
+  car_plate: "31337ST",
+  car_type: "Sports Car",
+  password: "n0treallymyc4r"
 }
 ```
 
@@ -73,7 +68,7 @@ For our API, we will need CRUD operations for each of these 3 objects. Some exam
 
             ```
 {
-  id: 93205912492513350566463886604965037953
+  id: 2
 }
 ```
 
@@ -92,3 +87,12 @@ For our API, we will need CRUD operations for each of these 3 objects. Some exam
   name: "Los Santos Medical Center",
 }
 ```
+* `/currentUser`
+    * `GET` returns the current user
+        * Example data received:
+        ```
+        {
+          id: 1,
+          isPatient: true
+        }
+        ```
