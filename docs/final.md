@@ -158,3 +158,5 @@ We suggest that our work be evaluated based on the extent to which we met our go
 * Profile management capabilities, such as the option for a user to delete their profile
 
 ### Conclusion
+
+This project reinforced the web development concepts we learned throughout the semester by challenging us to synthesize topics from all different areas. All of us contributed to each aspect of building a modern web application: interface design using HTML and a CSS framework; API development by routing endpoints to server logic; relational database integration using SQL; and session-based password authentication. We were challenged by needing to adapt the structure of our app as new requirements emerged which invalidated previous assumptions we had made. For example, we wish that we had built in the ability for more than two types of users so that allowing hospitals to verify drivers could have been accomplished more effectively. Another technical hurdle was figuring out how to properly communicate changes to the API specification so that the frontend and backend could be developed with better harmony.
