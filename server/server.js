@@ -36,13 +36,11 @@ async function connectAndRun(task) {
     try {
         connection = await db.connect();
         return await task(connection);
-    } catch (e) {
-        throw e;
     } finally {
         try {
             connection.done();
         } catch (ignored) {
-
+            // ignore 
         }
     }
 }
@@ -82,11 +80,11 @@ const getSaltHashOf = async (email, isPatient) => {
 const strategy = new LocalStrat({usernameField: 'email', passwordField: 'password'},
     async (email, pass, done) => {
         if (await getSaltHashOf(email, true) === undefined && await getSaltHashOf(email, false) === undefined) {
-	    return done(null, false, { 'message' : 'No user with that email exists' });
+            return done(null, false, {'message' : 'No user with that email exists'});
         }
         if (!(await checkPass(email, pass))) {
-	    await new Promise((r) => setTimeout(r, 2000)); // This does not stop parallel requests from being sent. A more secure method might be an account-wide retry counter but this implementation was not covered in the scope of the class
-	    return done(null, false, { 'message' : 'Incorrect password' });
+            await new Promise((r) => setTimeout(r, 2000)); // This does not stop parallel requests from being sent. A more secure method might be an account-wide retry counter but this implementation was not covered in the scope of the class
+            return done(null, false, { 'message' : 'Incorrect password' });
         }
         return done(null, email);
     });
@@ -95,7 +93,7 @@ const mustBeAuthenticated = async(req, res, next) => req.isAuthenticated() ? nex
 
 const mustBeDriver = [mustBeAuthenticated, async (req, res, next) => !(await userInfo(req.user)).isPatient ? next() : res.redirect('/mustBeDriver.html')];
 
-const mustBePatient = [mustBeAuthenticated, async (req, res, next) => await userInfo(req.user).isPatient ? next() : res.redirect('/mustBePatient.html')];
+// const mustBePatient = [mustBeAuthenticated, async (req, res, next) => await userInfo(req.user).isPatient ? next() : res.redirect('/mustBePatient.html')];
 
 const userExists = async email => await getSaltHashOf(email, false) !== undefined || await getSaltHashOf(email, true) !== undefined;
 
@@ -147,18 +145,17 @@ app.post('/login', passp.authenticate('local', { 'successRedirect': '/profileVie
 // Get Current User
 app.get('/currentUser', mustBeAuthenticated, async (req, res) => {
     let patientBool;
-    try {
-        await connectAndRun(db => db.one('SELECT id FROM $1:alias WHERE email = $2', ['patient', req.user]));
+
+    const patientResp = await connectAndRun(db => db.one('SELECT count(*) FROM patient WHERE email = $1', [req.user]));
+    const driverResp = await connectAndRun(db => db.one('SELECT count(*) FROM driver WHERE email = $1', [req.user]));
+    
+    if(patientResp['count'] !== '0') {
         patientBool = true;
     }
-    catch(err) {
-    }
-    try {
-        await connectAndRun(db => db.one('SELECT id FROM $1:alias WHERE email = $2', ['driver', req.user]));
+    else if(driverResp['count'] !== '0') {
         patientBool = false;
     }
-    catch(err) {
-    }
+
     const id = await connectAndRun(db => db.one('SELECT id FROM $1:alias WHERE email = $2', [patientBool ? 'patient' : 'driver', req.user]));
     res.send(JSON.stringify([{
         'isPatient': patientBool,
@@ -170,7 +167,6 @@ app.get('/currentUser', mustBeAuthenticated, async (req, res) => {
 // POST Patients
 app.post('/patients', async (req, res) => {
     const data = req.body;
-    console.log(data);
     await connectAndRun(db => db.none('INSERT INTO patient(first_name, last_name, phone, email, age, emergency_phone, home_address, pickup, password, current_status, pickup_time) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);', [data.first_name, data.last_name, data.phone, data.email, data.age, data.emergency_phone, data.home_address, data.pickup, miniCrypt.hash(data.password).join(','), data.current_status, data.pickup_time]));
     res.send({
         'message': 'success'
@@ -222,7 +218,6 @@ app.get('/patients/driver/:id', async (req, res) => {
         res.send(JSON.stringify(driver));
     }
     catch(err) {
-        console.log('none found in DB');
         res.send({
             'message':'None'
         });
@@ -235,7 +230,6 @@ app.get('/patients/driver/:id', async (req, res) => {
 // POST Drivers
 app.post('/drivers', async (req, res) => {
     const data = req.body;
-    console.log(data);
     await connectAndRun(db => db.none('INSERT INTO driver(first_name, last_name, phone, email, age, car_make, car_model, car_color, car_plate, password, car_type) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);', [data.first_name, data.last_name, data.phone, data.email, data.age, data.car_make, data.car_model, data.car_color, data.car_plate, miniCrypt.hash(data.password).join(','), data.car_type]));
     res.send({
         'message': 'success'
@@ -288,7 +282,6 @@ app.get('/drivers/pickup/:id', async (req, res) => {
         res.send(JSON.stringify(patients));
     }
     catch(err) {
-        console.log('none found in DB');
         res.send({'message':'None'});
     }
 

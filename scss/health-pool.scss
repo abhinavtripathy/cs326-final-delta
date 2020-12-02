@@ -1,31 +1,35 @@
 $body-color: #222;
-$theme-colors: (
-  "primary": #ba4053,
+$theme-colors: ("primary": #ba4053,
   "secondary": #0f3a65,
   "success": #3eff61,
   "danger": #ff0000,
   "warning": #ffff00,
-  "info": #00ffce
-);
+  "info": #00ffce);
+
 .round-ui {
   @extend .rounded-right;
 }
+
 input {
   @extend .round-ui;
 }
+
 .btn {
   @extend .round-ui;
 }
+
 .row {
   @extend .mb-1;
 }
+
 html {
   @extend .h-100;
   @extend .w-100;
 }
+
 body {
-  background: rgb(2,0,36);
-  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(67,201,95,1) 0%, rgba(21,210,171,1) 82%);
+  background: rgb(2, 0, 36);
+  background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(67, 201, 95, 1) 0%, rgba(21, 210, 171, 1) 82%);
 }
 
 @import "../bootstrap/scss/bootstrap";

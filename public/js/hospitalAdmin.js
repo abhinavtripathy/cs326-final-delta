@@ -1,12 +1,11 @@
-
 let container;
 const col = document.createElement('div');
 col.className = 'col';
 col.id = 'checked';
 
 const h2 = document.createElement('h2');
-h2.className = "h2 text-secondary";
-h2.innerHTML = "Verified Drivers";
+h2.className = 'h2 text-secondary';
+h2.innerHTML = 'Verified Drivers';
 col.appendChild(h2);
 
 function addDriver(driverProfile) {
@@ -21,16 +20,16 @@ function addDriver(driverProfile) {
     selection.className = 'input-group-text';
 
     const checkbox = document.createElement('input');
-    checkbox.type = "checkbox";
+    checkbox.type = 'checkbox';
     checkbox.id = driverProfile.id;
 
     selection.appendChild(checkbox);
     prepend.appendChild(selection);
 
     const driver = document.createElement('input');
-    driver.type = "text";
-    driver.className = "form-control";
-    driver.value = driverProfile.first_name + " " + driverProfile.last_name;
+    driver.type = 'text';
+    driver.className = 'form-control';
+    driver.value = driverProfile.first_name + ' ' + driverProfile.last_name;
 
     inputGroup.appendChild(prepend);
     inputGroup.appendChild(driver);
@@ -56,22 +55,19 @@ function initDrivers() {
     container.appendChild(col);
 }
 
-let returnVal = {};
+const returnVal = {};
 function getCheckedBoxes() {
-    //let selected = [];
 
     // Reference divs with checkboxes.
-    let mainDiv = document.getElementById("checked");
+    const mainDiv = document.getElementById('checked');
 
     //Reference all the CheckBoxes.
-    let checks = mainDiv.getElementsByTagName("input");
+    const checks = mainDiv.getElementsByTagName('input');
 
     // Loop and push the checked CheckBox value in Array.
     for (let i = 0; i < checks.length; i++) {
         if (checks[i].checked) {
-            
             returnVal[parseInt(checks[i].id)] = checks[i].checked;
-            //selected.push(returnVal);
         }
     }
 
@@ -81,7 +77,7 @@ function getCheckedBoxes() {
             fetch(`/drivers/verify/${id}`, {
                 method: 'PUT',
                 body: JSON.stringify({
-                    "verified": returnVal[id]
+                    'verified': returnVal[id]
                 }),
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8'
@@ -92,8 +88,8 @@ function getCheckedBoxes() {
 }
 
 initDrivers();
-const update = document.getElementById('update')
+const update = document.getElementById('update');
 update.addEventListener('click', () => {
     getCheckedBoxes();
-    alert("Driver verification complete!")
+    alert('Driver verification complete!');
 });
