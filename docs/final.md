@@ -117,19 +117,19 @@ The patient and hospital tables have a foreign key (driver_id column) that refer
 
 ### URL Routes/Mappings
 
-1. [Home Page](healthpool.herokuapp.com/index.html)
+1. Home Page: `healthpool.herokuapp.com/index.html`
 
-2. [Login Page](healthpool.herokuapp.com/login.html)
+2. Login Page: `healthpool.herokuapp.com/login.html`
 
-3. [Patient Sign Up Page](healthpool.herokuapp.com/patientProfile.html)
+3. Patient Sign Up Page: `healthpool.herokuapp.com/patientProfile.html`
 
-4. [Driver Sign up Page](healthpool.herokuapp.com/driverProfile.html)
+4. Driver Sign up Page: `healthpool.herokuapp.com/driverProfile.html`
 
-5. [View Profile](healthpool.herokuapp.com/profileView.html)
+5. View Profile: `healthpool.herokuapp.com/profileView.html`
 
-6. [Active Patients (can be seen only by Drivers)](healthpool.herokuapp.com/patientSelectionPage.html)
+6. Active Patients: (can be seen only by Drivers): `healthpool.herokuapp.com/patientSelectionPage.html`
 
-7. [Hospital Admin Page (only 1 hospital in this implementation)](healthpool.herokuapp.com/hospitalAdmin.html)
+7. Hospital Admin Page: (only 1 hospital in this implementation): `healthpool.herokuapp.com/hospitalAdmin.html`
 
 ### Authentication/Authorization
 Passport reads salts and hashes from the Postgres database and creates a login session for the user if it matches the sent password. Additionally, functions search through the database to see if the user's current session matches an email which is either in the driver or patient table. This determines the user's access permissions, and these functions are used in middleware for each route to ensure that only the correct type of user has access.
